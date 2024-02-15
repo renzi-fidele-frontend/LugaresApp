@@ -1,43 +1,56 @@
+import { useState } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import styles from "./Header.module.css";
-import { Link } from "react-router-dom";
 
 const Header = () => {
-   const userLogado = true;
+   const [userLogado, setUserLogado] = useState(true);
 
    return (
-      <header id={styles.ct}>
-         <div id={styles.left}>
-            <Link>
-               <h1>LugaresApp</h1>
-            </Link>
-         </div>
-         <div id={styles.right}>
-            <Link to={"/"}>Todos usuários</Link>
-            <Link to={"/lugares"}>Lugares</Link>
-            {userLogado ? (
-               <>
-                  <Link to={"/meus_lugares"}>Meus Lugares</Link>
-                  <Link to={"/adicionar_lugar"}>Adicionar Lugar</Link>
-                  <a
-                     id={styles.deslogar}
-                     href="#"
-                     onClick={(e) => {
-                        e.preventDefault;
-                     }}
-                  >
-                     Deslogar
-                  </a>
-               </>
-            ) : (
-               <>
-                  <Link to={"/login"}>Login</Link>
-                  <Link to={"/cadastrar"}>Criar conta</Link>
-               </>
-            )}
-         </div>
-            
+      <Navbar expand="lg" className="bg-body-tertiary">
+         <Container>
+            <Navbar.Brand>LugaresApp</Navbar.Brand>
 
-      </header>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+               <Nav className="ms-auto">
+                  <LinkContainer to="/">
+                     <Nav.Link>Todos usuários</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/lugares">
+                     <Nav.Link>Lugares</Nav.Link>
+                  </LinkContainer>
+                  {userLogado ? (
+                     <>
+                        <LinkContainer to="/meus_lugares">
+                           <Nav.Link>Meus lugares</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/adicionar_lugar">
+                           <Nav.Link>Adicionar Lugar</Nav.Link>
+                        </LinkContainer>
+                        <Nav.Link
+                           id={styles.removerBtn}
+                           onClick={(e) => {
+                              e.preventDefault();
+                           }}
+                        >
+                           Deslogar
+                        </Nav.Link>
+                     </>
+                  ) : (
+                     <>
+                        <LinkContainer to="/login">
+                           <Nav.Link>Login</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/cadastrar">
+                           <Nav.Link>Criar conta</Nav.Link>
+                        </LinkContainer>
+                     </>
+                  )}
+               </Nav>
+            </Navbar.Collapse>
+         </Container>
+      </Navbar>
    );
 };
 

@@ -1,19 +1,4 @@
-#ct {
-   display: flex;
-   flex-flow: row nowrap;
-   justify-content: space-between;
-   align-items: center;
-   padding: 1em 8em;
-   background-color: crimson;
-   color: white;
+#removerBtn {
+   color: red;
 }
 
-#ct #right {
-   display: flex;
-   flex-flow: row nowrap;
-   justify-content: space-between;
-   align-items: center;
-   gap: 1.8em;
-   font-size: 19px;
-   letter-spacing: 1.4px;
-}

@@ -7,3 +7,17 @@ a {
    text-decoration: none;
    color: white;
 }
+
+.nav-link.active {
+   text-decoration: underline;
+   color: black;
+}
+
+.navbar-brand {
+   font-weight: 700 !important;
+   font-size: 25px !important;
+}
+
+img {
+   max-width: 100%;
+}

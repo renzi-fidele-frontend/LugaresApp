@@ -14,18 +14,18 @@ const users = [
 
 const Home = () => {
    return (
-      <Container id={styles.ct}>
+      <div className="container-md px-4 px-md-0" id={styles.ct}>
          <Row>
             <Col className="text-center">
-               <h2 id={styles.titulo} className="display-5 mx-auto my-5 fw-bold">
+               <h2 id={styles.titulo} className="mx-auto my-5 pt-4">
                   Encontre todos os usuários desta aplicação
                </h2>
             </Col>
          </Row>
-         <Row>
+         <Row className="mt-3 g-4">
             {users.length > 0 ? (
                users.map((v, k) => (
-                  <Col className="text-center my-5" xs={12} sm={6} md={4} key={k}>
+                  <Col className="text-center" xs={12} sm={6} xl={4} key={k}>
                      <UserCard fotoPerfil={v.photoURL} nome={v.nome} nrLugares={v.nrLugares} />
                   </Col>
                ))
@@ -35,7 +35,7 @@ const Home = () => {
                </Col>
             )}
          </Row>
-      </Container>
+      </div>
    );
 };
 

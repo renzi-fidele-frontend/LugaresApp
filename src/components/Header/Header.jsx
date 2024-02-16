@@ -2,14 +2,16 @@ import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styles from "./Header.module.css";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
    const [userLogado, setUserLogado] = useState(true);
+   const navegar = useNavigate();
 
    return (
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar expand="lg" className="bg-black bg-gradient  ">
          <Container>
-            <Navbar.Brand>LugaresApp</Navbar.Brand>
+            <Navbar.Brand style={{ cursor: "pointer" }}>LugaresApp</Navbar.Brand>
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

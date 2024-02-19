@@ -11,8 +11,8 @@ const UserCard = ({ fotoPerfil, nome, nrLugares }) => {
             </Col>
             <Col className="text-md-start text-sm-center ps-4" md={8}>
                <Card.Title>{nome}</Card.Title>
-               <Card.Text>{nrLugares} lugares</Card.Text>
-               <Button>Ver lugares</Button>
+               <Card.Text>{nrLugares === 1 ? `1 lugar` : `${nrLugares} lugares`}</Card.Text>
+               <Button className="bg-gradient">Ver lugares</Button>
             </Col>
          </Row>
       </Card>

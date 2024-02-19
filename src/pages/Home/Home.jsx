@@ -1,7 +1,8 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Image, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
 import dummyPhoto from "../../assets/generic-avatar.png";
 import UserCard from "../../components/UserCard/UserCard";
+import usersPic from "../../assets/users3.svg";
 
 const users = [
    { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto },
@@ -9,17 +10,18 @@ const users = [
    { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto },
    { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto },
    { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto },
+   { nome: "Renzi Fidele", nrLugares: 1, photoURL: dummyPhoto },
 ];
 
 const Home = () => {
    return (
-      <div className="container-md px-4 px-md-0" id={styles.ct}>
+      <div className="container-md px-4 px-md-0 pb-5" id={styles.ct}>
          <Row>
             <Col className="text-center">
-               <h2 id={styles.titulo} className="mx-auto my-5 pt-4">
+               <h2 id={styles.titulo} className="mx-auto fw-semibold fs-1 my-5 pt-4">
                   Encontre todos os usuários desta aplicação
                </h2>
+               <Image className="mb-5" id={styles.foto} src={usersPic} />
             </Col>
          </Row>
          <Row className="mt-3 g-4">

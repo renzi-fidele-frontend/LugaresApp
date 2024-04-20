@@ -1,15 +1,17 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home/Home";
-import NewHeader from "./components/Header/Header";
+import Header from "./components/Header/Header";
+import LugaresDoUsuario from "./pages/LugaresDoUsuario/LugaresDoUsuario";
 
 function App() {
    return (
       <>
          <BrowserRouter>
-            <NewHeader />
+            <Header />
             <Routes>
                <Route exact path="/" element={<Home />} />
+               <Route path="/:uid/lugares" element={<LugaresDoUsuario />} />
             </Routes>
          </BrowserRouter>
       </>

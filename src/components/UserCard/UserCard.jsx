@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./UserCard.module.css";
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
-const UserCard = ({ fotoPerfil, nome, nrLugares }) => {
+const UserCard = ({ fotoPerfil, nome, nrLugares, uid }) => {
    return (
       <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
          <Row>
@@ -12,7 +13,9 @@ const UserCard = ({ fotoPerfil, nome, nrLugares }) => {
             <Col className="text-md-start text-sm-center ps-4" md={8}>
                <Card.Title>{nome}</Card.Title>
                <Card.Text>{nrLugares === 1 ? `1 lugar` : `${nrLugares} lugares`}</Card.Text>
-               <Button className="bg-gradient">Ver lugares</Button>
+               <LinkContainer to={`/${uid}/lugares`}>
+                  <Button className="bg-gradient">Ver lugares</Button>
+               </LinkContainer>
             </Col>
          </Row>
       </Card>

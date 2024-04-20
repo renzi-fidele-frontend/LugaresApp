@@ -5,12 +5,12 @@ import UserCard from "../../components/UserCard/UserCard";
 import usersPic from "../../assets/users3.svg";
 
 const users = [
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto },
-   { nome: "Renzi Fidele", nrLugares: 1, photoURL: dummyPhoto },
+   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u1" },
+   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u2" },
+   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u3" },
+   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u4" },
+   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u5" },
+   { nome: "Renzi Fidele", nrLugares: 1, photoURL: dummyPhoto, uid: "u6" },
 ];
 
 const Home = () => {
@@ -28,7 +28,7 @@ const Home = () => {
             {users.length > 0 ? (
                users.map((v, k) => (
                   <Col className="text-center" xs={12} sm={6} xl={4} key={k}>
-                     <UserCard fotoPerfil={v.photoURL} nome={v.nome} nrLugares={v.nrLugares} />
+                     <UserCard uid={v.uid} fotoPerfil={v.photoURL} nome={v.nome} nrLugares={v.nrLugares} />
                   </Col>
                ))
             ) : (

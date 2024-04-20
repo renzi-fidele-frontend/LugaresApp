@@ -28,7 +28,7 @@ const Header = () => {
                            <Nav.Link>Meus lugares</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="/adicionar_lugar">
-                           <Nav.Link>Adicionar Lugar</Nav.Link>
+                           <Nav.Link>Adicionar novo</Nav.Link>
                         </LinkContainer>
                         <Nav.Link
                            id={styles.removerBtn}

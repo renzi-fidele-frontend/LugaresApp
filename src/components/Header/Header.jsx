@@ -2,20 +2,22 @@ import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styles from "./Header.module.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
    const [userLogado, setUserLogado] = useState(true);
-   const navegar = useNavigate();
+   const location = useLocation();
 
    return (
       <Navbar expand="lg" className="bg-black bg-gradient  ">
          <Container>
-            <Navbar.Brand style={{ cursor: "pointer" }}>LugaresApp</Navbar.Brand>
+            <LinkContainer to={"/"}>
+               <Navbar.Brand style={{ cursor: "pointer" }}>LugaresApp</Navbar.Brand>
+            </LinkContainer>
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-               <Nav className="ms-auto">
+               <Nav activeKey={location.pathname} className="ms-auto">
                   <LinkContainer to="/">
                      <Nav.Link>Todos usuários</Nav.Link>
                   </LinkContainer>

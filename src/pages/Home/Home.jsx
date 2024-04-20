@@ -19,7 +19,7 @@ const Home = () => {
          <Row>
             <Col className="text-center">
                <h2 id={styles.titulo} className="mx-auto fw-semibold fs-1 my-5 pt-4">
-                  Encontre todos os usuários desta aplicação
+                  Encontre todos os usuários que compartilharam lugares
                </h2>
                <Image className="mb-5" id={styles.foto} src={usersPic} />
             </Col>

@@ -1,24 +1,15 @@
 import { Col, Image, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
-import dummyPhoto from "../../assets/generic-avatar.png";
 import UserCard from "../../components/UserCard/UserCard";
 import usersPic from "../../assets/users3.svg";
-
-const users = [
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u1" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u2" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u3" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u4" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u5" },
-   { nome: "Renzi Fidele", nrLugares: 1, photoURL: dummyPhoto, uid: "u6" },
-];
+import { users } from "./data";
 
 const Home = () => {
    return (
       <div className="container-md px-4 px-md-0 pb-5" id={styles.ct}>
          <Row>
             <Col className="text-center">
-               <h2 id={styles.titulo} className="mx-auto fw-semibold fs-1 my-5 pt-4">
+               <h2 id={styles.titulo} className="mx-auto mt-3 mt-md-5 mb-5 fw-semibold fs-2 pt-4">
                   Encontre todos os usuários que compartilharam lugares
                </h2>
                <Image className="mb-5" id={styles.foto} src={usersPic} />

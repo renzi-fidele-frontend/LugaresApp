@@ -1,3 +1,18 @@
 #ct {
-    
 }
+
+@media screen and (max-width: 768px) {
+   .foto {
+      width: 70%;
+   }
+}
+
+
+@media screen and (max-width: 575px) {
+    .foto {
+       width: 50%;
+    }
+ }
+ 
+
+

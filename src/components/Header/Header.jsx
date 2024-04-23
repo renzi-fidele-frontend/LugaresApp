@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styles from "./Header.module.css";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
    const [userLogado, setUserLogado] = useState(true);

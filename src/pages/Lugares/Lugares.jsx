@@ -11,11 +11,11 @@ const Lugares = () => {
          <Row>
             <Col className="text-center">
                <h2 id={styles.titulo} className="mx-auto mt-3 mt-md-5 mb-5 fw-semibold fs-2 pt-4">
-                  Descubra os lugares que foram partilhados pelos usuários
+                  Descubra os lugares que foram compartilhados pelos usuários
                </h2>
                <Image className="mb-5" id={styles.foto} src={foto} />
 
-               <Row className="gy-5 g-sm-4">
+               <Row className="mt-4  gy-5 g-sm-4">
                   {lugares.map((v, k) => (
                      <Col md={6} xl={4} key={k}>
                         <CardLugar

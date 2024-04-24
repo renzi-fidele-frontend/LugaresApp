@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Lugares.module.css";
 import { Col, Container, Image, Row } from "react-bootstrap";
-import foto from "../../assets/lugares.svg";
+import foto from "../../assets/lugares3.svg";
 import { lugares } from "../Home/data";
 import CardLugar from "../../components/CardLugar/CardLugar";
 

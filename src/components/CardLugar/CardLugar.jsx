@@ -16,12 +16,12 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco 
             <Card.Text>{descricao}</Card.Text>
          </Card.Body>
          <Card.Footer>
-            <Stack className="justify-content-center" direction="horizontal" gap={2}>
-               <Button variant="secondary">Ver no mapa</Button>
+            <Stack className="justify-content-center " direction="horizontal" gap={2}>
+               <Button variant="outline-primary">Ver no mapa</Button>
                {currentUserId.current === "" && (
                   <>
                      <Button variant="outline-secondary">Editar</Button>
-                     <Button variant="danger">Remover</Button>
+                     <Button variant="outline-danger">Remover</Button>
                   </>
                )}
             </Stack>

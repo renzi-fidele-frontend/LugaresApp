@@ -65,7 +65,7 @@ export const lugares = [
          lat: -25.9435604,
          long: 32.5417072,
       },
-      idCriador: "u1",
+      idCriador: "u2",
       criadoEm: 2131231,
    },
    {
@@ -79,7 +79,7 @@ export const lugares = [
          lat: -25.9435604,
          long: 32.5417072,
       },
-      idCriador: "u1",
+      idCriador: "u3",
       criadoEm: 2131231,
    },
    {

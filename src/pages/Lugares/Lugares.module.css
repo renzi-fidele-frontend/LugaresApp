@@ -1,24 +1,21 @@
 #foto {
-    width: 276px;
+   width: 276px;
 }
 
 @media screen and (max-width: 1426px) {
-    #foto {
-        width: 320px;
-    }
-  
+   #foto {
+      width: 320px;
+   }
 }
 
 @media screen and (max-width: 906px) {
-    #foto {
-        width: 290px;
-    }
-  
+   #foto {
+      width: 290px;
+   }
 }
 
 @media screen and (max-width: 500px) {
-    #foto {
-        width: 230px;
-    }
-  
+   #foto {
+      width: 230px;
+   }
 }

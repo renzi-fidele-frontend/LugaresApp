@@ -8,7 +8,13 @@ const UserCard = ({ fotoPerfil, nome, nrLugares, uid }) => {
       <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
          <Row>
             <Col className="my-md-auto" md={4}>
-               <Image className={`object-fit-cover mb-3 mb-md-0  ${styles.foto}`} roundedCircle thumbnail src={fotoPerfil} alt={`Foto de perfil de ${nome}`} />
+               <Image
+                  className={`object-fit-cover mb-3 mb-md-0  ${styles.foto}`}
+                  roundedCircle
+                  thumbnail
+                  src={fotoPerfil}
+                  alt={`Foto de perfil de ${nome}`}
+               />
             </Col>
             <Col className="text-md-start text-sm-center ps-4" md={8}>
                <Card.Title>{nome}</Card.Title>

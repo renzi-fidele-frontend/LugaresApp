@@ -4,11 +4,12 @@ import { Button, Card, Stack } from "react-bootstrap";
 
 const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco }) => {
    const currentUserId = useRef("");
+
    return (
       <Card bg="dark" text="light" border="secondary" id={styles.ct} className="">
-         <Card.Img src={foto} />
+         <Card.Img className="p-2 rounded-4 " src={foto} />
          <Card.Header id={styles.cardHeader}>
-            <Card.Subtitle className="">{endereco}</Card.Subtitle>
+            <Card.Subtitle style={{ color: "#959595" }}>{endereco}</Card.Subtitle>
          </Card.Header>
 
          <Card.Body>

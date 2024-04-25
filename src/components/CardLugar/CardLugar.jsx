@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./CardLugar.module.css";
-import { Button, Card, Stack } from "react-bootstrap";
+import { Button, Card, Modal, Stack } from "react-bootstrap";
 
 const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco }) => {
    const currentUserId = useRef("");
+   const [show, setShow] = useState(false);
 
    return (
       <Card bg="dark" text="light" border="secondary" id={styles.ct} className="">
@@ -18,7 +19,9 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco 
          </Card.Body>
          <Card.Footer>
             <Stack className="justify-content-center " direction="horizontal" gap={2}>
-               <Button variant="outline-primary">Ver no mapa</Button>
+               <Button variant="outline-primary" onClick={() => setShow(true)}>
+                  Ver no mapa
+               </Button>
                {currentUserId.current === "" && (
                   <>
                      <Button variant="outline-secondary">Editar</Button>
@@ -27,6 +30,13 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco 
                )}
             </Stack>
          </Card.Footer>
+         {/*Modal do mapa */}
+         <Modal show={show} centered onHide={() => setShow(false)}>
+            <Modal.Header closeButton>
+               <Modal.Title>{titulo}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Testando</Modal.Body>
+         </Modal>
       </Card>
    );
 };

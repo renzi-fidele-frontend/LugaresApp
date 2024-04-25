@@ -26,7 +26,7 @@ const Lugares = () => {
                </h2>
                <Image className="mb-5" id={styles.foto} src={foto} />
 
-               <Row className="mt-4 g-5">
+               <Row className="mt-4 g-4 justify-content-center ">
                   {!userMode
                      ? lugares.map((v, k) => (
                           <Col md={6} xl={4} key={k}>

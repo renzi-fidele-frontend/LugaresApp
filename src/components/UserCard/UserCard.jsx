@@ -9,7 +9,7 @@ const UserCard = ({ fotoPerfil, nome, nrLugares, uid }) => {
          <Row>
             <Col className="my-md-auto" md={4}>
                <Image
-                  className={`object-fit-cover mb-3 mb-md-0  ${styles.foto}`}
+                  className={`object-fit-cover mb-3 mb-md-0 ${styles.foto}`}
                   roundedCircle
                   thumbnail
                   src={fotoPerfil}

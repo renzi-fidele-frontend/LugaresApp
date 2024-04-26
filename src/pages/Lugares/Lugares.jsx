@@ -16,7 +16,7 @@ const Lugares = () => {
    }, [userId]);
 
    return (
-      <Container>
+      <Container id={styles.ct}>
          <Row>
             <Col className="text-center pb-5 ">
                <h2 id={styles.titulo} className="mx-auto mt-3 mt-md-5 mb-5 fw-semibold fs-2 pt-4">

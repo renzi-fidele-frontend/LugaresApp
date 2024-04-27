@@ -38,6 +38,7 @@ const Lugares = () => {
                                 criadoEm={v.criadoEm}
                                 idCriador={v.idCriador}
                                 key={k}
+                                coordenadas={v.coordenadas}
                              />
                           </Col>
                        ))
@@ -53,6 +54,7 @@ const Lugares = () => {
                                    criadoEm={v.criadoEm}
                                    idCriador={v.idCriador}
                                    key={k}
+                                   coordenadas={v.coordenadas}
                                 />
                              </Col>
                           ))}

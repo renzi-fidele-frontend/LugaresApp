@@ -1,3 +1,7 @@
 #cardHeader {
    border-bottom: grey 1px dashed !important;
 }
+
+#mapaCt {
+   height: 400px;
+}

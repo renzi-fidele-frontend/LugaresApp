@@ -2,9 +2,19 @@ import React, { useRef, useState } from "react";
 import styles from "./CardLugar.module.css";
 import { Button, Card, Modal, Stack } from "react-bootstrap";
 
-const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco }) => {
+const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco, coordenadas }) => {
    const currentUserId = useRef("");
    const [show, setShow] = useState(false);
+   const mapCtRef = useRef();
+
+   async function inicializarMapa() {
+      const { Map } = await google.maps.importLibrary("maps");
+
+      let map = new Map(mapCtRef.current, {
+         center: { lat: coordenadas.lat, lng: coordenadas.long },
+         zoom: 8,
+      });
+   }
 
    return (
       <Card bg="dark" text="light" border="secondary" id={styles.ct} className="">
@@ -31,11 +41,13 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco 
             </Stack>
          </Card.Footer>
          {/*Modal do mapa */}
-         <Modal show={show} centered onHide={() => setShow(false)}>
+         <Modal show={show} onShow={inicializarMapa} size="lg" centered onHide={() => setShow(false)}>
             <Modal.Header closeButton>
                <Modal.Title>{titulo}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Testando</Modal.Body>
+            <Modal.Body>
+               <div id={styles.mapaCt} ref={mapCtRef}></div>
+            </Modal.Body>
          </Modal>
       </Card>
    );

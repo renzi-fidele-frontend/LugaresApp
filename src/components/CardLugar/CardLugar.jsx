@@ -12,7 +12,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
 
       let map = new Map(mapCtRef.current, {
          center: { lat: coordenadas.lat, lng: coordenadas.long },
-         zoom: 8,
+         zoom: 16,
       });
    }
 

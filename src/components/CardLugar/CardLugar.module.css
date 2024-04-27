@@ -5,3 +5,21 @@
 #mapaCt {
    height: 400px;
 }
+
+@media screen and (max-width: 990px) {
+   #mapaCt {
+      height: 300px;
+   }
+}
+
+@media screen and (max-width: 480px) {
+   #mapaCt {
+      height: 260px;
+   }
+}
+
+@media screen and (max-width: 400px) {
+   #mapaCt {
+      height: 220px;
+   }
+}

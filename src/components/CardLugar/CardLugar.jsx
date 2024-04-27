@@ -41,7 +41,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
             </Stack>
          </Card.Footer>
          {/*Modal do mapa */}
-         <Modal show={show} onShow={inicializarMapa} size="lg" centered onHide={() => setShow(false)}>
+         <Modal backdrop="static" show={show} onShow={inicializarMapa} size="lg" centered onHide={() => setShow(false)}>
             <Modal.Header closeButton>
                <Modal.Title>{titulo}</Modal.Title>
             </Modal.Header>

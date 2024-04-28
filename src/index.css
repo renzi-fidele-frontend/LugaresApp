@@ -13,6 +13,7 @@ a {
    color: white;
 }
 
+
 .nav-link.active {
    text-decoration: underline;
    color: white !important;
@@ -23,9 +24,7 @@ a {
    color: rgb(165, 165, 165) !important;
 }
 
-.navbar-toggler {
-   background-color: rgba(255, 255, 255, 0.808) !important;
-}
+
 
 .navbar-brand {
    font-weight: 700 !important;

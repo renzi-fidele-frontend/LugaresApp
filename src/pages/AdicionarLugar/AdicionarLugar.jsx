@@ -18,7 +18,7 @@ const AdicionarLugar = () => {
    return (
       <Container className="py-5">
          <Row className="mt-4">
-            <Col xs={7}>
+            <Col xs={12} lg={6} xl={7}>
                <h2 className="mb-5">Adicione um novo lugar a plataforma</h2>
                <Form onSubmit={adicionarLugar} validated={foiValidado} noValidate>
                   <Form.Group className="mb-3">
@@ -42,7 +42,7 @@ const AdicionarLugar = () => {
                   <Button type="submit">Adicionar lugar</Button>
                </Form>
             </Col>
-            <Col className="d-flex align-items-end">
+            <Col className="d-lg-flex d-none align-items-end">
                <Image className="ms-auto" id={styles.fotoLado} src={foto} />
             </Col>
          </Row>

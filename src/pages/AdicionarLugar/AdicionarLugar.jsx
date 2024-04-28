@@ -1,27 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./AdicionarLugar.module.css";
-import { Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, FormGroup, Image, Row } from "react-bootstrap";
 import foto from "../../assets/addLugarIco2.png";
+import Feedback from "react-bootstrap/esm/Feedback";
 
 const AdicionarLugar = () => {
+   const [foiValidado, setFoiValido] = useState(false);
+
+   function adicionarLugar(e) {
+      if (e.currentTarget.checkValidity() === false) {
+         e.preventDefault();
+         e.stopPropagation();
+      }
+      setFoiValido(true);
+   }
+
    return (
       <Container className="py-5">
          <Row className="mt-4">
             <Col xs={7}>
                <h2 className="mb-5">Adicione um novo lugar a plataforma</h2>
-               <Form>
+               <Form onSubmit={adicionarLugar} validated={foiValidado} noValidate>
                   <Form.Group className="mb-3">
                      <Form.Label>Nome do lugar</Form.Label>
-                     <Form.Control type="text" placeholder="Insira o nome do lugar" />
+                     <Form.Control required type="text" placeholder="Insira o nome do lugar" />
+                     <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
+
                   <Form.Group className="mb-3">
                      <Form.Label>Descrição</Form.Label>
-                     <Form.Control as="textarea" placeholder="Insira uma descrição para este lugar" />
+                     <Form.Control required as="textarea" placeholder="Insira uma descrição para este lugar" />
+                     <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
-                  <Form.Group >
+
+                  <Form.Group className="mb-4">
                      <Form.Label>Endereço</Form.Label>
-                     <Form.Control type="text" placeholder="Insira o endereço para este lugar" />
+                     <Form.Control required type="text" placeholder="Insira o endereço para este lugar" />
+                     <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
+
+                  <Button type="submit">Adicionar lugar</Button>
                </Form>
             </Col>
             <Col className="d-flex align-items-end">

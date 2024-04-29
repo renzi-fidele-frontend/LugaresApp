@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import styles from "./CardLugar.module.css";
 import { Button, Card, Modal, Stack } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco, coordenadas }) => {
    const currentUserId = useRef("");
    const [show, setShow] = useState(false);
    const mapCtRef = useRef();
+   const navegar = useNavigate();
 
    async function inicializarMapa() {
       const { Map } = await google.maps.importLibrary("maps");
@@ -34,7 +36,9 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
                </Button>
                {currentUserId.current === "" && (
                   <>
-                     <Button variant="outline-secondary">Editar</Button>
+                     <Button onClick={() => navegar(`/lugares/${id}`)} variant="outline-secondary">
+                        Editar
+                     </Button>
                      <Button variant="outline-danger">Remover</Button>
                   </>
                )}

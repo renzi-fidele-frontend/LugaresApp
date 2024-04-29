@@ -1,0 +1,9 @@
+#fotoLado {
+    height: 370px;
+}
+
+@media screen and (max-width: 1300px) {
+    #fotoLado {
+        height: 330px;
+    }
+}

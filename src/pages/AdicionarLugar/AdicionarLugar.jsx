@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./AdicionarLugar.module.css";
-import { Button, Col, Container, Form, FormGroup, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import foto from "../../assets/addLugarIco2.png";
-import Feedback from "react-bootstrap/esm/Feedback";
 
 const AdicionarLugar = () => {
    const [foiValidado, setFoiValido] = useState(false);
+
+   // Refs do formulário
+   const nome_lugar_ref = useRef(null);
+   const descricao_ref = useRef(null);
+   const endereco_ref = useRef(null);
 
    function adicionarLugar(e) {
       if (e.currentTarget.checkValidity() === false) {
@@ -23,7 +27,8 @@ const AdicionarLugar = () => {
                <Form onSubmit={adicionarLugar} validated={foiValidado} noValidate>
                   <Form.Group className="mb-3">
                      <Form.Label>Nome do lugar</Form.Label>
-                     <Form.Control required type="text" placeholder="Insira o nome do lugar" />
+                     <Form.Control ref={nome_lugar_ref} required type="text" placeholder="Insira o nome do lugar" />
+                     <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 

@@ -9,7 +9,7 @@ const Header = () => {
    const location = useLocation();
 
    return (
-      <Navbar expand="lg" className="bg-black bg-gradient  ">
+      <Navbar expand="lg" className="bg-black bg-gradient">
          <Container>
             <LinkContainer to={"/"}>
                <Navbar.Brand style={{ cursor: "pointer" }}>LugaresApp</Navbar.Brand>
@@ -44,7 +44,7 @@ const Header = () => {
                   ) : (
                      <>
                         <LinkContainer to="/login">
-                           <Nav.Link>Login</Nav.Link>
+                           <Nav.Link>Entrar</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="/cadastrar">
                            <Nav.Link>Criar conta</Nav.Link>

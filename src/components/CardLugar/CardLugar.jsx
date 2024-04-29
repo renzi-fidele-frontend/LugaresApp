@@ -32,7 +32,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
          </Card.Body>
          <Card.Footer>
             <Stack className="justify-content-center " direction="horizontal" gap={2}>
-               <Button variant="outline-primary" onClick={() => setShow(true)}>
+               <Button variant="outline-primary" onClick={() => setShowMapModal(true)}>
                   Ver no mapa
                </Button>
                {currentUserId.current === "" && (

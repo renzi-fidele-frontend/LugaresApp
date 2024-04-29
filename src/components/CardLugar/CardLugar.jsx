@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco, coordenadas }) => {
    const currentUserId = useRef("");
-   const [show, setShow] = useState(false);
+   const [showMapModal, setShowMapModal] = useState(false);
+   const [showRemoveModal, setShowRemoveModal] = useState(false);
    const mapCtRef = useRef();
    const navegar = useNavigate();
 
@@ -39,19 +40,37 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
                      <Button onClick={() => navegar(`/lugares/${id}`)} variant="outline-secondary">
                         Editar
                      </Button>
-                     <Button variant="outline-danger">Remover</Button>
+                     <Button variant="outline-danger" onClick={() => setShowRemoveModal(true)}>
+                        Remover
+                     </Button>
                   </>
                )}
             </Stack>
          </Card.Footer>
          {/*Modal do mapa */}
-         <Modal backdrop="static" show={show} onShow={inicializarMapa} size="lg" centered onHide={() => setShow(false)}>
+         <Modal backdrop="static" show={showMapModal} onShow={inicializarMapa} size="lg" centered onHide={() => setShowMapModal(false)}>
             <Modal.Header closeButton>
                <Modal.Title>{titulo}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                <div id={styles.mapaCt} ref={mapCtRef}></div>
             </Modal.Body>
+         </Modal>
+
+         {/*Modal de confirmação de remoção */}
+         <Modal backdrop="static" show={showRemoveModal} centered onHide={() => setShowRemoveModal(false)}>
+            <Modal.Header closeButton>
+               <Modal.Title>Tem a certeza?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Você tem a certeza que deseja remover este lugar? Esta ação é irreversível</Modal.Body>
+            <Modal.Footer>
+               <Stack gap={3} direction="horizontal">
+                  <Button variant="outline-secondary" onClick={() => setShowRemoveModal(false)}>
+                     Cancelar
+                  </Button>
+                  <Button variant="danger">Remover</Button>
+               </Stack>
+            </Modal.Footer>
          </Modal>
       </Card>
    );

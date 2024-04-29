@@ -6,6 +6,7 @@ import Lugares from "./pages/Lugares/Lugares";
 import AdicionarLugar from "./pages/AdicionarLugar/AdicionarLugar";
 import Footer from "./components/Footer/Footer";
 import EditarLugar from "./pages/EditarLugar/EditarLugar";
+import Entrar from "./pages/Entrar/Entrar";
 
 function App() {
    return (
@@ -18,6 +19,7 @@ function App() {
                <Route path="/:uid/lugares" element={<Lugares />} />
                <Route path="/adicionar_lugar" element={<AdicionarLugar />} />
                <Route path="/lugares/:id" element={<EditarLugar />} />
+               <Route path="/login" element={<Entrar />} />
             </Routes>
             <Footer />
          </BrowserRouter>

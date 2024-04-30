@@ -5,7 +5,7 @@ import styles from "./Header.module.css";
 import { useLocation } from "react-router-dom";
 
 const Header = () => {
-   const [userLogado, setUserLogado] = useState(true);
+   const [userLogado, setUserLogado] = useState(false);
    const location = useLocation();
 
    return (

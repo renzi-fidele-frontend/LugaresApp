@@ -7,9 +7,6 @@ const Entrar = () => {
    const [foiValidado, setFoiValido] = useState(false);
 
    // Refs do formulário
-   const nome_lugar_ref = useRef(null);
-   const descricao_ref = useRef(null);
-   const endereco_ref = useRef(null);
 
    function adicionarLugar(e) {
       if (e.currentTarget.checkValidity() === false) {
@@ -28,16 +25,18 @@ const Entrar = () => {
                   <Form.Group className="mb-3">
                      <Form.Label>Email</Form.Label>
                      <Form.Control type="email" required placeholder="nome@exemplo.com" />
-                     <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
+                     <Form.Control.Feedback>Parece bom</Form.Control.Feedback>
+                     <Form.Control.Feedback type="invalid">Insira um email válido</Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group className="mb-4">
-                     <Form.Label>Endereço</Form.Label>
-                     <Form.Control required type="text" placeholder="Insira o endereço para este lugar" />
+                     <Form.Label>Palavra-passe</Form.Label>
+                     <Form.Control required type="password" placeholder="Insira a sua senha" />
+                     <Form.Control.Feedback>Parece bom</Form.Control.Feedback>
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
-                  <Button type="submit">Adicionar lugar</Button>
+                  <Button type="submit">Fazer Login</Button>
                </Form>
             </Col>
             <Col className="d-lg-flex d-none align-items-end">

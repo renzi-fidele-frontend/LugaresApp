@@ -1,17 +1,6 @@
-import dummyPhoto from "../../assets/generic-avatar.png";
+const express = require("express");
 
-// Array contendo usuários temporários
-export const users = [
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u1" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u2" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u3" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u4" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: dummyPhoto, uid: "u5" },
-   { nome: "Renzi Fidele", nrLugares: 1, photoURL: dummyPhoto, uid: "u6" },
-];
-
-// Array contendo lugares temporários
-export const lugares = [
+const lugares = [
    {
       id: "l1",
       titulo: "Paragem de chapas Brigada",
@@ -69,7 +58,7 @@ export const lugares = [
       criadoEm: 2131231,
    },
    {
-      id: "l3",
+      id: "l5",
       titulo: "Paragem de chapas Brigada",
       descricao:
          "A paragem de onibus localizada em maputo. Pelos vistos é o ponto onde todos os moçambicanos trabalhadores cruzam os caminhos a procura de transporte",
@@ -97,3 +86,20 @@ export const lugares = [
       criadoEm: 2131231,
    },
 ];
+
+const router = express.Router();
+
+router.get("/", (req, res) => {
+   console.log("GET feito na página lugares");
+   res.json({ lugares: [1, 2, 3, 4, 5, 6] });
+});
+
+router.get("/:idLugar", (req, res) => {
+   console.log("GET feito para apanhar lugar individual");
+   let { idLugar } = req.params;
+   let lugar = lugares.filter((v) => v.id === idLugar)[0];
+
+   res.json(lugar ? lugar : "Não existe nenhum lugar com essa id");
+});
+
+module.exports = router;

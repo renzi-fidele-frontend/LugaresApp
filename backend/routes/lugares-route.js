@@ -91,15 +91,17 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
    console.log("GET feito na página lugares");
-   res.json({ lugares: [1, 2, 3, 4, 5, 6] });
+   res.json({ lugares });
 });
 
 router.get("/:idLugar", (req, res) => {
    console.log("GET feito para apanhar lugar individual");
    let { idLugar } = req.params;
    let lugar = lugares.filter((v) => v.id === idLugar)[0];
-
-   res.json(lugar ? lugar : "Não existe nenhum lugar com essa id");
+   if (!lugar) {
+      res.status(404).json({ mensagem: "Não existe nenhum lugar com essa id" });
+   }
+   res.json(lugar);
 });
 
 module.exports = router;

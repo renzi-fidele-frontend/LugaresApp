@@ -105,6 +105,9 @@ router.get("/", (req, res) => {
 router.get("/:uid", (req, res) => {
    let { uid } = req.params;
    let lugares_do_usuario = lugares.filter((v) => v.idCriador === uid);
+   if (lugares_do_usuario.length === 0) {
+      res.status(404).json({ mensagem: `O usuário ${uid} não existe!` });
+   }
    res.json({ lugares_do_usuario });
 });
 

@@ -7,6 +7,7 @@ const rotaUsuarios = require("./routes/usuarios-route");
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use("/api/lugares", rotalugares);
 app.use("/api/usuarios", rotaUsuarios);
 

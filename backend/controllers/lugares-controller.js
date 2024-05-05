@@ -100,5 +100,13 @@ const getLugarById = (req, res) => {
    res.json(lugar);
 };
 
+const adicionarLugar = (req, res) => {
+   const { titulo, descricao, coordenadas, idCriador } = req.body;
+   let lugarCriado = { titulo, descricao, coordenadas, idCriador, foto: "" };
+   res.status(201).json({ lugar: lugarCriado });
+   //   TODO: Adicionar o lugar criado ao banco de dados
+};
+
 exports.getLugares = getLugares;
 exports.getLugarById = getLugarById;
+exports.adicionarLugar = adicionarLugar;

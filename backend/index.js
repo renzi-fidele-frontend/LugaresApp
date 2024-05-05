@@ -7,8 +7,8 @@ const rotaUsuarios = require("./routes/usuarios-route");
 
 const app = express();
 
-app.use("/lugares", rotalugares);
-app.use("/usuarios", rotaUsuarios);
+app.use("/api/lugares", rotalugares);
+app.use("/api/usuarios", rotaUsuarios);
 
 const port = 3000;
 

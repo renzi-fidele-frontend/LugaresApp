@@ -1,16 +1,3 @@
-const express = require("express");
-
-const router = express.Router();
-
-const users = [
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u1" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u2" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u3" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u4" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u5" },
-   { nome: "Renzi Fidele", nrLugares: 1, photoURL: "dummyPhoto", uid: "u6" },
-];
-
 const lugares = [
    {
       id: "l1",
@@ -98,18 +85,20 @@ const lugares = [
    },
 ];
 
-router.get("/", (req, res) => {
-   res.json({ usuarios: users });
-});
+const getLugares = (req, res) => {
+   console.log("GET feito na página lugares");
+   res.json({ lugares });
+};
 
-router.get("/:uid", (req, res) => {
-   let { uid } = req.params;
-   let lugares_do_usuario = lugares.filter((v) => v.idCriador === uid);
-   if (lugares_do_usuario.length === 0) {
-      res.status(404).json({ mensagem: `O usuário ${uid} não existe!` });
-   } else {
-      res.json({ lugares_do_usuario });
+const getLugarById = (req, res) => {
+   console.log("GET feito para apanhar lugar individual");
+   let { idLugar } = req.params;
+   let lugar = lugares.filter((v) => v.id === idLugar)[0];
+   if (!lugar) {
+      res.status(404).json({ mensagem: "Não existe nenhum lugar com essa id" });
    }
-});
+   res.json(lugar);
+};
 
-module.exports = router;
+exports.getLugares = getLugares;
+exports.getLugarById = getLugarById;

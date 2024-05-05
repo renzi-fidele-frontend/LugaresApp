@@ -1,11 +1,11 @@
 const express = require("express");
 
-const lugares_controller = require("../controllers/lugares-controller");
+const { getLugares, getLugarById } = require("../controllers/lugares-controller");
 
 const router = express.Router();
 
-router.get("/", lugares_controller.getLugares);
+router.get("/", getLugares);
 
-router.get("/:idLugar", lugares_controller.getLugarById);
+router.get("/:idLugar", getLugarById);
 
 module.exports = router;

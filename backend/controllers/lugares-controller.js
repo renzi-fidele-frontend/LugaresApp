@@ -1,3 +1,5 @@
+const uuid = require("uuid");
+
 const lugares = [
    {
       id: "l1",
@@ -102,7 +104,7 @@ const getLugarById = (req, res) => {
 
 const adicionarLugar = (req, res) => {
    const { titulo, descricao, coordenadas, idCriador } = req.body;
-   let lugarCriado = { titulo, descricao, coordenadas, idCriador, foto: "" };
+   let lugarCriado = { id: uuid.v4(), titulo, descricao, coordenadas, idCriador, foto: "" };
    res.status(201).json({ lugar: lugarCriado });
    //   TODO: Adicionar o lugar criado ao banco de dados
 };

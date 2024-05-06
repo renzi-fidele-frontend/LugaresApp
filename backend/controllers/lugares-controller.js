@@ -109,6 +109,22 @@ const adicionarLugar = (req, res) => {
    //   TODO: Adicionar o lugar criado ao banco de dados
 };
 
+const atualizarLugarById = (req, res) => {
+   let { idLugar } = req.params;
+   const { titulo, descricao } = req.body;
+   let lugarAtualizado = { ...dadosLugar, titulo, descricao };
+   // TODO: Atualizar o lugar no banco de dados
+
+   res.status(200).json({ lugar: lugarAtualizado });
+};
+
+const removerLugarById = (req, res) => {
+   let { idLugar } = req.params;
+   // TODO: Remover o lugar no banco de dados
+};
+
 exports.getLugares = getLugares;
 exports.getLugarById = getLugarById;
 exports.adicionarLugar = adicionarLugar;
+exports.atualizarLugarById = atualizarLugarById;
+exports.removerLugarById = removerLugarById;

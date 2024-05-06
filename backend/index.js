@@ -11,6 +11,11 @@ app.use(bodyParser.json());
 app.use("/api/lugares", rotalugares);
 app.use("/api/usuarios", rotaUsuarios);
 
+// Caso se navegue para uma rota inexistente
+app.use((req, res) => {
+   res.status(404).json({ mensagem: "Essa rota não foi configurada" });
+});
+
 const port = 3000;
 
 app.listen(port, () => {

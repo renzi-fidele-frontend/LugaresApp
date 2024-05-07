@@ -108,5 +108,21 @@ const getLugaresDoUsuarioById = (req, res) => {
    }
 };
 
+const registarUsuario = (req, res) => {
+   const { email, password, nome } = req.body;
+   // TODO: Cadastrar o usuário no banco de dados
+
+   if (email && password && nome) {
+      res.status(201).json({ usuario: { email, password, nome } });
+   } else {
+      res.status(500).json({ mensagem: "Envie todos os dados necessários para criar uma conta" });
+   }
+};
+
+const fazerLogin = (req, res) => {
+};
+
 exports.getUsuarios = getUsuarios;
 exports.getLugaresDoUsuarioById = getLugaresDoUsuarioById;
+exports.registarUsuario = registarUsuario;
+exports.fazerLogin = fazerLogin;

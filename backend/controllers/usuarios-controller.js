@@ -120,6 +120,14 @@ const registarUsuario = (req, res) => {
 };
 
 const fazerLogin = (req, res) => {
+   const { email, password, nome } = req.body;
+   // TODO: Validar o login do usuário
+
+   if (email && password && nome) {
+      res.status(201).json({ usuario: { email, password, nome } });
+   } else {
+      res.status(500).json({ mensagem: "Envie todos os dados necessários para criar uma conta" });
+   }
 };
 
 exports.getUsuarios = getUsuarios;

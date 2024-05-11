@@ -1,3 +1,5 @@
+const uuid = require("uuid");
+
 const users = [
    { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u1" },
    { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u2" },
@@ -113,20 +115,20 @@ const registarUsuario = (req, res) => {
    // TODO: Cadastrar o usuário no banco de dados
 
    if (email && password && nome) {
-      res.status(201).json({ usuario: { email, password, nome } });
+      res.status(201).json({ usuario: { id: uuid.v4(), email, password, nome } });
    } else {
       res.status(500).json({ mensagem: "Envie todos os dados necessários para criar uma conta" });
    }
 };
 
 const fazerLogin = (req, res) => {
-   const { email, password, nome } = req.body;
+   const { email, password } = req.body;
    // TODO: Validar o login do usuário
 
-   if (email && password && nome) {
-      res.status(201).json({ usuario: { email, password, nome } });
+   if (email && password) {
+      res.status(201).json({ usuario: { id: uuid.v4(), email, password } });
    } else {
-      res.status(500).json({ mensagem: "Envie todos os dados necessários para criar uma conta" });
+      res.status(500).json({ mensagem: "Envie todos os dados necessários para fazer o login" });
    }
 };
 

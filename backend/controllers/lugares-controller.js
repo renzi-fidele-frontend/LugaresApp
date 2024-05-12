@@ -102,6 +102,16 @@ const getLugarById = (req, res) => {
    res.json(lugar);
 };
 
+const getLugaresDoUsuarioById = (req, res) => {
+   let { uid } = req.params;
+   let lugares_do_usuario = lugares.filter((v) => v.idCriador === uid);
+   if (lugares_do_usuario.length === 0) {
+      res.status(404).json({ mensagem: `O usuário ${uid} não existe!` });
+   } else {
+      res.json({ lugares_do_usuario });
+   }
+};
+
 const adicionarLugar = (req, res) => {
    const { titulo, descricao, coordenadas, idCriador } = req.body;
    let lugarCriado = { id: uuid.v4(), titulo, descricao, coordenadas, idCriador, foto: "" };
@@ -128,3 +138,4 @@ exports.getLugarById = getLugarById;
 exports.adicionarLugar = adicionarLugar;
 exports.atualizarLugarById = atualizarLugarById;
 exports.removerLugarById = removerLugarById;
+exports.getLugaresDoUsuarioById = getLugaresDoUsuarioById;

@@ -1,4 +1,5 @@
 const uuid = require("uuid");
+const { apanharCoordernadasPorEndereco } = require("../utils/localizacao");
 
 const lugares = [
    {
@@ -112,10 +113,13 @@ const getLugaresDoUsuarioById = (req, res) => {
    }
 };
 
-const adicionarLugar = (req, res) => {
-   const { titulo, descricao, coordenadas, idCriador } = req.body;
-   let lugarCriado = { id: uuid.v4(), titulo, descricao, coordenadas, idCriador, foto: "" };
+const adicionarLugar = async (req, res) => {
+   const { titulo, descricao, endereco, idCriador } = req.body;
+   coordenadas = await apanharCoordernadasPorEndereco(endereco);
+   let lugarCriado = { id: uuid.v4(), titulo, descricao, idCriador, foto: "", coordenadas };
+
    res.status(201).json({ lugar: lugarCriado });
+
    //   TODO: Adicionar o lugar criado ao banco de dados
 };
 

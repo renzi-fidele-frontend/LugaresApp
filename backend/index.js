@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 //  Rotas
 const rotalugares = require("./routes/lugares-route");
@@ -18,6 +19,10 @@ app.use((req, res) => {
 
 const port = 3000;
 
-app.listen(port, () => {
-   console.log("Observando o servidor...");
-});
+mongoose
+   .connect("mongodb+srv://admin:Ratinho00@cluster0.dcvywkf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+   .then(() => {
+      console.log("Conectado ao MongoDB!");
+      app.listen(port, () => console.log("Inicializando o servidor"));
+   })
+   .catch((err) => console.log("Erro ao conectar"));

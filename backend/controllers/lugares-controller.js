@@ -111,7 +111,6 @@ const getLugarById = async (req, res) => {
       res.status(401).json({ mensagem: erro });
    }
 
-   res.json(lugar);
 };
 
 const getLugaresDoUsuarioById = (req, res) => {
@@ -130,17 +129,15 @@ const adicionarLugar = async (req, res) => {
    const { titulo, descricao, endereco, idCriador } = req.body;
    coordenadas = await apanharCoordernadasPorEndereco(endereco);
    let lugarCriado = {
-      id: uuid.v4(),
       titulo,
       descricao,
       idCriador,
       endereco,
       foto: "https://www.moz.life/wp-content/uploads/2020/11/Salva-Vidas-.jpg",
       coordenadas,
-      criadoEm: Date.now(),
    };
 
-   res.status(201).json({ lugar: lugarCriado });
+   res.json({ lugar: lugarCriado });
 
    let lugarAdicionado = new Lugar(lugarCriado);
    await lugarAdicionado.save();

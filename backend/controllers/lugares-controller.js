@@ -1,5 +1,6 @@
 const uuid = require("uuid");
 const { apanharCoordernadasPorEndereco } = require("../utils/localizacao");
+const Lugar = require("../models/Lugar");
 
 const lugares = [
    {
@@ -88,9 +89,17 @@ const lugares = [
    },
 ];
 
-const getLugares = (req, res) => {
+const getLugares = async (req, res) => {
    console.log("GET feito na página lugares");
+   try {
+      let lugares = await Lugar.find();
+      res.json({ lugares });
+   } catch (erro) {
+      res.json({ mensagem: "Erro ao apanhar os lugares no DB" });
+      console.log(erro.message);
+   }
    res.json({ lugares });
+   // TODO: Apanhar todos os lugares no DB
 };
 
 const getLugarById = (req, res) => {
@@ -101,6 +110,7 @@ const getLugarById = (req, res) => {
       res.status(404).json({ mensagem: "Não existe nenhum lugar com essa id" });
    }
    res.json(lugar);
+   // TODO: Apanhar o lugar pela ID no DB
 };
 
 const getLugaresDoUsuarioById = (req, res) => {
@@ -111,16 +121,28 @@ const getLugaresDoUsuarioById = (req, res) => {
    } else {
       res.json({ lugares_do_usuario });
    }
+
+   // TODO: Apanhar os lugares de usuário pela sua id
 };
 
 const adicionarLugar = async (req, res) => {
    const { titulo, descricao, endereco, idCriador } = req.body;
    coordenadas = await apanharCoordernadasPorEndereco(endereco);
-   let lugarCriado = { id: uuid.v4(), titulo, descricao, idCriador, foto: "", coordenadas };
+   let lugarCriado = {
+      id: uuid.v4(),
+      titulo,
+      descricao,
+      idCriador,
+      endereco,
+      foto: "https://www.moz.life/wp-content/uploads/2020/11/Salva-Vidas-.jpg",
+      coordenadas,
+      criadoEm: Date.now(),
+   };
 
    res.status(201).json({ lugar: lugarCriado });
 
-   //   TODO: Adicionar o lugar criado ao banco de dados
+   let lugarAdicionado = new Lugar(lugarCriado);
+   await lugarAdicionado.save();
 };
 
 const atualizarLugarById = (req, res) => {

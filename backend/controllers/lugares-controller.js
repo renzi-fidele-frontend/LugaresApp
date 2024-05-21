@@ -98,19 +98,20 @@ const getLugares = async (req, res) => {
       res.json({ mensagem: "Erro ao apanhar os lugares no DB" });
       console.log(erro.message);
    }
-   res.json({ lugares });
-   // TODO: Apanhar todos os lugares no DB
 };
 
-const getLugarById = (req, res) => {
+const getLugarById = async (req, res) => {
    console.log("GET feito para apanhar lugar individual");
    let { idLugar } = req.params;
-   let lugar = lugares.filter((v) => v.id === idLugar)[0];
-   if (!lugar) {
-      res.status(404).json({ mensagem: "Não existe nenhum lugar com essa id" });
+   let lugar;
+   try {
+      lugar = await Lugar.findById(idLugar);
+      res.json({ lugar });
+   } catch (erro) {
+      res.status(401).json({ mensagem: erro });
    }
+
    res.json(lugar);
-   // TODO: Apanhar o lugar pela ID no DB
 };
 
 const getLugaresDoUsuarioById = (req, res) => {

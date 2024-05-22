@@ -11,7 +11,7 @@ const schemaDoLugar = new mongoose.Schema(
          lng: { type: Number, required: true },
       },
       idCriador: { type: String, required: true },
-      criadoEm: { type: Number, default: Date.now },
+      criadoEm: { type: Date, default: Date.now },
    },
    { collection: "lugares" }
 );

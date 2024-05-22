@@ -110,19 +110,18 @@ const getLugarById = async (req, res) => {
    } catch (erro) {
       res.status(401).json({ mensagem: erro });
    }
-
 };
 
-const getLugaresDoUsuarioById = (req, res) => {
+const getLugaresDoUsuarioById = async (req, res) => {
    let { uid } = req.params;
-   let lugares_do_usuario = lugares.filter((v) => v.idCriador === uid);
-   if (lugares_do_usuario.length === 0) {
-      res.status(404).json({ mensagem: `O usuário ${uid} não existe!` });
-   } else {
+   try {
+      let lugares_do_usuario = await Lugar.find({ idCriador: uid });
       res.json({ lugares_do_usuario });
+      console.log("Lugares do usuário apanhados com sucesso");
+   } catch (erro) {
+      res.json({ mensagem: "Erro ao se enviar a mensagem" });
+      console.log("Erro ao apanhar os lugares do usuário");
    }
-
-   // TODO: Apanhar os lugares de usuário pela sua id
 };
 
 const adicionarLugar = async (req, res) => {
@@ -137,10 +136,9 @@ const adicionarLugar = async (req, res) => {
       coordenadas,
    };
 
-   res.json({ lugar: lugarCriado });
-
    let lugarAdicionado = new Lugar(lugarCriado);
    await lugarAdicionado.save();
+   res.json({ lugar: lugarCriado });
 };
 
 const atualizarLugarById = (req, res) => {

@@ -141,13 +141,15 @@ const adicionarLugar = async (req, res) => {
    res.json({ lugar: lugarCriado });
 };
 
-const atualizarLugarById = (req, res) => {
+const atualizarLugarById = async (req, res) => {
    let { idLugar } = req.params;
    const { titulo, descricao } = req.body;
-   let lugarAtualizado = { ...dadosLugar, titulo, descricao };
-   // TODO: Atualizar o lugar no banco de dados
-
-   res.status(200).json({ lugar: lugarAtualizado });
+   try {
+      const lugarAtualizado = await Lugar.updateOne({ _id: idLugar }, { titulo, descricao });
+      res.json({ mensagem: "Lugar atualizado com sucesso!", lugarAtualizado });
+   } catch (erro) {
+      res.status(401).json({ mensagem: "Erro ao atualizar o lugar" });
+   }
 };
 
 const removerLugarById = (req, res) => {

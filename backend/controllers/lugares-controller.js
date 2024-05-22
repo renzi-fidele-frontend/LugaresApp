@@ -152,9 +152,14 @@ const atualizarLugarById = async (req, res) => {
    }
 };
 
-const removerLugarById = (req, res) => {
+const removerLugarById = async (req, res) => {
    let { idLugar } = req.params;
-   // TODO: Remover o lugar no banco de dados
+   try {
+      const lugarRemovido = await Lugar.deleteOne({ _id: idLugar });
+      res.json({ mensagem: "Lugar removido com sucesso!" });
+   } catch (erro) {
+      res.status(201).json({ mensagem: "Erro ao remover o lugar no DB" });
+   }
 };
 
 exports.getLugares = getLugares;

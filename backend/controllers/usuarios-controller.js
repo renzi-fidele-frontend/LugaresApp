@@ -17,7 +17,6 @@ const getUsuarios = (req, res) => {
 
 const registarUsuario = async (req, res) => {
    const { email, password, nome } = req.body;
-   // TODO: Cadastrar o usuário no banco de dados
    let usuarioAdicionado;
    try {
       let existeUsuario = await Usuario.findOne({ email });
@@ -41,14 +40,18 @@ const registarUsuario = async (req, res) => {
    }
 };
 
-const fazerLogin = (req, res) => {
+const fazerLogin = async (req, res) => {
    const { email, password } = req.body;
    // TODO: Validar o login do usuário
-
-   if (email && password) {
-      res.status(201).json({ usuario: { id: uuid.v4(), email, password } });
-   } else {
-      res.status(500).json({ mensagem: "Envie todos os dados necessários para fazer o login" });
+   try {
+      let existeUsuario = await Usuario.findOne({ email, password });
+      if (existeUsuario) {
+         res.json({ mensagem: "Logado com sucesso!" });
+      } else {
+         res.status(201).json({ mensagem: "Erro de credencials" });
+      }
+   } catch (error) {
+      res.status(201).json({ mensagem: "Erro ao fazer login" });
    }
 };
 

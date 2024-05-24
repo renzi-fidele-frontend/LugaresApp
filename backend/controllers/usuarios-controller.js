@@ -10,9 +10,13 @@ const users = [
    { nome: "Renzi Fidele", nrLugares: 1, photoURL: "dummyPhoto", uid: "u6" },
 ];
 
-const getUsuarios = (req, res) => {
-   res.json({ usuarios: users });
-   // TODO: Apanhar todos os usuários no banco de dados
+const getUsuarios = async (req, res) => {
+   try {
+      let usuarios = await Usuario.find({}, "-password");
+      res.json({ usuarios });
+   } catch (error) {
+      res.status(401).json({ mensagem: "Erro ao criar conta" });
+   }
 };
 
 const registarUsuario = async (req, res) => {

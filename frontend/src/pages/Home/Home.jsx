@@ -31,11 +31,11 @@ const Home = () => {
                <Image className="mb-5" id={styles.foto} src={usersPic} />
             </Col>
          </Row>
-         <Row className="mt-3 g-4">
+         <Row className="mt-3 g-4 justify-content-center">
             {usuarios?.length > 0 ? (
                usuarios.map((v, k) => (
                   <Col className="text-center" xs={12} sm={6} xl={4} key={k}>
-                     <UserCard uid={v.uid} fotoPerfil={v.foto} nome={v.nome} nrLugares={v.nrLugares} />
+                     <UserCard uid={v.uid} aderiuEm={v.criadoEm} fotoPerfil={v.foto} nome={v.nome} nrLugares={v.nrLugares} />
                   </Col>
                ))
             ) : (

@@ -2,8 +2,9 @@ import React from "react";
 import styles from "./UserCard.module.css";
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import useConverterData from "../../hooks/useConverterData";
 
-const UserCard = ({ fotoPerfil, nome, nrLugares, uid, aderiuEm }) => {
+const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
    return (
       <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
          <Row>
@@ -18,7 +19,7 @@ const UserCard = ({ fotoPerfil, nome, nrLugares, uid, aderiuEm }) => {
             </Col>
             <Col className="text-md-start text-sm-center ps-4" md={8}>
                <Card.Title>{nome}</Card.Title>
-               <Card.Text>Aderiu em 10/03/2024</Card.Text>
+               <Card.Text>Aderiu em {useConverterData(aderiuEm)}</Card.Text>
                <Link to={`/${uid}/lugares`}>
                   <Button variant="outline-secondary" className="bg-gradient">
                      Ver lugares

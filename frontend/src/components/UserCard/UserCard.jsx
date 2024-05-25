@@ -3,7 +3,7 @@ import styles from "./UserCard.module.css";
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const UserCard = ({ fotoPerfil, nome, nrLugares, uid }) => {
+const UserCard = ({ fotoPerfil, nome, nrLugares, uid, aderiuEm }) => {
    return (
       <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
          <Row>
@@ -18,7 +18,7 @@ const UserCard = ({ fotoPerfil, nome, nrLugares, uid }) => {
             </Col>
             <Col className="text-md-start text-sm-center ps-4" md={8}>
                <Card.Title>{nome}</Card.Title>
-               <Card.Text>{nrLugares === 1 ? `1 lugar` : `${nrLugares} lugares`}</Card.Text>
+               <Card.Text>Aderiu em 10/03/2024</Card.Text>
                <Link to={`/${uid}/lugares`}>
                   <Button variant="outline-secondary" className="bg-gradient">
                      Ver lugares

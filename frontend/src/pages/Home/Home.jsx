@@ -2,9 +2,25 @@ import { Col, Image, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
 import UserCard from "../../components/UserCard/UserCard";
 import usersPic from "../../assets/users3.svg";
-import { users } from "./data";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+   const [usuarios, setUsuarios] = useState(null);
+
+   async function apanharUsuarios() {
+      try {
+         const response = await axios("http://localhost:3000/api/usuarios/");
+         setUsuarios(response.data.usuarios);
+      } catch (error) {
+         console.log(error);
+      }
+   }
+
+   useEffect(() => {
+      if (!usuarios) apanharUsuarios();
+   }, []);
+
    return (
       <div className="container-md px-4 px-md-0 pb-5" id={styles.ct}>
          <Row>
@@ -16,10 +32,10 @@ const Home = () => {
             </Col>
          </Row>
          <Row className="mt-3 g-4">
-            {users.length > 0 ? (
-               users.map((v, k) => (
+            {usuarios?.length > 0 ? (
+               usuarios.map((v, k) => (
                   <Col className="text-center" xs={12} sm={6} xl={4} key={k}>
-                     <UserCard uid={v.uid} fotoPerfil={v.photoURL} nome={v.nome} nrLugares={v.nrLugares} />
+                     <UserCard uid={v.uid} fotoPerfil={v.foto} nome={v.nome} nrLugares={v.nrLugares} />
                   </Col>
                ))
             ) : (

@@ -6,6 +6,7 @@ const schemaDoUsuario = new mongoose.Schema(
       email: { type: String, required: true, unique: true },
       password: { type: String, required: true, minLength: 6 },
       foto: { type: String, required: true },
+      criadoEm: { type: Date, default: Date.now },
    },
    { collection: "usuarios" }
 );

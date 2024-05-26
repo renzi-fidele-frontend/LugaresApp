@@ -1,7 +1,6 @@
 //  Convertendo o tempo em segundos para formato de data
 const useConverterData = (data) => {
    let t = new Date(data);
-   console.log(t);
    let dd = t?.getDate();
    let mm = t?.getMonth() + 1;
    let yyyy = t?.getFullYear();

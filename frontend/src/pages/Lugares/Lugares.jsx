@@ -4,16 +4,10 @@ import foto from "../../assets/lugares3.svg";
 import { lugares } from "../Home/data";
 import CardLugar from "../../components/CardLugar/CardLugar";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 
 const Lugares = () => {
    const userId = useParams();
    const userMode = userId.uid ? true : false;
-
-   useEffect(() => {
-      console.log(`O uid do usuário é: ${userId.uid}`);
-      console.log(userMode);
-   }, [userId]);
 
    return (
       <Container id={styles.ct}>

@@ -1,14 +1,14 @@
-import { Image, Spinner } from "react-bootstrap";
-import loadFoto from "../../assets/loadIco.svg";
+import { Spinner } from "react-bootstrap";
+import styles from "./LoadingBackdrop.module.css";
 
 const LoadingBackdrop = () => {
    return (
       <div
-         className="position-absolute flex-column z-3 top-0 bottom-0 start-0 end-0 d-flex align-items-center justify-content-center"
-         style={{ backgroundColor: "red", width: "100%", height: "100%" }}
+         className="position-absolute flex-column z-3 top-0 bottom-0 start-0 end-0 d-flex gap-3 align-items-center justify-content-center"
+         id={styles.ct}
       >
-         <p>Criando a conta...</p>
-         <Spinner animation="grow" size="lg" variant="light" />
+         <p className="fs-5">Criando a conta...</p>
+         <Spinner id={styles.load} animation="grow" size="lg" variant="light" />
       </div>
    );
 };

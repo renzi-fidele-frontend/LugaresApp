@@ -3,9 +3,11 @@ import styles from "./Cadastro.module.css";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import foto from "../../assets/cadastro.png";
 import axios from "axios";
+import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 
 const Cadastro = () => {
    const [foiValidado, setFoiValido] = useState(false);
+   const [loading, setLoading] = useState(false);
 
    // Refs do formulário
    const nomeRef = useRef(null);
@@ -16,9 +18,11 @@ const Cadastro = () => {
       e.preventDefault();
       setFoiValido(true);
       e.stopPropagation();
+
       if (e.currentTarget.checkValidity() === false) {
          // Não conseguiu
       } else {
+         setLoading(true);
          // TODO: Adicionar feature de foto de perfil para cada usuário
          try {
             const response = await axios.post("http://localhost:3000/api/usuarios/cadastro", {
@@ -32,6 +36,7 @@ const Cadastro = () => {
          } catch (error) {
             console.log(error);
          }
+         setLoading(false);
       }
    }
 
@@ -69,6 +74,7 @@ const Cadastro = () => {
                <Image className="ms-auto" id={styles.fotoLado} src={foto} />
             </Col>
          </Row>
+         {loading && <LoadingBackdrop />}
       </Container>
    );
 };

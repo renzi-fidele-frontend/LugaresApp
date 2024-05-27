@@ -22,9 +22,21 @@ const Lugares = () => {
       }
    }
 
+   async function apanharLugaresDoUsuario(uid) {
+      try {
+         const response = await axios("http://localhost:3000/api/lugares/usuario/" + uid);
+         //setLugares(response.data.lugares);
+         console.log(response.data);
+      } catch (error) {
+         console.log(error);
+      }
+   }
+
    useEffect(() => {
-      if (!lugares) {
+      if (!lugares && !userMode) {
          apanharLugares();
+      } else if (!lugares && userMode) {
+         apanharLugaresDoUsuario(userId.uid);
       }
    }, []);
 
@@ -42,7 +54,7 @@ const Lugares = () => {
                   <Row className="mt-4 g-4 justify-content-center">
                      {!userMode
                         ? lugares?.map((v, k) => (
-                             <Col className="align-items-stretch" md={6} xl={4} key={k}>
+                             <Col md={6} xl={4} key={k}>
                                 <CardLugar
                                    titulo={v.titulo}
                                    foto={v.foto}
@@ -50,28 +62,24 @@ const Lugares = () => {
                                    endereco={v.endereco}
                                    criadoEm={v.criadoEm}
                                    idCriador={v.idCriador}
-                                   key={k}
                                    id={v.id}
                                    coordenadas={v.coordenadas}
                                 />
                              </Col>
                           ))
-                        : lugares
-                             ?.filter((v) => v.idCriador === userId.uid)
-                             ?.map((v, k) => (
-                                <Col md={6} xl={4} key={k}>
-                                   <CardLugar
-                                      titulo={v.titulo}
-                                      foto={v.foto}
-                                      descricao={v.descricao}
-                                      endereco={v.endereco}
-                                      criadoEm={v.criadoEm}
-                                      idCriador={v.idCriador}
-                                      key={k}
-                                      coordenadas={v.coordenadas}
-                                   />
-                                </Col>
-                             ))}
+                        : lugares?.map((v, k) => (
+                             <Col md={6} xl={4} key={k}>
+                                <CardLugar
+                                   titulo={v.titulo}
+                                   foto={v.foto}
+                                   descricao={v.descricao}
+                                   endereco={v.endereco}
+                                   criadoEm={v.criadoEm}
+                                   idCriador={v.idCriador}
+                                   coordenadas={v.coordenadas}
+                                />
+                             </Col>
+                          ))}
                   </Row>
                )}
             </Col>

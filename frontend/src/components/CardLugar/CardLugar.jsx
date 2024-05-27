@@ -26,7 +26,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
             <Card.Subtitle style={{ color: "#959595" }}>{endereco}</Card.Subtitle>
          </Card.Header>
 
-         <Card.Body className="d-flex flex-column justify-content-center">
+         <Card.Body className="d-flex flex-column justify-content-evenly">
             <Card.Title>{titulo}</Card.Title>
             <Card.Text>{descricao}</Card.Text>
          </Card.Body>

@@ -10,9 +10,18 @@ const users = [
    { nome: "Renzi Fidele", nrLugares: 1, photoURL: "dummyPhoto", uid: "u6" },
 ];
 
+const getUsuarioById = async (req, res) => {
+   try {
+      const usuario = await Usuario.findById(req.params.uid, "-password");
+      res.json({ usuario });
+   } catch (error) {
+      res.status(401).json({ mensagem: "Erro ao apanhar o usuário " + req.params.uid });
+   }
+};
+
 const getUsuarios = async (req, res) => {
    try {
-      let usuarios = await Usuario.find({}, "-password");
+      let usuarios = await Usuario.find({}, "-password -email");
       res.json({ usuarios });
    } catch (error) {
       res.status(401).json({ mensagem: "Erro ao criar conta" });
@@ -62,3 +71,4 @@ const fazerLogin = async (req, res) => {
 exports.getUsuarios = getUsuarios;
 exports.registarUsuario = registarUsuario;
 exports.fazerLogin = fazerLogin;
+exports.getUsuarioById = getUsuarioById;

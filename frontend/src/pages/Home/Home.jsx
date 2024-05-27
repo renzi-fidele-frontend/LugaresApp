@@ -35,7 +35,7 @@ const Home = () => {
             {usuarios?.length > 0 ? (
                usuarios.map((v, k) => (
                   <Col className="text-center" xs={12} sm={6} xl={4} key={k}>
-                     <UserCard uid={v.uid} aderiuEm={v.criadoEm} fotoPerfil={v.foto} nome={v.nome} nrLugares={v.nrLugares} />
+                     <UserCard uid={v._id} aderiuEm={v.criadoEm} fotoPerfil={v.foto} nome={v.nome} nrLugares={v.nrLugares} />
                   </Col>
                ))
             ) : (

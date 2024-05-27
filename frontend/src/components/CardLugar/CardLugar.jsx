@@ -14,7 +14,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
       const { Map } = await google.maps.importLibrary("maps");
 
       let map = new Map(mapCtRef.current, {
-         center: { lat: coordenadas.lat, lng: coordenadas.long },
+         center: { lat: coordenadas.lat, lng: coordenadas.lng },
          zoom: 16,
       });
    }

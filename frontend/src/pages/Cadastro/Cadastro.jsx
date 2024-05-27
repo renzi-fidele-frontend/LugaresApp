@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import styles from "./Cadastro.module.css";
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Image, Row, Toast } from "react-bootstrap";
 import foto from "../../assets/cadastro.png";
 import axios from "axios";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
@@ -8,6 +8,7 @@ import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 const Cadastro = () => {
    const [foiValidado, setFoiValido] = useState(false);
    const [loading, setLoading] = useState(false);
+   const [msgErro, setMsgErro] = useState(null);
 
    // Refs do formulário
    const nomeRef = useRef(null);
@@ -25,16 +26,18 @@ const Cadastro = () => {
          setLoading(true);
          // TODO: Adicionar feature de foto de perfil para cada usuário
          try {
-            const response = await axios.post("http://localhost:3000/api/usuarios/cadastro", {
+            const res = await axios.post("http://localhost:3000/api/usuarios/cadastro", {
                nome: nomeRef.current.value,
                email: emailRef.current.value,
                password: passwordRef.current.value,
-               foto: "https://firebasestorage.googleapis.com/v0/b/miniblog-c5fa5.appspot.com/o/fotosPerfil%2Fff7db268-a753-464e-b420-b9e859ec6ab9281224678_2115790858626371_7861766981112604163_n.jpg?alt=media&token=02d8c35e-5262-4f67-9970-7edac0216a8e",
             });
-            console.log(response.data);
-            console.log("Post feito com sucesso");
          } catch (error) {
-            console.log(error);
+            if (error.response.data.mensagem) {
+               setMsgErro(error.response.data.mensagem);
+               setTimeout(() => {
+                  setMsgErro(null);
+               }, 5000);
+            }
          }
          setLoading(false);
       }
@@ -68,12 +71,16 @@ const Cadastro = () => {
                   </Form.Group>
 
                   <Button type="submit">Cadastrar</Button>
+
+                  {/*   Dando o feedback do submit do formulario  */}
+                  {msgErro && <Alert className="mt-4" variant="warning">{msgErro}</Alert>}
                </Form>
             </Col>
             <Col className="d-lg-flex d-none align-items-end">
                <Image className="ms-auto" id={styles.fotoLado} src={foto} />
             </Col>
          </Row>
+         {/*   Loading com backdrop  */}
          {loading && <LoadingBackdrop />}
       </Container>
    );

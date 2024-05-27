@@ -35,7 +35,7 @@ const registarUsuario = async (req, res) => {
       let existeUsuario = await Usuario.findOne({ email });
       if (existeUsuario) {
          console.log("O usuário existe");
-         res.json({ mensagem: "Este email já foi utilizad opara criar uma conta" });
+         res.status(401).json({ mensagem: "Este email já foi utilizado para criar uma conta!" });
       } else {
          console.log("O usuario não existe");
          usuarioAdicionado = new Usuario({

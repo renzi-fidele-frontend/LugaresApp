@@ -31,6 +31,7 @@ const Cadastro = () => {
                email: emailRef.current.value,
                password: passwordRef.current.value,
             });
+            console.log(res.data);
          } catch (error) {
             if (error.response.data.mensagem) {
                setMsgErro(error.response.data.mensagem);
@@ -73,7 +74,11 @@ const Cadastro = () => {
                   <Button type="submit">Cadastrar</Button>
 
                   {/*   Dando o feedback do submit do formulario  */}
-                  {msgErro && <Alert className="mt-4" variant="warning">{msgErro}</Alert>}
+                  {msgErro && (
+                     <Alert className="mt-4" variant="warning">
+                        {msgErro}
+                     </Alert>
+                  )}
                </Form>
             </Col>
             <Col className="d-lg-flex d-none align-items-end">

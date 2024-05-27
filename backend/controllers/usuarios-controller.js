@@ -49,7 +49,7 @@ const registarUsuario = async (req, res) => {
       }
    } catch (error) {
       console.log(error.message);
-      res.status(401).json({ mensagem: "Erro ao criar conta" });
+      res.status(422).json({ mensagem: "Erro ao criar conta" });
    }
 };
 
@@ -61,10 +61,10 @@ const fazerLogin = async (req, res) => {
       if (existeUsuario) {
          res.json({ mensagem: "Logado com sucesso!" });
       } else {
-         res.status(201).json({ mensagem: "Erro de credencials" });
+         res.status(401).json({ mensagem: "Esse usuário não existe" });
       }
    } catch (error) {
-      res.status(201).json({ mensagem: "Erro ao fazer login" });
+      res.status(500).json({ mensagem: "Erro do servidor ao fazer login" });
    }
 };
 

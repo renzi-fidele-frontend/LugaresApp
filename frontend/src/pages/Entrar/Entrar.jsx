@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import styles from "./Entrar.module.css";
 import foto from "../../assets/lugares3.svg";
 import axios from "axios";
@@ -8,6 +8,7 @@ import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 const Entrar = () => {
    const [foiValidado, setFoiValido] = useState(false);
    const [loading, setLoading] = useState(false);
+   const [msgErro, setMsgErro] = useState(null);
 
    // Refs do formulário
    const emailRef = useRef(null);
@@ -22,13 +23,20 @@ const Entrar = () => {
       } else {
          setLoading(true);
          try {
-            const response = await axios.post("http://localhost:3000/api/usuarios/login", {
+            const res = await axios.post("http://localhost:3000/api/usuarios/login", {
                email: emailRef.current.value,
                password: passwordRef.current.value,
             });
-            console.log(response.data);
+            console.log(res.data);
          } catch (error) {
-            console.log(error);
+            console.log(error.response.data.mensagem);
+
+            if (error.response.data.mensagem) {
+               setMsgErro(error.response.data.mensagem);
+               setTimeout(() => {
+                  setMsgErro(null);
+               }, 5000);
+            }
          }
          setLoading(false);
       }
@@ -55,12 +63,20 @@ const Entrar = () => {
                   </Form.Group>
 
                   <Button type="submit">Fazer Login</Button>
+
+                  {/*   Dando o feedback do submit do formulario  */}
+                  {msgErro && (
+                     <Alert className="mt-4" variant="warning">
+                        {msgErro}
+                     </Alert>
+                  )}
                </Form>
             </Col>
             <Col className="d-lg-flex d-none align-items-end">
                <Image className="ms-auto" id={styles.fotoLado} src={foto} />
             </Col>
          </Row>
+         {/*   Loading com backdrop  */}
          {loading && <LoadingBackdrop />}
       </Container>
    );

@@ -11,12 +11,21 @@ const Lugares = () => {
    const userId = useParams();
    const userMode = userId.uid ? true : false;
    const [lugares, setLugares] = useState(null);
+   const [usuario, setUsuario] = useState(null);
+
+   async function apanharUsuario(uid) {
+      try {
+         const res = await axios("http://localhost:3000/api/usuarios/" + uid);
+         setUsuario(res.data.usuario);
+      } catch (error) {
+         console.log(error);
+      }
+   }
 
    async function apanharLugares() {
       try {
-         const response = await axios("http://localhost:3000/api/lugares");
-         setLugares(response.data.lugares);
-         console.log(response.data.lugares);
+         const res = await axios("http://localhost:3000/api/lugares");
+         setLugares(res.data.lugares);
       } catch (error) {
          console.log(error);
       }
@@ -24,9 +33,8 @@ const Lugares = () => {
 
    async function apanharLugaresDoUsuario(uid) {
       try {
-         const response = await axios("http://localhost:3000/api/lugares/usuario/" + uid);
-         //setLugares(response.data.lugares);
-         console.log(response.data);
+         const res = await axios("http://localhost:3000/api/lugares/usuario/" + uid);
+         setLugares(res.data.lugares_do_usuario);
       } catch (error) {
          console.log(error);
       }
@@ -38,6 +46,8 @@ const Lugares = () => {
       } else if (!lugares && userMode) {
          apanharLugaresDoUsuario(userId.uid);
       }
+
+      if (!usuario && userMode) apanharUsuario(userId.uid);
    }, []);
 
    return (
@@ -46,7 +56,7 @@ const Lugares = () => {
             <Col className="text-center pb-5 ">
                <h2 id={styles.titulo} className="mx-auto mt-3 mt-md-5 mb-5 fw-semibold fs-2 pt-4">
                   {userMode
-                     ? `Descubra os lugares que foram compartilhados pelo usuário: ${userId.uid}`
+                     ? `Descubra os lugares que foram compartilhados pelo usuário: ${usuario?.nome}`
                      : "Descubra os lugares que foram compartilhados pelos usuários"}
                </h2>
                <Image className="mb-5" id={styles.foto} src={foto} />

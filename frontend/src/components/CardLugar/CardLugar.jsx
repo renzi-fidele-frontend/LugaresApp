@@ -20,13 +20,13 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
    }
 
    return (
-      <Card bg="dark" text="light" border="secondary" id={styles.ct} className="">
+      <Card bg="dark" text="light" border="secondary" id={styles.ct} className="h-100">
          <Card.Img className="p-2 rounded-4 " src={foto} />
          <Card.Header id={styles.cardHeader}>
             <Card.Subtitle style={{ color: "#959595" }}>{endereco}</Card.Subtitle>
          </Card.Header>
 
-         <Card.Body>
+         <Card.Body className="d-flex flex-column justify-content-center">
             <Card.Title>{titulo}</Card.Title>
             <Card.Text>{descricao}</Card.Text>
          </Card.Body>

@@ -4,12 +4,15 @@ import styles from "./Entrar.module.css";
 import foto from "../../assets/lugares3.svg";
 import axios from "axios";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
+import { useDispatch } from "react-redux";
+import { setUsuario } from "../../state/usuario/usuarioSlice";
 
 const Entrar = () => {
    const [foiValidado, setFoiValido] = useState(false);
    const [loading, setLoading] = useState(false);
    const [mostrarErro, setMostrarErro] = useState(false);
    const [erroMsg, setErroMsg] = useState("");
+   const dispatch = useDispatch();
 
    // Refs do formulário
    const emailRef = useRef(null);
@@ -28,7 +31,7 @@ const Entrar = () => {
                email: emailRef.current.value,
                password: passwordRef.current.value,
             });
-            console.log(res.data);
+            dispatch(setUsuario(res.data.usuario));
          } catch (error) {
             if (error.response.data.mensagem) {
                setErroMsg(error.response.data.mensagem);

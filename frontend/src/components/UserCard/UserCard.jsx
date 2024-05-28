@@ -21,7 +21,7 @@ const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
                <Card.Title>{nome}</Card.Title>
                <Card.Text>Aderiu em {useConverterData(aderiuEm)}</Card.Text>
                <Link to={`/${uid}/lugares`}>
-                  <Button variant="outline-secondary" className="bg-gradient">
+                  <Button variant="outline-secondary" className="bg-gradient stretched-link">
                      Ver lugares
                   </Button>
                </Link>

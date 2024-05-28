@@ -28,7 +28,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
 
          <Card.Body className="d-flex flex-column justify-content-evenly">
             <Card.Title>{titulo}</Card.Title>
-            <Card.Text>{descricao}</Card.Text>
+            <Card.Text className="text-truncate">{descricao}</Card.Text>
          </Card.Body>
          <Card.Footer>
             {currentUserId.current === idCriador ? (
@@ -57,9 +57,11 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
             <Modal.Header closeButton>
                <Modal.Title>{titulo}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body>{descricao}</Modal.Body>
+            <Modal.Footer>
                <div id={styles.mapaCt} ref={mapCtRef}></div>
-            </Modal.Body>
+               <p className=""><i className="bi bi-geo-alt-fill me-1"></i>{endereco}</p>
+            </Modal.Footer>
          </Modal>
 
          {/*Modal de confirmação de remoção */}

@@ -49,7 +49,7 @@ const adicionarLugar = async (req, res) => {
    };
 
    let lugarAdicionado = new Lugar(lugarCriado);
-   
+
    await lugarAdicionado.save();
    res.json({ lugar: lugarCriado });
 };
@@ -61,7 +61,7 @@ const atualizarLugarById = async (req, res) => {
       const lugarAtualizado = await Lugar.updateOne({ _id: idLugar }, { titulo, descricao });
       res.json({ mensagem: "Lugar atualizado com sucesso!", lugarAtualizado });
    } catch (erro) {
-      res.status(401).json({ mensagem: "Erro ao atualizar o lugar" });
+      res.status(500).json({ mensagem: "Erro ao atualizar o lugar" });
    }
 };
 

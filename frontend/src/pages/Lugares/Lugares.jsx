@@ -72,7 +72,7 @@ const Lugares = () => {
                                    endereco={v.endereco}
                                    criadoEm={v.criadoEm}
                                    idCriador={v.idCriador}
-                                   id={v.id}
+                                   id={v._id}
                                    coordenadas={v.coordenadas}
                                 />
                              </Col>
@@ -82,6 +82,7 @@ const Lugares = () => {
                                 <CardLugar
                                    titulo={v.titulo}
                                    foto={v.foto}
+                                   id={v._id}
                                    descricao={v.descricao}
                                    endereco={v.endereco}
                                    criadoEm={v.criadoEm}

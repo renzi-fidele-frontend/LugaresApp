@@ -32,9 +32,7 @@ const AdicionarLugar = () => {
          // Não conseguiu
       } else {
          setLoading(true);
-         // TODO: Fazer o post para adicionar o lugar
          try {
-            // adicionar lugar
             const res = await axios.post("http://localhost:3000/api/lugares", {
                titulo: nome_lugar_ref.current.value,
                descricao: descricao_ref.current.value,

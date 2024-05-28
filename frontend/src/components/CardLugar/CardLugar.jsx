@@ -2,9 +2,10 @@ import React, { useRef, useState } from "react";
 import styles from "./CardLugar.module.css";
 import { Button, Card, Modal, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco, coordenadas }) => {
-   const currentUserId = useRef("u1");
+   const { usuario } = useSelector((state) => state.usuario);
    const [showMapModal, setShowMapModal] = useState(false);
    const [showRemoveModal, setShowRemoveModal] = useState(false);
    const mapCtRef = useRef();
@@ -31,12 +32,12 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
             <Card.Text className="text-truncate">{descricao}</Card.Text>
          </Card.Body>
          <Card.Footer>
-            {currentUserId.current === idCriador ? (
+            {usuario?._id === idCriador ? (
                <>
                   <Stack className="justify-content-center" direction="horizontal" gap={2}>
                      <Button onClick={() => setShowMapModal(true)}>Ver no mapa</Button>
 
-                     <Button onClick={() => navegar(`/lugares/${id}`)} variant="outline-secondary">
+                     <Button onClick={() => navegar(`/lugares/${id}`, { state: { titulo, descricao } })} variant="outline-secondary">
                         Editar
                      </Button>
                      <Button variant="outline-danger" onClick={() => setShowRemoveModal(true)}>

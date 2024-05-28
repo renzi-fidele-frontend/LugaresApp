@@ -60,7 +60,7 @@ const fazerLogin = async (req, res) => {
       let existeUsuario = await Usuario.findOne({ email });
       if (existeUsuario) {
          if (existeUsuario.password === password) {
-            res.json({ mensagem: "Logado com sucesso!" });
+            res.json({ mensagem: "Logado com sucesso!", usuario: existeUsuario });
          } else {
             res.status(401).json({ mensagem: `Olá ${existeUsuario.nome}, a senha inserida é inválida!` });
          }

@@ -60,7 +60,10 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
             <Modal.Body>{descricao}</Modal.Body>
             <Modal.Footer>
                <div id={styles.mapaCt} ref={mapCtRef}></div>
-               <p className=""><i className="bi bi-geo-alt-fill me-1"></i>{endereco}</p>
+               <p className="">
+                  <i className="bi bi-geo-alt-fill me-1"></i>
+                  {endereco}
+               </p>
             </Modal.Footer>
          </Modal>
 

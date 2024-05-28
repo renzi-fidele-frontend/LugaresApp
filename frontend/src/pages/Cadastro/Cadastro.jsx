@@ -4,12 +4,15 @@ import { Alert, Button, Col, Container, Form, Image, Row, Toast } from "react-bo
 import foto from "../../assets/cadastro.png";
 import axios from "axios";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
+import { useDispatch } from "react-redux";
+import { setUsuario } from "../../state/usuario/usuarioSlice";
 
 const Cadastro = () => {
    const [foiValidado, setFoiValido] = useState(false);
    const [loading, setLoading] = useState(false);
    const [mostrarErro, setMostrarErro] = useState(false);
    const [erroMsg, setErroMsg] = useState("");
+   const dispatch = useDispatch();
 
    // Refs do formulário
    const nomeRef = useRef(null);
@@ -32,7 +35,7 @@ const Cadastro = () => {
                email: emailRef.current.value,
                password: passwordRef.current.value,
             });
-            console.log(res.data);
+            dispatch(setUsuario(res.data.usuario));
          } catch (error) {
             if (error.response.data.mensagem) {
                setErroMsg(error.response.data.mensagem);

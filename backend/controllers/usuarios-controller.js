@@ -45,7 +45,7 @@ const registarUsuario = async (req, res) => {
             foto: "https://firebasestorage.googleapis.com/v0/b/miniblog-c5fa5.appspot.com/o/fotosPerfil%2Fff7db268-a753-464e-b420-b9e859ec6ab9281224678_2115790858626371_7861766981112604163_n.jpg?alt=media&token=02d8c35e-5262-4f67-9970-7edac0216a8e",
          });
          await usuarioAdicionado.save();
-         res.json({ mensagem: "Conta criada com sucesso" });
+         res.json({ mensagem: "Conta criada com sucesso", usuario: usuarioAdicionado });
       }
    } catch (error) {
       console.log(error.message);

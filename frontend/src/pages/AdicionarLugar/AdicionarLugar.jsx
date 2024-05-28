@@ -1,22 +1,58 @@
 import React, { useRef, useState } from "react";
 import styles from "./AdicionarLugar.module.css";
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import foto from "../../assets/addLugarIco2.png";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
+import { useNavigate } from "react-router-dom";
 
 const AdicionarLugar = () => {
    const [foiValidado, setFoiValido] = useState(false);
+   const dispatch = useDispatch();
+
+   const { usuario } = useSelector((state) => state.usuario);
+   const [loading, setLoading] = useState(false);
+   const [mostrarErro, setMostrarErro] = useState(false);
+   const [erroMsg, setErroMsg] = useState("");
+
+   const navegar = useNavigate();
 
    // Refs do formulário
    const nome_lugar_ref = useRef(null);
    const descricao_ref = useRef(null);
    const endereco_ref = useRef(null);
 
-   function adicionarLugar(e) {
-      if (e.currentTarget.checkValidity() === false) {
-         e.preventDefault();
-         e.stopPropagation();
-      }
+   async function adicionarLugar(e) {
+      e.preventDefault();
+      e.stopPropagation();
       setFoiValido(true);
+
+      if (e.currentTarget.checkValidity() === false) {
+         // Não conseguiu
+      } else {
+         setLoading(true);
+         // TODO: Fazer o post para adicionar o lugar
+         try {
+            // adicionar lugar
+            const res = await axios.post("http://localhost:3000/api/lugares", {
+               titulo: nome_lugar_ref.current.value,
+               descricao: descricao_ref.current.value,
+               endereco: endereco_ref.current.value,
+               idCriador: usuario._id,
+            });
+            navegar("/lugares", { state: { mensagem: "Lugar adicionado com sucesso" } });
+         } catch (error) {
+            if (error.response.data.mensagem) {
+               setErroMsg(error.response.data.mensagem);
+               setMostrarErro(true);
+               setTimeout(() => {
+                  setMostrarErro(false);
+               }, 5000);
+            }
+         }
+         setLoading(false);
+      }
    }
 
    return (
@@ -34,25 +70,32 @@ const AdicionarLugar = () => {
 
                   <Form.Group className="mb-3">
                      <Form.Label>Descrição</Form.Label>
-                     <Form.Control required as="textarea" placeholder="Insira uma descrição para este lugar" />
+                     <Form.Control ref={descricao_ref} required as="textarea" placeholder="Insira uma descrição para este lugar" />
                      <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group className="mb-4">
                      <Form.Label>Endereço</Form.Label>
-                     <Form.Control required type="text" placeholder="Insira o endereço para este lugar" />
+                     <Form.Control ref={endereco_ref} required type="text" placeholder="Insira o endereço para este lugar" />
                      <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
                   <Button type="submit">Adicionar lugar</Button>
+
+                  {/*   Dando o feedback do submit do formulario  */}
+                  <Alert transition show={mostrarErro} className="mt-4" variant="warning">
+                     {erroMsg}
+                  </Alert>
                </Form>
             </Col>
-            <Col className="d-lg-flex d-none align-items-end">
+            <Col className="d-lg-flex d-none align-items-start pt-2">
                <Image className="ms-auto" id={styles.fotoLado} src={foto} />
             </Col>
          </Row>
+         {/*   Loading com backdrop  */}
+         {loading && <LoadingBackdrop titulo={"Adicionando o lugar..."} />}
       </Container>
    );
 };

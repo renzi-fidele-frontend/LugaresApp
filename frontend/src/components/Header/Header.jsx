@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styles from "./Header.module.css";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-   const [userLogado, setUserLogado] = useState(false);
    const location = useLocation();
+   const { usuario } = useSelector((state) => state.usuario);
 
    return (
       <Navbar expand="lg" className="bg-black bg-gradient">
@@ -24,7 +24,7 @@ const Header = () => {
                   <LinkContainer to="/lugares">
                      <Nav.Link>Lugares</Nav.Link>
                   </LinkContainer>
-                  {userLogado ? (
+                  {usuario ? (
                      <>
                         <LinkContainer to="/meus_lugares">
                            <Nav.Link>Meus lugares</Nav.Link>

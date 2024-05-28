@@ -57,9 +57,13 @@ const fazerLogin = async (req, res) => {
    const { email, password } = req.body;
    // TODO: Validar o login do usuário
    try {
-      let existeUsuario = await Usuario.findOne({ email, password });
+      let existeUsuario = await Usuario.findOne({ email });
       if (existeUsuario) {
-         res.json({ mensagem: "Logado com sucesso!" });
+         if (existeUsuario.password === password) {
+            res.json({ mensagem: "Logado com sucesso!" });
+         } else {
+            res.status(401).json({ mensagem: `Olá ${existeUsuario.nome}, a senha inserida é inválida!` });
+         }
       } else {
          res.status(401).json({ mensagem: "Esse usuário não existe" });
       }

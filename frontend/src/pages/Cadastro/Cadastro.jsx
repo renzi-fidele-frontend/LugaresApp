@@ -8,7 +8,8 @@ import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 const Cadastro = () => {
    const [foiValidado, setFoiValido] = useState(false);
    const [loading, setLoading] = useState(false);
-   const [msgErro, setMsgErro] = useState(null);
+   const [mostrarErro, setMostrarErro] = useState(false);
+   const [erroMsg, setErroMsg] = useState("");
 
    // Refs do formulário
    const nomeRef = useRef(null);
@@ -34,9 +35,10 @@ const Cadastro = () => {
             console.log(res.data);
          } catch (error) {
             if (error.response.data.mensagem) {
-               setMsgErro(error.response.data.mensagem);
+               setErroMsg(error.response.data.mensagem);
+               setMostrarErro(true);
                setTimeout(() => {
-                  setMsgErro(null);
+                  setMostrarErro(false);
                }, 5000);
             }
          }
@@ -74,19 +76,17 @@ const Cadastro = () => {
                   <Button type="submit">Cadastrar</Button>
 
                   {/*   Dando o feedback do submit do formulario  */}
-                  {msgErro && (
-                     <Alert className="mt-4" variant="warning">
-                        {msgErro}
-                     </Alert>
-                  )}
+                  <Alert transition show={mostrarErro} className="mt-4" variant="warning">
+                     {erroMsg}
+                  </Alert>
                </Form>
             </Col>
-            <Col className="d-lg-flex d-none align-items-end">
+            <Col className="d-lg-flex d-none align-items-start pt-2">
                <Image className="ms-auto" id={styles.fotoLado} src={foto} />
             </Col>
          </Row>
          {/*   Loading com backdrop  */}
-         {loading && <LoadingBackdrop />}
+         {loading && <LoadingBackdrop titulo={"Criando a conta..."} />}
       </Container>
    );
 };

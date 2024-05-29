@@ -1,14 +1,17 @@
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Image, Row, Toast } from "react-bootstrap";
 import CardLugar from "../../components/CardLugar/CardLugar";
 import styles from "./MeusLugares.module.css";
 import foto from "../../assets/meus_lugares.png";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const MeusLugares = () => {
    const [lugares, setLugares] = useState(null);
    const { usuario } = useSelector((state) => state.usuario);
+   const [mostrarRemocao, setMostrarRemocao] = useState(false);
+   const removido = useLocation()?.state?.sucesso;
 
    async function apanharMeusLugares() {
       try {
@@ -22,6 +25,10 @@ const MeusLugares = () => {
    useEffect(() => {
       if (!lugares) apanharMeusLugares();
    }, [usuario]);
+
+   useEffect(() => {
+      if (removido) setMostrarRemocao(true);
+   }, [removido]);
 
    return (
       <Container id={styles.ct}>
@@ -51,6 +58,21 @@ const MeusLugares = () => {
                )}
             </Col>
          </Row>
+         {removido && (
+            <Toast
+               bg="danger"
+               className="position-fixed bottom-0 mb-5 me-5 end-0"
+               show={mostrarRemocao}
+               onClose={() => setMostrarRemocao(false)}
+            >
+               <Toast.Header>
+                  <strong className="me-auto">Notificação</strong>
+                  <small>Agora mesmo</small>
+               </Toast.Header>
+               <Toast.Body>O lugar foi removido com sucesso!</Toast.Body>
+            </Toast>
+         )}
+         {/*Alerta caso seja removido um lugar */}
       </Container>
    );
 };

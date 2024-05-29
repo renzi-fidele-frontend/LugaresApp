@@ -1,13 +1,15 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./CardLugar.module.css";
-import { Button, Card, Modal, Stack } from "react-bootstrap";
+import { Button, Card, Modal, Spinner, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco, coordenadas }) => {
    const { usuario } = useSelector((state) => state.usuario);
    const [showMapModal, setShowMapModal] = useState(false);
    const [showRemoveModal, setShowRemoveModal] = useState(false);
+   const [loading, setLoading] = useState(false);
    const mapCtRef = useRef();
    const navegar = useNavigate();
 
@@ -18,6 +20,18 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
          center: { lat: coordenadas.lat, lng: coordenadas.lng },
          zoom: 16,
       });
+   }
+
+   async function removerLugar() {
+      setLoading(true);
+      try {
+         const res = await axios.delete(`http://localhost:3000/api/lugares/${id}`);
+         navegar("/meus_lugares", { state: { sucesso: true } });
+         console.log(res.data.mensagem);
+      } catch (error) {
+         console.log(error.message);
+      }
+      setLoading(false);
    }
 
    return (
@@ -73,13 +87,25 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
             <Modal.Header closeButton>
                <Modal.Title>Tem a certeza?</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Você tem a certeza que deseja remover este lugar? Esta ação é irreversível</Modal.Body>
+            <Modal.Body>
+               <div>Você tem a certeza que deseja remover este lugar? Esta ação é irreversível</div>
+            </Modal.Body>
             <Modal.Footer>
                <Stack gap={3} direction="horizontal">
-                  <Button variant="outline-secondary" onClick={() => setShowRemoveModal(false)}>
-                     Cancelar
-                  </Button>
-                  <Button variant="danger">Remover</Button>
+                  {!loading ? (
+                     <>
+                        <Button variant="outline-secondary" onClick={() => setShowRemoveModal(false)}>
+                           Cancelar
+                        </Button>
+                        <Button onClick={removerLugar} variant="danger">
+                           Remover
+                        </Button>
+                     </>
+                  ) : (
+                     <Button disabled variant="danger">
+                        <Spinner />
+                     </Button>
+                  )}
                </Stack>
             </Modal.Footer>
          </Modal>

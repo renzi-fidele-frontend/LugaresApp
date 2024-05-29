@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import EditarLugar from "./pages/EditarLugar/EditarLugar";
 import Entrar from "./pages/Entrar/Entrar";
 import Cadastro from "./pages/Cadastro/Cadastro";
+import MeusLugares from "./pages/MeusLugares/MeusLugares";
 
 function App() {
    return (
@@ -22,7 +23,7 @@ function App() {
                <Route path="/lugares/:id" element={<EditarLugar />} />
                <Route path="/login" element={<Entrar />} />
                <Route path="/cadastrar" element={<Cadastro />} />
-             
+               <Route path="/meus_lugares" element={<MeusLugares />} />
             </Routes>
             <Footer />
          </BrowserRouter>

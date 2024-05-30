@@ -12,8 +12,10 @@ const MeusLugares = () => {
    const { usuario } = useSelector((state) => state.usuario);
    const [mostrarRemocao, setMostrarRemocao] = useState(false);
    const [mostrarAtualizado, setMostrarAtualizado] = useState(false);
+   const [mostrarNovoCriado, setMostrarNovoCriado] = useState(false);
    const removido = useLocation()?.state?.sucesso;
    const atualizado = useLocation()?.state?.atualizado;
+   const novo_criado = useLocation()?.state?.novo_criado;
 
    async function apanharMeusLugares() {
       try {
@@ -32,7 +34,8 @@ const MeusLugares = () => {
    useEffect(() => {
       if (removido) setMostrarRemocao(true);
       if (atualizado) setMostrarAtualizado(true);
-   }, [removido, atualizado]);
+      if (novo_criado) setMostrarNovoCriado(true);
+   }, [removido, atualizado, novo_criado]);
 
    return (
       <Container id={styles.ct}>
@@ -79,7 +82,7 @@ const MeusLugares = () => {
             </Toast>
          )}
 
-         {/*TODO: Alertar caso um lugar seja atualizado */}
+         {/* Alerta caso um lugar seja atualizado */}
          {atualizado && (
             <Toast
                className="position-fixed bottom-0 mb-5 me-lg-5 end-0"
@@ -92,6 +95,23 @@ const MeusLugares = () => {
                   <small>Agora mesmo</small>
                </Toast.Header>
                <Toast.Body>O lugar foi atualizado com sucesso!</Toast.Body>
+            </Toast>
+         )}
+
+         {/* Alerta caso um novo lugar seja adicionado */}
+         {novo_criado && (
+            <Toast
+               bg="success"
+               className="position-fixed bottom-0 mb-5 me-lg-5 end-0"
+               show={mostrarNovoCriado}
+               onClose={() => setMostrarAtualizado(false)}
+               delay={10000}
+            >
+               <Toast.Header>
+                  <strong className="me-auto">Notificação</strong>
+                  <small>Agora mesmo</small>
+               </Toast.Header>
+               <Toast.Body>Um novo lugar foi criado com sucesso!</Toast.Body>
             </Toast>
          )}
       </Container>

@@ -39,7 +39,7 @@ const AdicionarLugar = () => {
                endereco: endereco_ref.current.value,
                idCriador: usuario._id,
             });
-            navegar("/lugares", { state: { mensagem: "Lugar adicionado com sucesso" } });
+            navegar("/meus_lugares", { state: { novo_criado: true } });
          } catch (error) {
             if (error.response.data.mensagem) {
                setErroMsg(error.response.data.mensagem);

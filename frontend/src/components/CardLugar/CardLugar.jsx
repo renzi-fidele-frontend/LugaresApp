@@ -43,7 +43,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
                   <Stack className="justify-content-center" direction="horizontal" gap={2}>
                      <Button onClick={() => setShowMapModal(true)}>Ver no mapa</Button>
 
-                     <Button onClick={() => navegar(`/lugares/${id}`, { state: { titulo, descricao } })} variant="outline-secondary">
+                     <Button onClick={() => navegar(`/lugares/${id}`, { state: { titulo, descricao, coordenadas, endereco } })} variant="outline-secondary">
                         Editar
                      </Button>
                      <Button variant="outline-danger" onClick={() => setShowRemoveModal(true)}>

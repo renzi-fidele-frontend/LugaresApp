@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./EditarLugar.module.css";
 import { Button, Col, Container, Form, Row, Image, Alert } from "react-bootstrap";
 import foto from "../../assets/updateLugar.png";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
+import inicializarMapa from "../../hooks/useRenderizarMapa";
 
 const EditarLugar = () => {
    const [foiValidado, setFoiValidado] = useState(false);
@@ -50,10 +51,17 @@ const EditarLugar = () => {
       }
    }
 
-   // Controlador de mudança
+   const mapCtRef = useRef(null);
+
+   // Controlador de mudança dos dados do formlário
    useEffect(() => {
       setPodeEnviar(nome_lugar_ref?.current?.value === dadosLugar?.titulo && descricao_ref?.current?.value === dadosLugar?.descricao);
    }, [nome_lugar_ref?.current?.value, descricao_ref?.current?.value, dadosLugar]);
+
+   useMemo(() => {
+      console.log(dadosLugar?.coordenadas);
+      if (mapCtRef.current) inicializarMapa(mapCtRef?.current, dadosLugar?.coordenadas?.lat, dadosLugar?.coordenadas?.lng);
+   }, [mapCtRef?.current, dadosLugar?.coordenadas]);
 
    return (
       <Container className="py-5">
@@ -105,7 +113,7 @@ const EditarLugar = () => {
                   </Alert>
                </Form>
             </Col>
-            <Col className="d-lg-flex d-none align-items-start pt-2">
+            <Col className="d-lg-flex d-none align-items-start">
                <Image className="ms-auto" id={styles.fotoLado} src={foto} />
             </Col>
          </Row>
@@ -113,8 +121,15 @@ const EditarLugar = () => {
          {loading && <LoadingBackdrop titulo={"Atualizando o lugar..."} />}
 
          {/*   TODO: Adicionar separador e Renderizar mapa */}
+         <hr className="my-4" />
          <Row>
-            <Col></Col>
+            <Col>
+               <div ref={mapCtRef} style={{ width: "100%", height: "300px" }}></div>
+               <p className="mt-2 text-center">
+                  <i className="bi bi-geo-alt-fill me-1"></i>
+                  {dadosLugar?.endereco}
+               </p>
+            </Col>
          </Row>
       </Container>
    );

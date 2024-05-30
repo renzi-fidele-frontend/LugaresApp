@@ -36,16 +36,9 @@ const EditarLugar = () => {
                descricao: descricao_ref.current.value,
             });
             console.log(res.data);
-            navegar("/lugares");
+            navegar("/meus_lugares", { state: { atualizado: true } });
          } catch (error) {
             console.log(error.message);
-            /*if (error.response.data.mensagem) {
-               setErroMsg(error.response.data.mensagem);
-               setMostrarErro(true);
-               setTimeout(() => {
-                  setMostrarErro(false);
-               }, 5000);
-            }*/
          }
          setLoading(false);
       }
@@ -60,7 +53,7 @@ const EditarLugar = () => {
 
    useMemo(() => {
       console.log(dadosLugar?.coordenadas);
-      if (mapCtRef.current) inicializarMapa(mapCtRef?.current, dadosLugar?.coordenadas?.lat, dadosLugar?.coordenadas?.lng);
+      inicializarMapa(mapCtRef.current, dadosLugar?.coordenadas?.lat, dadosLugar?.coordenadas?.lng);
    }, [mapCtRef?.current, dadosLugar?.coordenadas]);
 
    return (
@@ -120,7 +113,6 @@ const EditarLugar = () => {
          {/*   Loading com backdrop  */}
          {loading && <LoadingBackdrop titulo={"Atualizando o lugar..."} />}
 
-         {/*   TODO: Adicionar separador e Renderizar mapa */}
          <hr className="my-4" />
          <Row>
             <Col>

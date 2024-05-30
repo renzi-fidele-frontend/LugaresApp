@@ -11,7 +11,9 @@ const MeusLugares = () => {
    const [lugares, setLugares] = useState(null);
    const { usuario } = useSelector((state) => state.usuario);
    const [mostrarRemocao, setMostrarRemocao] = useState(false);
+   const [mostrarAtualizado, setMostrarAtualizado] = useState(false);
    const removido = useLocation()?.state?.sucesso;
+   const atualizado = useLocation()?.state?.atualizado;
 
    async function apanharMeusLugares() {
       try {
@@ -26,9 +28,11 @@ const MeusLugares = () => {
       if (!lugares) apanharMeusLugares();
    }, [usuario]);
 
+   // Controlador das notificações
    useEffect(() => {
       if (removido) setMostrarRemocao(true);
-   }, [removido]);
+      if (atualizado) setMostrarAtualizado(true);
+   }, [removido, atualizado]);
 
    return (
       <Container id={styles.ct}>
@@ -72,6 +76,22 @@ const MeusLugares = () => {
                   <small>Agora mesmo</small>
                </Toast.Header>
                <Toast.Body>O lugar foi removido com sucesso!</Toast.Body>
+            </Toast>
+         )}
+
+         {/*TODO: Alertar caso um lugar seja atualizado */}
+         {atualizado && (
+            <Toast
+               className="position-fixed bottom-0 mb-5 me-lg-5 end-0"
+               show={mostrarAtualizado}
+               onClose={() => setMostrarAtualizado(false)}
+               delay={10000}
+            >
+               <Toast.Header>
+                  <strong className="me-auto">Notificação</strong>
+                  <small>Agora mesmo</small>
+               </Toast.Header>
+               <Toast.Body>O lugar foi atualizado com sucesso!</Toast.Body>
             </Toast>
          )}
       </Container>

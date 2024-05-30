@@ -58,12 +58,14 @@ const MeusLugares = () => {
                )}
             </Col>
          </Row>
+         {/*Alerta caso seja removido um lugar */}
          {removido && (
             <Toast
                bg="danger"
                className="position-fixed bottom-0 mb-5 me-5 end-0"
                show={mostrarRemocao}
                onClose={() => setMostrarRemocao(false)}
+               delay={10000}
             >
                <Toast.Header>
                   <strong className="me-auto">Notificação</strong>
@@ -72,7 +74,6 @@ const MeusLugares = () => {
                <Toast.Body>O lugar foi removido com sucesso!</Toast.Body>
             </Toast>
          )}
-         {/*Alerta caso seja removido um lugar */}
       </Container>
    );
 };

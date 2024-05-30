@@ -4,6 +4,7 @@ import { Button, Card, Modal, Spinner, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import inicializarMapa from "../../hooks/useRenderizarMapa";
 
 const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco, coordenadas }) => {
    const { usuario } = useSelector((state) => state.usuario);
@@ -12,15 +13,6 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
    const [loading, setLoading] = useState(false);
    const mapCtRef = useRef();
    const navegar = useNavigate();
-
-   async function inicializarMapa() {
-      const { Map } = await google.maps.importLibrary("maps");
-
-      let map = new Map(mapCtRef.current, {
-         center: { lat: coordenadas.lat, lng: coordenadas.lng },
-         zoom: 16,
-      });
-   }
 
    async function removerLugar() {
       setLoading(true);
@@ -68,7 +60,16 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
             )}
          </Card.Footer>
          {/*Modal do mapa */}
-         <Modal backdrop="static" show={showMapModal} onShow={inicializarMapa} size="lg" centered onHide={() => setShowMapModal(false)}>
+         <Modal
+            backdrop="static"
+            show={showMapModal}
+            onShow={() => {
+               inicializarMapa(mapCtRef.current, coordenadas.lat, coordenadas.lng);
+            }}
+            size="lg"
+            centered
+            onHide={() => setShowMapModal(false)}
+         >
             <Modal.Header closeButton>
                <Modal.Title>{titulo}</Modal.Title>
             </Modal.Header>

@@ -111,6 +111,11 @@ const EditarLugar = () => {
          </Row>
          {/*   Loading com backdrop  */}
          {loading && <LoadingBackdrop titulo={"Atualizando o lugar..."} />}
+
+         {/*   TODO: Adicionar separador e Renderizar mapa */}
+         <Row>
+            <Col></Col>
+         </Row>
       </Container>
    );
 };

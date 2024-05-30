@@ -32,17 +32,17 @@ const Home = () => {
             </Col>
          </Row>
          <Row className="mt-3 g-4 justify-content-center">
-            {usuarios?.length > 0 ? (
-               usuarios.map((v, k) => (
-                  <Col className="text-center" xs={12} sm={6} xl={4} key={k}>
-                     <UserCard uid={v._id} aderiuEm={v.criadoEm} fotoPerfil={v.foto} nome={v.nome} nrLugares={v.nrLugares} />
-                  </Col>
-               ))
-            ) : (
-               <Col>
-                  <p>Nenhum usuário foi encontrado</p>
-               </Col>
-            )}
+            {usuarios?.length > 0
+               ? usuarios?.map((v, k) => (
+                    <Col className="text-center" xs={12} sm={6} xl={4} key={k}>
+                       <UserCard uid={v._id} aderiuEm={v.criadoEm} fotoPerfil={v.foto} nome={v.nome} nrLugares={v.nrLugares} />
+                    </Col>
+                 ))
+               : [1, 2, 3, 4, 5].map((v, k) => (
+                    <Col className="text-center" xs={12} sm={6} xl={4} key={k}>
+                       <UserCard />
+                    </Col>
+                 ))}
          </Row>
       </div>
    );

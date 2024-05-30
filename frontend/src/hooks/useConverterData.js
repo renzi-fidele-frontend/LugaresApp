@@ -1,5 +1,5 @@
 //  Convertendo o tempo em segundos para formato de data
-const useConverterData = (data) => {
+const converterData = (data) => {
    let t = new Date(data);
    let dd = t?.getDate();
    let mm = t?.getMonth() + 1;
@@ -8,4 +8,4 @@ const useConverterData = (data) => {
    return frase;
 };
 
-export default useConverterData;
+export default converterData;

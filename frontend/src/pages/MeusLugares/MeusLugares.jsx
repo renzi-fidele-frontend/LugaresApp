@@ -104,7 +104,7 @@ const MeusLugares = () => {
                bg="success"
                className="position-fixed bottom-0 mb-5 me-lg-5 end-0"
                show={mostrarNovoCriado}
-               onClose={() => setMostrarAtualizado(false)}
+               onClose={() => setMostrarNovoCriado(false)}
                delay={10000}
             >
                <Toast.Header>

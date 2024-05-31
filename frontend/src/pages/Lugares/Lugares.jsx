@@ -60,7 +60,7 @@ const Lugares = () => {
                      : "Descubra os lugares que foram compartilhados pelos usuários"}
                </h2>
                <Image className="mb-5" id={styles.foto} src={foto} />
-               {lugares?.length > 0 && (
+               {lugares?.length > 0 ? (
                   <Row className="mt-4 g-4 justify-content-center">
                      {!userMode
                         ? lugares?.map((v, k) => (
@@ -91,6 +91,14 @@ const Lugares = () => {
                                 />
                              </Col>
                           ))}
+                  </Row>
+               ) : (
+                  <Row className="mt-4 g-4 justify-content-center">
+                     {[1, 2, 3, 4, 5].map((v, k) => (
+                        <Col md={6} xl={4} key={k}>
+                           <CardLugar />
+                        </Col>
+                     ))}
                   </Row>
                )}
             </Col>

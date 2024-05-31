@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import converterData from "../../hooks/useConverterData";
 
 const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
-   // TODO: Adicionar loading de esquelo
    return (
       <>
          {fotoPerfil && nome && aderiuEm && uid ? (
@@ -34,7 +33,6 @@ const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
             <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
                <Row>
                   <Col className="my-md-auto" md={4}>
-                     {/* Placeholder de foto de perfil */}
                      <div className="p-5 rounded-1" style={{ background: "#8c8f91" }}></div>
                   </Col>
                   <Col className="text-md-start text-sm-center ps-md-4 pt-2 pt-md-0" md={8}>

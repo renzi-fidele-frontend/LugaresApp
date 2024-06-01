@@ -16,10 +16,10 @@ img {
    object-fit: cover;
 }
 
-div.dropdown > .dropdown-menu {
+/*div.dropdown > .dropdown-menu {
    display: inherit;
    transform: translate(-39px, 13px) scaleX(0);
-   transition: all 0.5s cubic-bezier(0, -0.14, 0.27, 1.55);
+   transition: all 0.3s cubic-bezier(0, -0.14, 0.27, 1.55);
    transform-origin: top;
    left: 0;
 }
@@ -28,3 +28,4 @@ div.dropdown.show > .dropdown-menu {
    display: inherit;
    transform: translate(-39px, 13px) scaleX(1);
 }
+*/

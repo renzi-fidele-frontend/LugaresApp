@@ -1,12 +1,18 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Dropdown, Image, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styles from "./Header.module.css";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUsuario } from "../../state/usuario/usuarioSlice";
 
 const Header = () => {
    const location = useLocation();
    const { usuario } = useSelector((state) => state.usuario);
+   const dispatch = useDispatch();
+
+   function deslogar() {
+      dispatch(setUsuario(null));
+   }
 
    return (
       <Navbar expand="lg" className="bg-black bg-gradient">
@@ -32,14 +38,22 @@ const Header = () => {
                         <LinkContainer to="/adicionar_lugar">
                            <Nav.Link>Adicionar novo</Nav.Link>
                         </LinkContainer>
-                        <Nav.Link
-                           id={styles.removerBtn}
-                           onClick={(e) => {
-                              e.preventDefault();
-                           }}
-                        >
-                           Deslogar
-                        </Nav.Link>
+
+                        <Dropdown>
+                           <Dropdown.Toggle id={styles.seta} variant="dark" as="a">
+                              <Image className="rounded-circle object-fit-cover ms-3" id={styles.fotoUsuario} src={usuario?.foto} />
+                           </Dropdown.Toggle>
+
+                           <Dropdown.Menu>
+                              <LinkContainer to="editar_perfil">
+                                 <Dropdown.Item>Editar perfil</Dropdown.Item>
+                              </LinkContainer>
+
+                              <Dropdown.Item onClick={deslogar} className="text-danger">
+                                 Deslogar
+                              </Dropdown.Item>
+                           </Dropdown.Menu>
+                        </Dropdown>
                      </>
                   ) : (
                      <>

@@ -1,3 +1,9 @@
-#removerBtn {
-   color: red !important;
+#fotoUsuario {
+   height: 40px;
+   width: 40px;
+   cursor: pointer;
+}
+
+#seta::after {
+   content: none;
 }

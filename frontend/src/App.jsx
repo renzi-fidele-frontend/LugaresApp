@@ -9,6 +9,7 @@ import EditarLugar from "./pages/EditarLugar/EditarLugar";
 import Entrar from "./pages/Entrar/Entrar";
 import Cadastro from "./pages/Cadastro/Cadastro";
 import MeusLugares from "./pages/MeusLugares/MeusLugares";
+import PerfilUsuario from "./pages/PerfilUsuario/PerfilUsuario";
 
 function App() {
    return (
@@ -24,6 +25,7 @@ function App() {
                <Route path="/login" element={<Entrar />} />
                <Route path="/cadastrar" element={<Cadastro />} />
                <Route path="/meus_lugares" element={<MeusLugares />} />
+               <Route path="/editar_perfil" element={<PerfilUsuario />} />
             </Routes>
             <Footer />
          </BrowserRouter>

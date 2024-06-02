@@ -39,7 +39,7 @@ const Header = () => {
                            <Nav.Link>Adicionar novo</Nav.Link>
                         </LinkContainer>
 
-                        <Dropdown>
+                        <Dropdown className="d-flex align-items-center">
                            <Dropdown.Toggle id={styles.seta} variant="dark" as="a">
                               <Image className="rounded-circle object-fit-cover ms-3" id={styles.fotoUsuario} src={usuario?.foto} />
                            </Dropdown.Toggle>

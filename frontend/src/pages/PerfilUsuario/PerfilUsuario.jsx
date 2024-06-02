@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./PerfilUsuario.module.css";
-import { Button, Col, Container, Form, Row, Image, Alert, Figure, Dropdown } from "react-bootstrap";
+import { Button, Col, Container, Form, Row, Image, Alert, Dropdown } from "react-bootstrap";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
@@ -13,13 +13,12 @@ const PerfilUsuario = () => {
    const [erroMsg, setErroMsg] = useState("");
    const [podeAtualizar, setPodeAtualizar] = useState(false);
 
-   const dadosLugar = useLocation().state;
-
    const { usuario } = useSelector((state) => state.usuario);
 
    // Refs do formulário
-   const nome_lugar_ref = useRef(null);
-   const descricao_ref = useRef(null);
+   const nome_usuario_ref = useRef(null);
+   const password_ref = useRef(null);
+   const imgRef = useRef(null);
 
    async function atualizarPerfil(e) {
       e.preventDefault();
@@ -31,12 +30,12 @@ const PerfilUsuario = () => {
          setLoading(false);
       }
    }
-   /*
+
    // Controlador de mudança dos dados do formlário
    useEffect(() => {
-      setPodeAtualizar(nome_lugar_ref?.current?.value === dadosLugar?.titulo && descricao_ref?.current?.value === dadosLugar?.descricao);
-   }, [nome_lugar_ref?.current?.value, descricao_ref?.current?.value, dadosLugar]);
-*/
+      setPodeAtualizar(nome_usuario_ref?.current?.value === usuario?.nome && password_ref?.current?.value === usuario?.password);
+   }, []);
+
    return (
       <Container className="py-5 px-md-5">
          <Row className="mt-4 px-md-5">
@@ -44,9 +43,13 @@ const PerfilUsuario = () => {
                <h2 className="mb-5">Atualize os dados do seu perfil</h2>
                <Form
                   onChange={() => {
-                     setPodeAtualizar(
-                        nome_lugar_ref?.current?.value === dadosLugar?.titulo && descricao_ref?.current?.value === dadosLugar?.descricao
-                     );
+                     if (imgRef?.current?.files[0]) {
+                        setPodeAtualizar(false);
+                     } else {
+                        setPodeAtualizar(
+                           nome_usuario_ref?.current?.value === usuario?.nome && password_ref?.current?.value === usuario?.password
+                        );
+                     }
                   }}
                   onSubmit={atualizarPerfil}
                   validated={foiValidado}
@@ -54,14 +57,20 @@ const PerfilUsuario = () => {
                >
                   <Form.Group className="mb-3">
                      <Form.Label>Nome do usuário</Form.Label>
-                     <Form.Control ref={nome_lugar_ref} required defaultValue="" type="text" placeholder="Insira um nome ao seu gosto" />
+                     <Form.Control
+                        ref={nome_usuario_ref}
+                        required
+                        defaultValue={usuario?.nome}
+                        type="text"
+                        placeholder="Insira um nome ao seu gosto"
+                     />
                      <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group className="mb-4">
                      <Form.Label>Palavra-passe</Form.Label>
-                     <Form.Control ref={descricao_ref} required defaultValue="" type="text" placeholder="Insira a sua senha" />
+                     <Form.Control ref={password_ref} required defaultValue={usuario?.password} type="text" placeholder="Insira a sua senha" />
                      <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
@@ -86,8 +95,23 @@ const PerfilUsuario = () => {
                      ></i>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                     <Dropdown.Item>
+                     {/* TODO: Adicionar imagem ao se clicar em nova imagem
+
+                        TODO: Remover a foto de perfil para o default, mas antes mostrar popup de confirmação
+                    */}
+                     <Dropdown.Item as="label" style={{ cursor: "pointer" }}>
                         <i className="bi bi-upload me-1"></i> Carregar nova
+                        <input
+                           name="foto_perfil"
+                           className="d-none"
+                           ref={imgRef}
+                           onChange={() => {
+                              setPodeAtualizar(false);
+                              console.log("Imagem carregada");
+                           }}
+                           accept="image/png, image/gif, image/jpeg"
+                           type="file"
+                        />
                      </Dropdown.Item>
                      <Dropdown.Item className="text-danger">Remover</Dropdown.Item>
                   </Dropdown.Menu>

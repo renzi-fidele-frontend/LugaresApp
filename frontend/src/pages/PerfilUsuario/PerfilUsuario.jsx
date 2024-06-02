@@ -36,6 +36,8 @@ const PerfilUsuario = () => {
       setPodeAtualizar(nome_usuario_ref?.current?.value === usuario?.nome && password_ref?.current?.value === usuario?.password);
    }, []);
 
+   const fotoPerfilRef = useRef(null);
+
    return (
       <Container className="py-5 px-md-5">
          <Row className="mt-4 px-md-5">
@@ -86,7 +88,12 @@ const PerfilUsuario = () => {
                </Form>
             </Col>
             <Col className="d-lg-flex d-none align-items-start position-relative">
-               <Image className="ms-auto rounded-2 border border-2 border-secondary-subtle shadow-lg" id={styles.fotoLado} src={usuario?.foto} />
+               <Image
+                  ref={fotoPerfilRef}
+                  className="ms-auto rounded-2 border border-2 border-secondary-subtle shadow-lg"
+                  id={styles.fotoLado}
+                  src={usuario?.foto}
+               />
                <Dropdown className="position-absolute end-0 bottom-0">
                   <Dropdown.Toggle id={styles.toogle} as="a">
                      <i
@@ -95,8 +102,7 @@ const PerfilUsuario = () => {
                      ></i>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                     {/* TODO: Adicionar imagem ao se clicar em nova imagem
-
+                     {/* 
                         TODO: Remover a foto de perfil para o default, mas antes mostrar popup de confirmação
                     */}
                      <Dropdown.Item as="label" style={{ cursor: "pointer" }}>
@@ -107,7 +113,11 @@ const PerfilUsuario = () => {
                            ref={imgRef}
                            onChange={() => {
                               setPodeAtualizar(false);
-                              console.log("Imagem carregada");
+                              const reader = new FileReader();
+                              reader.onloadend = () => {
+                                 fotoPerfilRef.current.src = reader.result;
+                              };
+                              reader.readAsDataURL(imgRef.current.files[0]);
                            }}
                            accept="image/png, image/gif, image/jpeg"
                            type="file"

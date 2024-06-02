@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./PerfilUsuario.module.css";
-import { Button, Col, Container, Form, Row, Image, Alert, Dropdown } from "react-bootstrap";
+import { Button, Col, Container, Form, Row, Image, Alert, Dropdown, Modal, Stack, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
@@ -12,6 +12,7 @@ const PerfilUsuario = () => {
    const [mostrarErro, setMostrarErro] = useState(false);
    const [erroMsg, setErroMsg] = useState("");
    const [podeAtualizar, setPodeAtualizar] = useState(false);
+   const [showRemoveModal, setShowRemoveModal] = useState(false);
 
    const { usuario } = useSelector((state) => state.usuario);
 
@@ -31,6 +32,10 @@ const PerfilUsuario = () => {
 
          setLoading(false);
       }
+   }
+
+   async function removerFotoUsuario() {
+      return;
    }
 
    // Controlador de mudança dos dados do formlário
@@ -138,13 +143,48 @@ const PerfilUsuario = () => {
                            type="file"
                         />
                      </Dropdown.Item>
-                     <Dropdown.Item className="text-danger">Remover</Dropdown.Item>
+                     <Dropdown.Item
+                        onClick={() => {
+                           setShowRemoveModal(true);
+                        }}
+                        className="text-danger"
+                     >
+                        Remover
+                     </Dropdown.Item>
                   </Dropdown.Menu>
                </Dropdown>
             </Col>
          </Row>
          {/*   Loading com backdrop  */}
          {loading && <LoadingBackdrop titulo={"Atualizando o perfil..."} />}
+
+         {/*Modal de confirmação de remoção */}
+         <Modal backdrop="static" show={showRemoveModal} centered onHide={() => setShowRemoveModal(false)}>
+            <Modal.Header closeButton>
+               <Modal.Title>Tem a certeza?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+               <div>Você tem a certeza que deseja remover a sua foto de perfil? Esta ação é irreversível</div>
+            </Modal.Body>
+            <Modal.Footer>
+               <Stack gap={3} direction="horizontal">
+                  {!loading ? (
+                     <>
+                        <Button variant="outline-secondary" onClick={() => setShowRemoveModal(false)}>
+                           Cancelar
+                        </Button>
+                        <Button onClick={removerFotoUsuario} variant="danger">
+                           Remover
+                        </Button>
+                     </>
+                  ) : (
+                     <Button disabled variant="danger">
+                        <Spinner />
+                     </Button>
+                  )}
+               </Stack>
+            </Modal.Footer>
+         </Modal>
       </Container>
    );
 };

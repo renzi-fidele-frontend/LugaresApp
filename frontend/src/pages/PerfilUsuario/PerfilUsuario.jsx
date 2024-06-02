@@ -35,12 +35,30 @@ const PerfilUsuario = () => {
    }
 
    async function removerFotoUsuario() {
+      // TODO: Remover a foto de perfil para o default
       return;
+   }
+
+   function handleImgUpload() {
+      setPodeAtualizar(false);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+         fotoPerfilRef.current.src = reader.result;
+      };
+      reader.readAsDataURL(imgRef.current.files[0]);
+   }
+
+   function verificarMudanca() {
+      if (imgRef?.current?.files[0]) {
+         setPodeAtualizar(false);
+      } else {
+         setPodeAtualizar(nome_usuario_ref?.current?.value === usuario?.nome && password_ref?.current?.value === usuario?.password);
+      }
    }
 
    // Controlador de mudança dos dados do formlário
    useEffect(() => {
-      setPodeAtualizar(nome_usuario_ref?.current?.value === usuario?.nome && password_ref?.current?.value === usuario?.password);
+      verificarMudanca();
    }, []);
 
    const fotoPerfilRef = useRef(null);
@@ -50,20 +68,7 @@ const PerfilUsuario = () => {
          <Row className="mt-4 px-md-5">
             <Col xs={12} lg={6} xl={7}>
                <h2 className="mb-5">Atualize os dados do seu perfil</h2>
-               <Form
-                  onChange={() => {
-                     if (imgRef?.current?.files[0]) {
-                        setPodeAtualizar(false);
-                     } else {
-                        setPodeAtualizar(
-                           nome_usuario_ref?.current?.value === usuario?.nome && password_ref?.current?.value === usuario?.password
-                        );
-                     }
-                  }}
-                  onSubmit={atualizarPerfil}
-                  validated={foiValidado}
-                  noValidate
-               >
+               <Form onChange={verificarMudanca} onSubmit={atualizarPerfil} validated={foiValidado} noValidate>
                   <Form.Group className="mb-3">
                      <Form.Label>Nome do usuário</Form.Label>
                      <Form.Control
@@ -122,23 +127,13 @@ const PerfilUsuario = () => {
                      ></i>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                     {/* 
-                        TODO: Remover a foto de perfil para o default, mas antes mostrar popup de confirmação
-                    */}
                      <Dropdown.Item as="label" style={{ cursor: "pointer" }}>
                         <i className="bi bi-upload me-1"></i> Carregar nova
                         <input
                            name="foto_perfil"
                            className="d-none"
                            ref={imgRef}
-                           onChange={() => {
-                              setPodeAtualizar(false);
-                              const reader = new FileReader();
-                              reader.onloadend = () => {
-                                 fotoPerfilRef.current.src = reader.result;
-                              };
-                              reader.readAsDataURL(imgRef.current.files[0]);
-                           }}
+                           onChange={handleImgUpload}
                            accept="image/png, image/gif, image/jpeg"
                            type="file"
                         />

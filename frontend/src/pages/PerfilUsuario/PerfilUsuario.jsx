@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./PerfilUsuario.module.css";
 import { Button, Col, Container, Form, Row, Image, Alert, Dropdown } from "react-bootstrap";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 import { useSelector } from "react-redux";
 
@@ -14,6 +14,8 @@ const PerfilUsuario = () => {
    const [podeAtualizar, setPodeAtualizar] = useState(false);
 
    const { usuario } = useSelector((state) => state.usuario);
+
+   const navegar = useNavigate();
 
    // Refs do formulário
    const nome_usuario_ref = useRef(null);
@@ -81,6 +83,19 @@ const PerfilUsuario = () => {
                      Atualizar perfil
                   </Button>
 
+                  {!podeAtualizar && (
+                     <Button
+                        className="ms-3"
+                        variant="danger"
+                        onClick={(e) => {
+                           e.preventDefault();
+                           navegar("/lugares");
+                        }}
+                     >
+                        Cancelar
+                     </Button>
+                  )}
+
                   {/*   Dando o feedback do submit do formulario  */}
                   <Alert transition show={mostrarErro} className="mt-4" variant="warning">
                      {erroMsg}
@@ -90,7 +105,7 @@ const PerfilUsuario = () => {
             <Col className="d-lg-flex d-none align-items-start position-relative">
                <Image
                   ref={fotoPerfilRef}
-                  className="ms-auto rounded-2 border border-2 border-secondary-subtle shadow-lg"
+                  className="ms-auto rounded-2 border object-fit-cover border-2 border-secondary-subtle shadow-lg"
                   id={styles.fotoLado}
                   src={usuario?.foto}
                />

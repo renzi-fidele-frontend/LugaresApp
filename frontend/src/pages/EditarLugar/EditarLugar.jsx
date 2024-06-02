@@ -100,6 +100,19 @@ const EditarLugar = () => {
                      Atualizar lugar
                   </Button>
 
+                  {!podeEnviar && (
+                     <Button
+                        className="ms-3"
+                        variant="danger"
+                        onClick={(e) => {
+                           e.preventDefault();
+                           navegar("/lugares");
+                        }}
+                     >
+                        Cancelar
+                     </Button>
+                  )}
+
                   {/*   Dando o feedback do submit do formulario  */}
                   <Alert transition show={mostrarErro} className="mt-4" variant="warning">
                      {erroMsg}

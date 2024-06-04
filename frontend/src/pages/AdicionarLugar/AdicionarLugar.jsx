@@ -22,6 +22,7 @@ const AdicionarLugar = () => {
    const nome_lugar_ref = useRef(null);
    const descricao_ref = useRef(null);
    const endereco_ref = useRef(null);
+   const file_ref = useRef(null);
 
    async function adicionarLugar(e) {
       e.preventDefault();
@@ -56,7 +57,7 @@ const AdicionarLugar = () => {
    return (
       <Container className="py-5">
          <Row className="mt-4">
-            <Col xs={12} lg={6} xl={7}>
+            <Col xs={12} lg={6}>
                <h2 className="mb-5">Adicione um novo lugar a plataforma</h2>
                <Form onSubmit={adicionarLugar} validated={foiValidado} noValidate>
                   <Form.Group className="mb-3">
@@ -76,6 +77,14 @@ const AdicionarLugar = () => {
                   <Form.Group className="mb-4">
                      <Form.Label>Endereço</Form.Label>
                      <Form.Control ref={endereco_ref} required type="text" placeholder="Insira o endereço para este lugar" />
+                     <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
+                     <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
+                  </Form.Group>
+
+                  {/*   TODO: Adicionar field para carregar a foto do lugar */}
+                  <Form.Group className="mb-4">
+                     <Form.Label>Imagem do lugar</Form.Label>
+                     <Form.Control ref={file_ref} accept="image/*" required type="file" placeholder="Insira o endereço para este lugar" />
                      <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>

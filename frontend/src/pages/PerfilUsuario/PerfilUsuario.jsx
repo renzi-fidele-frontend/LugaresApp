@@ -24,6 +24,9 @@ const PerfilUsuario = () => {
    const imgRef = useRef(null);
 
    async function atualizarPerfil(e) {
+
+      // TODO: Caso haja uma imagem nova, enviar a foto ao backend
+
       e.preventDefault();
       e.stopPropagation();
       setFoiValidado(true);
@@ -134,7 +137,7 @@ const PerfilUsuario = () => {
                            className="d-none"
                            ref={imgRef}
                            onChange={handleImgUpload}
-                           accept="image/png, image/gif, image/jpeg"
+                           accept="image/*"
                            type="file"
                         />
                      </Dropdown.Item>

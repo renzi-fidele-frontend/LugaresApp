@@ -76,6 +76,8 @@ const Cadastro = () => {
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
+                  {/*   TODO: Adicionar field para carregar a foto do perfil */}
+
                   <Button type="submit">Cadastrar</Button>
 
                   {/*   Dando o feedback do submit do formulario  */}

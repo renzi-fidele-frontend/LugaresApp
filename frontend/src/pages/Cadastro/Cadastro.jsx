@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./Cadastro.module.css";
-import { Alert, Button, Col, Container, Form, Image, Row, Toast } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import foto from "../../assets/cadastro.png";
 import axios from "axios";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
@@ -18,6 +18,7 @@ const Cadastro = () => {
    const nomeRef = useRef(null);
    const emailRef = useRef(null);
    const passwordRef = useRef(null);
+   const fotoRef = useRef(null);
 
    async function criarConta(e) {
       e.preventDefault();
@@ -52,7 +53,7 @@ const Cadastro = () => {
    return (
       <Container className="py-5">
          <Row className="mt-4">
-            <Col xs={12} lg={6} xl={7}>
+            <Col xs={12} lg={6}>
                <h2 className="mb-5">Crie uma conta para também poder compartilhar lugares</h2>
                <Form onSubmit={criarConta} validated={foiValidado} noValidate>
                   <Form.Group className="mb-3">
@@ -73,6 +74,13 @@ const Cadastro = () => {
                      <Form.Label>Palavra-passe</Form.Label>
                      <Form.Control ref={passwordRef} required type="password" placeholder="Insira a sua senha" />
                      <Form.Control.Feedback>Parece bom</Form.Control.Feedback>
+                     <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group className="mb-4">
+                     <Form.Label>Foto de perfil</Form.Label>
+                     <Form.Control ref={fotoRef} accept="image/*" required type="file" />
+                     <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 

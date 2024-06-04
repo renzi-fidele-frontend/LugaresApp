@@ -29,6 +29,8 @@ const AdicionarLugar = () => {
       e.stopPropagation();
       setFoiValido(true);
 
+      // TODO: Adicionar a foto do lugar ao corpo do post
+
       if (e.currentTarget.checkValidity() === false) {
          // Não conseguiu
       } else {
@@ -81,7 +83,6 @@ const AdicionarLugar = () => {
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
-                  {/*   TODO: Adicionar field para carregar a foto do lugar */}
                   <Form.Group className="mb-4">
                      <Form.Label>Imagem do lugar</Form.Label>
                      <Form.Control ref={file_ref} accept="image/*" required type="file" placeholder="Insira o endereço para este lugar" />

@@ -1,9 +1,16 @@
 #fotoLado {
-    height: 480px;
+    height: 500px;
 }
 
-@media screen and (max-width: 3120px) {
+@media screen and (max-width: 1400px) {
     #fotoLado {
-        height: 430px;
-    }
+        height: 450px;
+    }  
 }
+
+@media screen and (max-width: 1400px) {
+    #fotoLado {
+        height: 450px;
+    }  
+}
+

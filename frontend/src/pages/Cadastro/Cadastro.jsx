@@ -29,7 +29,7 @@ const Cadastro = () => {
          // Não conseguiu
       } else {
          setLoading(true);
-         // TODO: Adicionar feature de foto de perfil para cada usuário
+         // TODO: Adicionar a foto de perfil para cada usuário
          try {
             const res = await axios.post("http://localhost:3000/api/usuarios/cadastro", {
                nome: nomeRef.current.value,
@@ -84,8 +84,6 @@ const Cadastro = () => {
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
-                  {/*   TODO: Adicionar field para carregar a foto do perfil */}
-
                   <Button type="submit">Cadastrar</Button>
 
                   {/*   Dando o feedback do submit do formulario  */}
@@ -94,7 +92,7 @@ const Cadastro = () => {
                   </Alert>
                </Form>
             </Col>
-            <Col className="d-lg-flex d-none align-items-start pt-2">
+            <Col className="d-lg-flex d-none align-items-start pt-0">
                <Image className="ms-auto" id={styles.fotoLado} src={foto} />
             </Col>
          </Row>

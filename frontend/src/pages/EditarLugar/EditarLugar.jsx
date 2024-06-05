@@ -96,7 +96,7 @@ const EditarLugar = () => {
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
-                  {/*   TODO: Adicionar field para carregar a nova foto do lugar */}
+                  {/*   TODO: Adicionar field para carregar a nova foto do lugar (OPCIONAL) */}
 
                   <Button type="submit" disabled={podeEnviar}>
                      Atualizar lugar

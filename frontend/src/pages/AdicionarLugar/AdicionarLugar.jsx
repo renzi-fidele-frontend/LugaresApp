@@ -29,8 +29,6 @@ const AdicionarLugar = () => {
       e.stopPropagation();
       setFoiValido(true);
 
-      // TODO: Adicionar a foto do lugar ao corpo do post
-
       if (e.currentTarget.checkValidity() === false) {
          // Não conseguiu
       } else {
@@ -41,6 +39,8 @@ const AdicionarLugar = () => {
                descricao: descricao_ref.current.value,
                endereco: endereco_ref.current.value,
                idCriador: usuario._id,
+               // TODO: Adicionar a foto do lugar ao corpo do post
+               foto: file_ref.current.files[0],
             });
             navegar("/meus_lugares", { state: { novo_criado: true } });
          } catch (error) {

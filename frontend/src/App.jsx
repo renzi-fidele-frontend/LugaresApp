@@ -17,7 +17,7 @@ function App() {
          <BrowserRouter>
             <Header />
             <Routes>
-               {/*   TODO: Melhorar seguraça das rotas caso o usuário não esteja logado */}
+               {/*   TODO: Após adicionar autenticação, Melhorar seguraça das rotas caso o usuário não esteja logado */}
                <Route exact path="/" element={<Home />} />
                <Route path="/lugares" element={<Lugares />} />
                <Route path="/:uid/lugares" element={<Lugares />} />

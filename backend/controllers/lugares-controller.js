@@ -37,21 +37,24 @@ const getLugaresDoUsuarioById = async (req, res) => {
 };
 
 const adicionarLugar = async (req, res) => {
-   const { titulo, descricao, endereco, idCriador } = req.body;
+   const { titulo, descricao, endereco, idCriador, foto } = req.body;
    coordenadas = await apanharCoordernadasPorEndereco(endereco);
-   let lugarCriado = {
-      titulo,
-      descricao,
-      idCriador,
-      endereco,
-      foto: "https://www.moz.life/wp-content/uploads/2020/11/Salva-Vidas-.jpg",
-      coordenadas,
-   };
-
-   let lugarAdicionado = new Lugar(lugarCriado);
-
-   await lugarAdicionado.save();
-   res.json({ lugar: lugarCriado });
+   // TODO: upar a foto do lugar ao Multer
+   try {
+      let lugarCriado = {
+         titulo,
+         descricao,
+         idCriador,
+         endereco,
+         foto: "https://www.moz.life/wp-content/uploads/2020/11/Salva-Vidas-.jpg",
+         coordenadas,
+      };
+      let lugarAdicionado = new Lugar(lugarCriado);
+      await lugarAdicionado.save();
+      res.json({ lugar: lugarCriado });
+   } catch (error) {
+      res.status(500).json({ mensagem: "Erro ao criar o lugar" });
+   }
 };
 
 const atualizarLugarById = async (req, res) => {
@@ -71,7 +74,7 @@ const removerLugarById = async (req, res) => {
       const lugarRemovido = await Lugar.deleteOne({ _id: idLugar });
       res.json({ mensagem: "Lugar removido com sucesso!" });
    } catch (erro) {
-      res.status(201).json({ mensagem: "Erro ao remover o lugar no DB" });
+      res.status(500).json({ mensagem: "Erro ao remover o lugar no DB" });
    }
 };
 

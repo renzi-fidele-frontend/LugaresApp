@@ -46,8 +46,8 @@ const Entrar = () => {
    }
 
    return (
-      <Container className="py-5">
-         <Row className="mt-4">
+      <Container className="py-5 px-xxl-5">
+         <Row className="mt-4 px-xxl-5">
             <Col xs={12} lg={6} xl={7}>
                <h2 className="mb-5">Faça login para também poder compartilhar lugares</h2>
                <Form onSubmit={fazerLogin} validated={foiValidado} noValidate>

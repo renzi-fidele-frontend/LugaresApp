@@ -24,21 +24,20 @@ const PerfilUsuario = () => {
    const imgRef = useRef(null);
 
    async function atualizarPerfil(e) {
-
-      // TODO: Caso haja uma imagem nova, enviar a foto ao backend
+      // TODO: Após adicionar autenticação, caso haja uma imagem nova, adicionar ela ao corpo do patch
 
       e.preventDefault();
       e.stopPropagation();
       setFoiValidado(true);
       if (e.currentTarget.checkValidity() === true) {
          setLoading(true);
-
+         // TODO: Após adicionar autenticação, finalizar função para atualizar o perfil do usuário
          setLoading(false);
       }
    }
 
    async function removerFotoUsuario() {
-      // TODO: Remover a foto de perfil para o default
+      // TODO: Após adicionar autenticação, remover a foto de perfil para o default
       return;
    }
 
@@ -132,14 +131,7 @@ const PerfilUsuario = () => {
                   <Dropdown.Menu>
                      <Dropdown.Item as="label" style={{ cursor: "pointer" }}>
                         <i className="bi bi-upload me-1"></i> Carregar nova
-                        <input
-                           name="foto_perfil"
-                           className="d-none"
-                           ref={imgRef}
-                           onChange={handleImgUpload}
-                           accept="image/*"
-                           type="file"
-                        />
+                        <input name="foto_perfil" className="d-none" ref={imgRef} onChange={handleImgUpload} accept="image/*" type="file" />
                      </Dropdown.Item>
                      <Dropdown.Item
                         onClick={() => {

@@ -29,12 +29,13 @@ const Cadastro = () => {
          // Não conseguiu
       } else {
          setLoading(true);
-         // TODO: Adicionar a foto de perfil para cada usuário
+
          try {
             const res = await axios.post("http://localhost:3000/api/usuarios/cadastro", {
                nome: nomeRef.current.value,
                email: emailRef.current.value,
                password: passwordRef.current.value,
+               // TODO: Após adicionar autenticação, adicionar a foto de perfil ao corpo do post
             });
             dispatch(setUsuario(res.data.usuario));
          } catch (error) {

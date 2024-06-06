@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 const AdicionarLugar = () => {
    const [foiValidado, setFoiValido] = useState(false);
    const dispatch = useDispatch();
-
    const { usuario } = useSelector((state) => state.usuario);
    const [loading, setLoading] = useState(false);
    const [mostrarErro, setMostrarErro] = useState(false);
@@ -34,14 +33,22 @@ const AdicionarLugar = () => {
       } else {
          setLoading(true);
          try {
-            const res = await axios.post("http://localhost:3000/api/lugares", {
-               titulo: nome_lugar_ref.current.value,
-               descricao: descricao_ref.current.value,
-               endereco: endereco_ref.current.value,
-               idCriador: usuario._id,
-               // TODO: Adicionar a foto do lugar ao corpo do post
-               foto: file_ref.current.files[0],
-            });
+            const res = await axios.post(
+               "http://localhost:3000/api/lugares",
+               {
+                  titulo: nome_lugar_ref.current.value,
+                  descricao: descricao_ref.current.value,
+                  endereco: endereco_ref.current.value,
+                  idCriador: usuario._id,
+                  foto: file_ref.current.files[0],
+               },
+               {
+                  headers: {
+                     "Content-Type": "multipart/form-data",
+                  },
+               }
+            );
+
             navegar("/meus_lugares", { state: { novo_criado: true } });
          } catch (error) {
             if (error.response.data.mensagem) {

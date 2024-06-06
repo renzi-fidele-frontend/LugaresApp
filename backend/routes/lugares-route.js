@@ -8,6 +8,7 @@ const {
    removerLugarById,
    getLugaresDoUsuarioById,
 } = require("../controllers/lugares-controller");
+const fileUpload = require("../middlewares/fileUpload");
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.get("/:idLugar", getLugarById);
 
 router.get("/usuario/:uid", getLugaresDoUsuarioById);
 
-router.post("/", adicionarLugar);
+router.post("/", fileUpload.single("foto"), adicionarLugar);
 
 router.patch("/:idLugar", atualizarLugarById);
 

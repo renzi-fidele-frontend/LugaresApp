@@ -29,7 +29,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
    // TODO: Colocar placeholder onde tem a img temporária
    return (
       <>
-         {(id, titulo, descricao, foto, idCriador, endereco, coordenadas) ? (
+         {!(id, titulo, descricao, foto, idCriador, endereco, coordenadas) ? (
             <Card bg="dark" text="light" border="secondary" id={styles.ct} className="h-100">
                <Card.Img className="p-2 rounded-4 " src={`http://localhost:3000/${foto}`} />
                <Card.Header id={styles.cardHeader}>
@@ -119,17 +119,20 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
             </Card>
          ) : (
             <Card bg="dark" text="light" border="secondary" id={styles.ct} className="h-100">
-               <div className="p-5 rounded-1" id={styles.fundoCustom}>
+               <Placeholder animation="wave">
+                  <Placeholder as={Card} className="w-100" style={{height: "180px"}}/>
+               </Placeholder>
+               {/* <div className="p-5 rounded-1" id={styles.fundoCustom}>
                   <p className="my-5">Carregando imagem...</p>
-               </div>
+               </div> */}
                <Card.Header id={styles.cardHeader}>
-                  <Placeholder animation="glow">
+                  <Placeholder animation="wave">
                      <Placeholder xs={8} size="sm" />
                   </Placeholder>
                </Card.Header>
 
                <Card.Body className="d-flex flex-column justify-content-evenly">
-                  <Placeholder animation="glow">
+                  <Placeholder animation="wave">
                      <Placeholder as={Card.Title} xs={10} size="lg" />
                      <div className=""></div>
                      <Placeholder size="sm" xs={12} />
@@ -138,7 +141,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
 
                <Card.Footer>
                   <Stack direction="horizontal">
-                     <Placeholder.Button animation="glow" variant="primary" xs={12}>
+                     <Placeholder.Button animation="wave" variant="primary" xs={12}>
                         <Placeholder xs={12} />
                      </Placeholder.Button>
                   </Stack>

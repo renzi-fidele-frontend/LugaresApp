@@ -41,7 +41,11 @@ const Header = () => {
 
                         <Dropdown className="d-flex align-items-center">
                            <Dropdown.Toggle id={styles.seta} variant="dark" as="a">
-                              <Image className="rounded-circle object-fit-cover ms-3" id={styles.fotoUsuario} src={usuario?.foto} />
+                              <Image
+                                 className="rounded-circle object-fit-cover ms-3"
+                                 id={styles.fotoUsuario}
+                                 src={`http://localhost:3000/${usuario?.foto}`}
+                              />
                            </Dropdown.Toggle>
 
                            <Dropdown.Menu>

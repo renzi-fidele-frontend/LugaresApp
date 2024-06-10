@@ -1,14 +1,5 @@
-const uuid = require("uuid");
 const Usuario = require("../models/Usuario");
 
-const users = [
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u1" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u2" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u3" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u4" },
-   { nome: "Renzi Fidele", nrLugares: 3, photoURL: "dummyPhoto", uid: "u5" },
-   { nome: "Renzi Fidele", nrLugares: 1, photoURL: "dummyPhoto", uid: "u6" },
-];
 
 const getUsuarioById = async (req, res) => {
    try {
@@ -30,7 +21,7 @@ const getUsuarios = async (req, res) => {
 
 const registarUsuario = async (req, res) => {
    const { email, password, nome } = req.body;
-   const { foto } = req.file.path;
+   const foto = req.file.path;
    let usuarioAdicionado;
    try {
       let existeUsuario = await Usuario.findOne({ email });

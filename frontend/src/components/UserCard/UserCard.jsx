@@ -14,7 +14,7 @@ const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
                         className={`object-fit-cover mb-3 mb-md-0 ${styles.foto}`}
                         roundedCircle
                         thumbnail
-                        src={fotoPerfil}
+                        src={`http://localhost:3000/${fotoPerfil}`}
                         alt={`Foto de perfil de ${nome}`}
                      />
                   </Col>

@@ -39,6 +39,8 @@ const getLugaresDoUsuarioById = async (req, res) => {
 const adicionarLugar = async (req, res) => {
    const { titulo, descricao, endereco, idCriador } = req.body;
    const foto = req.file;
+
+   
    console.log(foto);
 
    coordenadas = await apanharCoordernadasPorEndereco(endereco);

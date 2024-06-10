@@ -8,6 +8,7 @@ const {
    removerLugarById,
    getLugaresDoUsuarioById,
 } = require("../controllers/lugares-controller");
+
 const fileUpload = require("../middlewares/fileUpload");
 
 const router = express.Router();

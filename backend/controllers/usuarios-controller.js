@@ -30,6 +30,7 @@ const getUsuarios = async (req, res) => {
 
 const registarUsuario = async (req, res) => {
    const { email, password, nome } = req.body;
+   const { foto } = req.file;
    let usuarioAdicionado;
    try {
       let existeUsuario = await Usuario.findOne({ email });

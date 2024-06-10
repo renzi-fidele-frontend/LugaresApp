@@ -31,12 +31,20 @@ const Cadastro = () => {
          setLoading(true);
 
          try {
-            const res = await axios.post("http://localhost:3000/api/usuarios/cadastro", {
-               nome: nomeRef.current.value,
-               email: emailRef.current.value,
-               password: passwordRef.current.value,
-               // TODO: Após adicionar autenticação, adicionar a foto de perfil ao corpo do post
-            });
+            const res = await axios.post(
+               "http://localhost:3000/api/usuarios/cadastro",
+               {
+                  nome: nomeRef.current.value,
+                  email: emailRef.current.value,
+                  password: passwordRef.current.value,
+                  foto: fotoRef.current.files[0],
+               },
+               {
+                  headers: {
+                     "Content-Type": "multipart/form-data",
+                  },
+               }
+            );
             dispatch(setUsuario(res.data.usuario));
          } catch (error) {
             if (error.response.data.mensagem) {

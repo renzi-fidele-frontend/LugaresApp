@@ -30,6 +30,8 @@ const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
                </Row>
             </Card>
          ) : (
+            // TODO: Colocar placeholder onde tem a div com p-5
+
             <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
                <Row>
                   <Col className="my-md-auto" md={4}>

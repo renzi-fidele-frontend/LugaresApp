@@ -38,9 +38,8 @@ const getLugaresDoUsuarioById = async (req, res) => {
 
 const adicionarLugar = async (req, res) => {
    const { titulo, descricao, endereco, idCriador } = req.body;
-   const foto = req.file;
+   const foto = req.file.path;
 
-   
    console.log(foto);
 
    coordenadas = await apanharCoordernadasPorEndereco(endereco);
@@ -50,7 +49,7 @@ const adicionarLugar = async (req, res) => {
          descricao,
          idCriador,
          endereco,
-         foto: "https://www.moz.life/wp-content/uploads/2020/11/Salva-Vidas-.jpg",
+         foto,
          coordenadas,
       };
       let lugarAdicionado = new Lugar(lugarCriado);

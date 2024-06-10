@@ -2,6 +2,10 @@
    border-bottom: grey 1px dashed !important;
 }
 
+#ct img {
+   height: 300px;
+}
+
 #fundoCustom {
    background-color: #aaaaaa;
    opacity: 0.8;

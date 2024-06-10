@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const path = require("path");
 
 //  Rotas
 const rotalugares = require("./routes/lugares-route");
@@ -9,6 +10,8 @@ const rotaUsuarios = require("./routes/usuarios-route");
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use("/uploads", express.static(path.normalize("uploads")));
 
 app.use(function (req, res, next) {
    res.header("Access-Control-Allow-Origin", "http://localhost:5173");

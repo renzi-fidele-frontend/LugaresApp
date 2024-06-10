@@ -6,7 +6,7 @@ import converterData from "../../hooks/useConverterData";
 const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
    return (
       <>
-         {fotoPerfil && nome && aderiuEm && uid ? (
+         {(fotoPerfil && nome && aderiuEm && uid) ? (
             <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
                <Row>
                   <Col className="my-md-auto" md={4}>
@@ -30,21 +30,22 @@ const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
                </Row>
             </Card>
          ) : (
-            // TODO: Colocar placeholder onde tem a div com p-5
 
             <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
                <Row>
-                  <Col className="my-md-auto" md={4}>
-                     <div className="p-5 rounded-1" style={{ background: "#8c8f91" }}></div>
+                  <Col className="my-md-auto mx-auto ratio-1x1" xs={5} md={4}>
+                     <Placeholder as={Card} animation="wave">
+                        <Placeholder as={Card} className=" p-5 h-100" />
+                     </Placeholder>
                   </Col>
                   <Col className="text-md-start text-sm-center ps-md-4 pt-2 pt-md-0" md={8}>
-                     <Placeholder as={Card.Title} animation="glow">
+                     <Placeholder as={Card.Title} animation="wave">
                         <Placeholder xs={6} />
                      </Placeholder>
-                     <Placeholder as={Card.Text} animation="glow">
+                     <Placeholder as={Card.Text} animation="wave">
                         <Placeholder xs={12} />
                      </Placeholder>
-                     <Placeholder.Button animation="glow" variant="outline-secondary" xs={8}>
+                     <Placeholder.Button animation="wave" variant="outline-secondary" xs={8}>
                         <Placeholder xs={12} />
                      </Placeholder.Button>
                   </Col>

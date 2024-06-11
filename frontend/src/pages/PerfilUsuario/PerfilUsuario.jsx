@@ -119,7 +119,7 @@ const PerfilUsuario = () => {
                   ref={fotoPerfilRef}
                   className="ms-auto rounded-2 border object-fit-cover border-2 border-secondary-subtle shadow-lg"
                   id={styles.fotoLado}
-                  src={usuario?.foto}
+                  src={`http://localhost:3000/${usuario?.foto}`}
                />
                <Dropdown className="position-absolute end-0 bottom-0">
                   <Dropdown.Toggle id={styles.toogle} as="a">

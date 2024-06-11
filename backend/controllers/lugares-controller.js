@@ -1,5 +1,6 @@
 const { apanharCoordernadasPorEndereco } = require("../utils/localizacao");
 const Lugar = require("../models/Lugar");
+const fs = require("fs");
 
 const getLugares = async (req, res) => {
    console.log("GET feito na página lugares");
@@ -57,6 +58,13 @@ const adicionarLugar = async (req, res) => {
       res.json({ lugar: lugarCriado });
    } catch (error) {
       res.status(500).json({ mensagem: "Erro ao criar o lugar" });
+      fs.unlink(foto, (unlinkError) => {
+         if (unlinkError) {
+            console.error("Falha ao remover:", unlinkError);
+         } else {
+            console.log("Foto temporária removida com sucesso");
+         }
+      });
    }
 };
 
@@ -72,6 +80,7 @@ const atualizarLugarById = async (req, res) => {
 };
 
 const removerLugarById = async (req, res) => {
+   // TODO: Remover a foto pertencente ao lugar
    let { idLugar } = req.params;
    try {
       const lugarRemovido = await Lugar.deleteOne({ _id: idLugar });

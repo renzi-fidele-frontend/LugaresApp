@@ -1,5 +1,5 @@
 const Usuario = require("../models/Usuario");
-
+const fs = require("fs");
 
 const getUsuarioById = async (req, res) => {
    try {
@@ -28,6 +28,13 @@ const registarUsuario = async (req, res) => {
       if (existeUsuario) {
          console.log("O usuário existe");
          res.status(401).json({ mensagem: "Este email já foi utilizado para criar uma conta!" });
+         fs.unlink(foto, (unlinkError) => {
+            if (unlinkError) {
+               console.error("Falha ao remover:", unlinkError);
+            } else {
+               console.log("Foto temporária removida com sucesso");
+            }
+         });
       } else {
          console.log("O usuario não existe");
          usuarioAdicionado = new Usuario({
@@ -42,6 +49,13 @@ const registarUsuario = async (req, res) => {
    } catch (error) {
       console.log(error.message);
       res.status(422).json({ mensagem: "Erro ao criar conta" });
+      fs.unlink(foto, (unlinkError) => {
+         if (unlinkError) {
+            console.error("Falha ao remover:", unlinkError);
+         } else {
+            console.log("Foto temporária removida com sucesso");
+         }
+      });
    }
 };
 

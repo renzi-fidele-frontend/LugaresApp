@@ -80,9 +80,18 @@ const atualizarLugarById = async (req, res) => {
 };
 
 const removerLugarById = async (req, res) => {
-   // TODO: Remover a foto pertencente ao lugar
    let { idLugar } = req.params;
    try {
+      // Removendo a foto pertecente ao lugar
+      const lugar = await Lugar.findById(idLugar);
+      const foto = lugar.foto;
+      fs.unlink(foto, (unlinkError) => {
+         if (unlinkError) {
+            console.error("Falha ao remover:", unlinkError);
+         } else {
+            console.log("Foto temporária removida com sucesso");
+         }
+      });
       const lugarRemovido = await Lugar.deleteOne({ _id: idLugar });
       res.json({ mensagem: "Lugar removido com sucesso!" });
    } catch (erro) {

@@ -1,5 +1,6 @@
 const Usuario = require("../models/Usuario");
 const fs = require("fs");
+const bcrypt = require("bcrypt");
 
 const getUsuarioById = async (req, res) => {
    try {
@@ -36,11 +37,20 @@ const registarUsuario = async (req, res) => {
             }
          });
       } else {
-         console.log("O usuario não existe");
+         console.log("O usuario não existe, criando a conta...");
+
+         // Tornando o password secreto
+         let passwordSecreto;
+         try {
+            passwordSecreto = await bcrypt.hash(password, 10);
+         } catch (error) {
+            console.log("Erro ao tornar o password em secreto");
+         }
+
          usuarioAdicionado = new Usuario({
             nome,
             email,
-            password,
+            password: passwordSecreto,
             foto,
          });
          await usuarioAdicionado.save();

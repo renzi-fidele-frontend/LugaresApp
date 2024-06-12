@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import inicializarMapa from "../../hooks/useRenderizarMapa";
 
-const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco, coordenadas }) => {
+const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco, coordenadas, pertenceAoUsuario = false }) => {
    const { usuario } = useSelector((state) => state.usuario);
    const [showMapModal, setShowMapModal] = useState(false);
    const [showRemoveModal, setShowRemoveModal] = useState(false);
@@ -136,10 +136,24 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
                </Card.Body>
 
                <Card.Footer>
-                  <Stack direction="horizontal">
-                     <Placeholder.Button animation="wave" variant="primary" xs={12}>
-                        <Placeholder xs={12} />
-                     </Placeholder.Button>
+                  <Stack gap={2} className="justify-content-center" direction="horizontal">
+                     {pertenceAoUsuario ? (
+                        <>
+                           <Placeholder.Button animation="wave" variant="primary" xs={3}>
+                              <Placeholder xs={12} />
+                           </Placeholder.Button>
+                           <Placeholder.Button animation="wave" variant="outline-secondary" xs={3}>
+                              <Placeholder xs={12} />
+                           </Placeholder.Button>
+                           <Placeholder.Button animation="wave" variant="outline-danger" xs={3}>
+                              <Placeholder xs={12} />
+                           </Placeholder.Button>
+                        </>
+                     ) : (
+                        <Placeholder.Button animation="wave" variant="primary" xs={12}>
+                           <Placeholder xs={12} />
+                        </Placeholder.Button>
+                     )}
                   </Stack>
                </Card.Footer>
             </Card>

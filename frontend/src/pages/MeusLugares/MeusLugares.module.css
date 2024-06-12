@@ -3,23 +3,23 @@
 }
 
 #foto {
-   width: 276px;
+   width: 200px;
 }
 
 @media screen and (max-width: 1426px) {
    #foto {
-      width: 320px;
+      width: 150px;
    }
 }
 
 @media screen and (max-width: 906px) {
    #foto {
-      width: 290px;
+      width: 120px;
    }
 }
 
 @media screen and (max-width: 500px) {
    #foto {
-      width: 230px;
+      width: 100px;
    }
 }

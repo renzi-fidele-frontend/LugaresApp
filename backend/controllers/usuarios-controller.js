@@ -78,6 +78,8 @@ const fazerLogin = async (req, res) => {
    }
 };
 
+// Adicionar middleware para editar Perfil
+
 exports.getUsuarios = getUsuarios;
 exports.registarUsuario = registarUsuario;
 exports.fazerLogin = fazerLogin;

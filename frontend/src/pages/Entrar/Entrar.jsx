@@ -5,7 +5,7 @@ import foto from "../../assets/lugares3.svg";
 import axios from "axios";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 import { useDispatch } from "react-redux";
-import { setUsuario } from "../../state/usuario/usuarioSlice";
+import { setToken, setUsuario } from "../../state/usuario/usuarioSlice";
 
 const Entrar = () => {
    const [foiValidado, setFoiValido] = useState(false);
@@ -32,6 +32,7 @@ const Entrar = () => {
                password: passwordRef.current.value,
             });
             dispatch(setUsuario(res.data.usuario));
+            dispatch(setToken(res.data.token));
          } catch (error) {
             if (error.response.data.mensagem) {
                setErroMsg(error.response.data.mensagem);

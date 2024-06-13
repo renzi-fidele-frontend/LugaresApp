@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const AdicionarLugar = () => {
    const [foiValidado, setFoiValido] = useState(false);
    const dispatch = useDispatch();
-   const { usuario } = useSelector((state) => state.usuario);
+   const { usuario, token } = useSelector((state) => state.usuario);
    const [loading, setLoading] = useState(false);
    const [mostrarErro, setMostrarErro] = useState(false);
    const [erroMsg, setErroMsg] = useState("");
@@ -45,6 +45,7 @@ const AdicionarLugar = () => {
                {
                   headers: {
                      "Content-Type": "multipart/form-data",
+                     Authorization: `Bearer ${token}`,
                   },
                }
             );

@@ -1,7 +1,11 @@
 const jwt = require("jsonwebtoken");
 
 const verificarToken = (req, res, next) => {
-   const token = req.header("Authorization");
+   // Lidando com o erro de CORS
+   if (req.method === "OPTIONS") return next();
+
+   const token = req.header("Authorization").split(" ")[1];
+
    if (!token) {
       res.status(401).json({ mensagem: "Acesso negado! Faça a autenticação como deve ser." });
    } else {
@@ -9,7 +13,6 @@ const verificarToken = (req, res, next) => {
          let desencriptado = jwt.verify(token, "Ratinho00");
          console.log(desencriptado);
          req.userId = desencriptado.userId;
-
          next();
       } catch (error) {
          console.log(error);

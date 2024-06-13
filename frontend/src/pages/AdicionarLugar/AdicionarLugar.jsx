@@ -52,6 +52,7 @@ const AdicionarLugar = () => {
 
             navegar("/meus_lugares", { state: { novo_criado: true } });
          } catch (error) {
+            console.log(error.message)
             if (error.response.data.mensagem) {
                setErroMsg(error.response.data.mensagem);
                setMostrarErro(true);

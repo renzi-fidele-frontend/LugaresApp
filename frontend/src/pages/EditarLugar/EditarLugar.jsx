@@ -6,6 +6,7 @@ import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 import inicializarMapa from "../../hooks/useRenderizarMapa";
+import { useSelector } from "react-redux";
 
 const EditarLugar = () => {
    const [foiValidado, setFoiValidado] = useState(false);
@@ -13,6 +14,8 @@ const EditarLugar = () => {
    const [mostrarErro, setMostrarErro] = useState(false);
    const [erroMsg, setErroMsg] = useState("");
    const [podeEnviar, setPodeEnviar] = useState(false);
+
+   const { token } = useSelector((state) => state.usuario);
 
    const idLugar = useParams()?.id;
 
@@ -31,10 +34,14 @@ const EditarLugar = () => {
       if (e.currentTarget.checkValidity() === true) {
          setLoading(true);
          try {
-            const res = await axios.patch(`http://localhost:3000/api/lugares/${idLugar}`, {
-               titulo: nome_lugar_ref.current.value,
-               descricao: descricao_ref.current.value,
-            });
+            const res = await axios.patch(
+               `http://localhost:3000/api/lugares/${idLugar}`,
+               {
+                  titulo: nome_lugar_ref.current.value,
+                  descricao: descricao_ref.current.value,
+               },
+               { headers: { Authorization: `Bearer ${token}` } }
+            );
             console.log(res.data);
             navegar("/meus_lugares", { state: { atualizado: true } });
          } catch (error) {

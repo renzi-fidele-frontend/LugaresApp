@@ -14,10 +14,12 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
    const mapCtRef = useRef();
    const navegar = useNavigate();
 
+   const { token } = useSelector((state) => state.usuario);
+
    async function removerLugar() {
       setLoading(true);
       try {
-         const res = await axios.delete(`http://localhost:3000/api/lugares/${id}`);
+         const res = await axios.delete(`http://localhost:3000/api/lugares/${id}`, { headers: { Authorization: `Bearer ${token}` } });
          navegar("/meus_lugares", { state: { sucesso: true } });
          console.log(res.data.mensagem);
       } catch (error) {

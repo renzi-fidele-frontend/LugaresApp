@@ -1,6 +1,7 @@
 const Usuario = require("../models/Usuario");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const getUsuarioById = async (req, res) => {
    try {
@@ -54,6 +55,10 @@ const registarUsuario = async (req, res) => {
             foto,
          });
          await usuarioAdicionado.save();
+
+         // TODO: Gerar token do usuário logado após o cadastro
+         const token = jwt.sign({ userId: usuarioAdicionado._id }, "Ratinho00");
+
          res.json({ mensagem: "Conta criada com sucesso", usuario: usuarioAdicionado });
       }
    } catch (error) {
@@ -75,10 +80,23 @@ const fazerLogin = async (req, res) => {
    try {
       let existeUsuario = await Usuario.findOne({ email });
       if (existeUsuario) {
-         if (existeUsuario.password === password) {
-            res.json({ mensagem: "Logado com sucesso!", usuario: existeUsuario });
-         } else {
-            res.status(401).json({ mensagem: `Olá ${existeUsuario.nome}, a senha inserida é inválida!` });
+         try {
+            const passwordValido = await bcrypt.compare(password, existeUsuario.password);
+            // TODO: Gerar token do usuário logado após o login
+
+            if (passwordValido) {
+               const token = jwt.sign({ userId: existeUsuario._id }, "Ratinho00");
+
+               res.json({
+                  mensagem: "Logado com sucesso!",
+                  usuario: existeUsuario.toObject(),
+                  token,
+               });
+            } else {
+               res.status(401).json({ mensagem: `Olá ${existeUsuario.nome}, a senha inserida é inválida!` });
+            }
+         } catch (error) {
+            res.status(500).json({ mensagem: "Erro no servidor, tente novamente!" });
          }
       } else {
          res.status(401).json({ mensagem: "Esse usuário não existe" });

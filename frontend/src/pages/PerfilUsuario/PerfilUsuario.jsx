@@ -5,6 +5,7 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 import { useSelector } from "react-redux";
+import Usuario from "../../../../backend/models/Usuario";
 
 const PerfilUsuario = () => {
    const [foiValidado, setFoiValidado] = useState(false);

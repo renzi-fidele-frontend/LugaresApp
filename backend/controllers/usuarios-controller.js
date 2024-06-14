@@ -56,7 +56,6 @@ const registarUsuario = async (req, res) => {
          });
          await usuarioAdicionado.save();
 
-         // TODO: Gerar token do usuário logado após o cadastro
          const token = jwt.sign({ userId: usuarioAdicionado._id }, "Ratinho00");
 
          res.json({ mensagem: "Conta criada com sucesso", usuario: { ...usuarioAdicionado, password }, token });
@@ -76,13 +75,11 @@ const registarUsuario = async (req, res) => {
 
 const fazerLogin = async (req, res) => {
    const { email, password } = req.body;
-   // TODO: Validar o login do usuário
    try {
       let existeUsuario = await Usuario.findOne({ email });
       if (existeUsuario) {
          try {
             const passwordValido = await bcrypt.compare(password, existeUsuario.password);
-            // TODO: Gerar token do usuário logado após o login
 
             if (passwordValido) {
                const token = jwt.sign({ userId: existeUsuario._id }, "Ratinho00");
@@ -106,9 +103,40 @@ const fazerLogin = async (req, res) => {
    }
 };
 
-// Adicionar middleware para editar Perfil
+// TODO: Adicionar middleware para editar Perfil
+const atualizarPerfil = async (req, res) => {
+   let { uid } = req.params;
+   const { nome, email, password } = req.body;
+   const foto = req.file.path;
+   try {
+      const novaSenhaEncriptada = bcrypt.hash(password, 10);
+      const perfilAtualizado = await Usuario.updateOne(
+         { _id: uid },
+         {
+            nome,
+            email,
+            password: novaSenhaEncriptada,
+            foto: foto,
+         }
+      );
+
+      let token = jwt.sign({ userId: uid }, "Ratinho00");
+
+      res.json({ mensagem: "Perfil atualizado com sucesso!", usuario: { ...usuarioAdicionado, password }, token });
+   } catch (error) {
+      res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });
+      fs.unlink(foto, (unlinkError) => {
+         if (unlinkError) {
+            console.error("Falha ao remover:", unlinkError);
+         } else {
+            console.log("Foto temporária removida com sucesso");
+         }
+      });
+   }
+};
 
 exports.getUsuarios = getUsuarios;
 exports.registarUsuario = registarUsuario;
 exports.fazerLogin = fazerLogin;
 exports.getUsuarioById = getUsuarioById;
+exports.atualizarPerfil = atualizarPerfil;

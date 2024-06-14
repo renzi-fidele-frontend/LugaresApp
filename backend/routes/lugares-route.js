@@ -32,6 +32,7 @@ router.patch("/:idLugar", atualizarLugarById);
 
 router.delete("/:idLugar", removerLugarById);
 
-// TODO: Adicionar rota para editar perfil
+
+
 
 module.exports = router;

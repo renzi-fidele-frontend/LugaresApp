@@ -1,4 +1,4 @@
-import { Col, Container, Image, Row, Toast } from "react-bootstrap";
+import { Alert, Col, Container, Image, Row, Toast } from "react-bootstrap";
 import CardLugar from "../../components/CardLugar/CardLugar";
 import styles from "./MeusLugares.module.css";
 import foto from "../../assets/meus_lugares.png";
@@ -45,7 +45,7 @@ const MeusLugares = () => {
                   Veja todos os lugares que você compartilhou
                </h2>
                <Image className="mb-5" id={styles.foto} src={foto} />
-               {lugares?.length > 0 ? (
+               {lugares?.length > 0 && (
                   <Row className="mt-4 g-4 justify-content-center">
                      {lugares?.map((v, k) => (
                         <Col md={6} xl={4} key={k}>
@@ -62,13 +62,21 @@ const MeusLugares = () => {
                         </Col>
                      ))}
                   </Row>
-               ) : (
+               )}
+               {!lugares && (
                   <Row className="mt-0 mt-md-4 g-4 justify-content-center">
                      {[1, 2, 3, 4, 5].map((v, k) => (
                         <Col md={6} xl={4} key={k}>
                            <CardLugar pertenceAoUsuario key={k} />
                         </Col>
                      ))}
+                  </Row>
+               )}
+               {lugares?.length === 0 && (
+                  <Row className="mt-4 g-4 justify-content-center">
+                     <Col>
+                        <Alert variant="dark">Este usuário ainda não adicionou nehum lugar</Alert>
+                     </Col>
                   </Row>
                )}
             </Col>

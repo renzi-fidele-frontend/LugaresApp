@@ -105,7 +105,7 @@ const Lugares = () => {
                {lugares?.length === 0 && (
                   <Row className="mt-4 g-4 justify-content-center">
                      <Col>
-                        <Alert>Este usuário ainda não adicionou nehum lugar</Alert>
+                        <Alert variant="dark">Este usuário ainda não adicionou nehum lugar</Alert>
                      </Col>
                   </Row>
                )}

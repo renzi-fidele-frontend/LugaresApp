@@ -58,7 +58,7 @@ const registarUsuario = async (req, res) => {
 
          const token = jwt.sign({ userId: usuarioAdicionado._id }, "Ratinho00");
 
-         res.json({ mensagem: "Conta criada com sucesso", usuario: { ...usuarioAdicionado, password }, token });
+         res.json({ mensagem: "Conta criada com sucesso", usuario: { ...usuarioAdicionado.toObject(), password }, token });
       }
    } catch (error) {
       console.log(error.message);

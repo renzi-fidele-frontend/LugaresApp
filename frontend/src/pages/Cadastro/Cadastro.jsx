@@ -6,6 +6,7 @@ import axios from "axios";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 import { useDispatch } from "react-redux";
 import { setToken, setUsuario } from "../../state/usuario/usuarioSlice";
+import { useNavigate } from "react-router-dom";
 
 const Cadastro = () => {
    const [foiValidado, setFoiValido] = useState(false);
@@ -13,6 +14,7 @@ const Cadastro = () => {
    const [mostrarErro, setMostrarErro] = useState(false);
    const [erroMsg, setErroMsg] = useState("");
    const dispatch = useDispatch();
+   const navegar = useNavigate();
 
    // Refs do formulário
    const nomeRef = useRef(null);
@@ -47,6 +49,7 @@ const Cadastro = () => {
             );
             dispatch(setUsuario(res.data.usuario));
             dispatch(setToken(res.data.token));
+            navegar("/adicionar_lugar")
          } catch (error) {
             if (error.response.data.mensagem) {
                setErroMsg(error.response.data.mensagem);

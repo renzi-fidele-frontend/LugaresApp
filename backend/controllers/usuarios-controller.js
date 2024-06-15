@@ -103,35 +103,36 @@ const fazerLogin = async (req, res) => {
    }
 };
 
-// TODO: Adicionar middleware para editar Perfil
 const atualizarPerfil = async (req, res) => {
    let { uid } = req.params;
-   const { nome, email, password } = req.body;
-   const foto = req.file.path;
+   let { nome, password } = req.body;
+   let foto = req?.file?.path;
+
+   let novaSenhaEncriptada;
    try {
-      const novaSenhaEncriptada = bcrypt.hash(password, 10);
-      const perfilAtualizado = await Usuario.updateOne(
-         { _id: uid },
-         {
-            nome,
-            email,
-            password: novaSenhaEncriptada,
-            foto: foto,
-         }
-      );
+      novaSenhaEncriptada = await bcrypt.hash(password, 10);
+   } catch (error) {
+      console.log("Erro ao encriptar nova senha");
+   }
 
-      let token = jwt.sign({ userId: uid }, "Ratinho00");
+   let novosDados = { nome, password: novaSenhaEncriptada };
+   if (foto) novosDados.foto = foto;
 
-      res.json({ mensagem: "Perfil atualizado com sucesso!", usuario: { ...usuarioAdicionado, password }, token });
+   try {
+      const perfilAtualizado = await Usuario.findByIdAndUpdate(uid, novosDados, { new: true });
+      // TODO: Remover a antiga foto de perfil após atualizar uma nova foto de perfil
+      res.json({ mensagem: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password } });
    } catch (error) {
       res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });
-      fs.unlink(foto, (unlinkError) => {
-         if (unlinkError) {
-            console.error("Falha ao remover:", unlinkError);
-         } else {
-            console.log("Foto temporária removida com sucesso");
-         }
-      });
+      if (foto) {
+         fs.unlink(foto, (unlinkError) => {
+            if (unlinkError) {
+               console.error("Falha ao remover:", unlinkError);
+            } else {
+               console.log("Foto temporária removida com sucesso");
+            }
+         });
+      }
    }
 };
 

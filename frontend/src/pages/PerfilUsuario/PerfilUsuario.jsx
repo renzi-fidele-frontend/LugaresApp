@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./PerfilUsuario.module.css";
-import { Button, Col, Container, Form, Row, Image, Alert, Dropdown, Modal, Stack, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Form, Row, Image, Alert, Dropdown, Modal, Stack, Spinner, Toast } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
-import { useSelector } from "react-redux";
-import Usuario from "../../../../backend/models/Usuario";
+import { useDispatch, useSelector } from "react-redux";
+import { setUsuario } from "../../state/usuario/usuarioSlice";
 
 const PerfilUsuario = () => {
    const [foiValidado, setFoiValidado] = useState(false);
@@ -14,9 +14,11 @@ const PerfilUsuario = () => {
    const [erroMsg, setErroMsg] = useState("");
    const [podeAtualizar, setPodeAtualizar] = useState(false);
    const [showRemoveModal, setShowRemoveModal] = useState(false);
+   const [mostrarAtualizado, setMostrarAtualizado] = useState(false);
 
-   const { usuario } = useSelector((state) => state.usuario);
+   const { usuario, token } = useSelector((state) => state.usuario);
 
+   const dispatch = useDispatch();
    const navegar = useNavigate();
 
    // Refs do formulário
@@ -25,20 +27,40 @@ const PerfilUsuario = () => {
    const imgRef = useRef(null);
 
    async function atualizarPerfil(e) {
-      // TODO: Após adicionar autenticação, caso haja uma imagem nova, adicionar ela ao corpo do patch
-
       e.preventDefault();
       e.stopPropagation();
       setFoiValidado(true);
       if (e.currentTarget.checkValidity() === true) {
-         setLoading(true);
-         // TODO: Após adicionar autenticação, finalizar função para atualizar o perfil do usuário
+         setLoading(true);        
+         let nome = nome_usuario_ref.current.value;
+         let password = password_ref.current.value;
+         let foto = imgRef?.current?.files[0];
+         let dadosAtualizados = { nome, password };
+
+         if (foto) dadosAtualizados.foto = foto;
+
+         try {
+            const res = await axios.patch(`http://localhost:3000/api/usuarios/${usuario._id}`, dadosAtualizados, {
+               headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer ${token}`,
+               },
+            });
+            dispatch(setUsuario(res.data.usuario));
+            setMostrarAtualizado(true);
+            setPodeAtualizar(true);
+            setFoiValidado(false);
+         } catch (err) {
+            console.log(err.response.data.mensagem);
+         }
+
          setLoading(false);
       }
    }
 
    async function removerFotoUsuario() {
-      // TODO: Após adicionar autenticação, remover a foto de perfil para o default
+      // TODO: Atualizar a foto de perfil para o default
+      // TODO: Remover a antiga foto de perfil no backend
       return;
    }
 
@@ -176,6 +198,21 @@ const PerfilUsuario = () => {
                </Stack>
             </Modal.Footer>
          </Modal>
+
+         {/* Alerta caso um lugar seja atualizado */}
+
+         <Toast
+            className="position-fixed bottom-0 mb-5 me-lg-5 end-0"
+            show={mostrarAtualizado}
+            onClose={() => setMostrarAtualizado(false)}
+            delay={10000}
+         >
+            <Toast.Header>
+               <strong className="me-auto">Notificação</strong>
+               <small>Agora mesmo</small>
+            </Toast.Header>
+            <Toast.Body>O seu perfil foi atualizado com sucesso!</Toast.Body>
+         </Toast>
       </Container>
    );
 };

@@ -31,7 +31,7 @@ const PerfilUsuario = () => {
       e.stopPropagation();
       setFoiValidado(true);
       if (e.currentTarget.checkValidity() === true) {
-         setLoading(true);        
+         setLoading(true);
          let nome = nome_usuario_ref.current.value;
          let password = password_ref.current.value;
          let foto = imgRef?.current?.files[0];

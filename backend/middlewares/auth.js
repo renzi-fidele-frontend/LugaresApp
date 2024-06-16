@@ -4,7 +4,7 @@ const verificarToken = (req, res, next) => {
    // Lidando com o erro de CORS
    if (req.method === "OPTIONS") return next();
 
-   const token = req.header("Authorization").split(" ")[1];
+   const token = req.header("Authorization")?.split(" ")[1];
 
    if (!token) {
       res.status(401).json({ mensagem: "Acesso negado! Faça a autenticação como deve ser." });

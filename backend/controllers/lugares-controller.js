@@ -39,32 +39,36 @@ const getLugaresDoUsuarioById = async (req, res) => {
 
 const adicionarLugar = async (req, res) => {
    const { titulo, descricao, endereco, idCriador } = req.body;
-   const foto = req.file.path;
+   const foto = req?.file?.path;
 
-   console.log(foto);
-
-   coordenadas = await apanharCoordernadasPorEndereco(endereco);
-   try {
-      let lugarCriado = {
-         titulo,
-         descricao,
-         idCriador,
-         endereco,
-         foto,
-         coordenadas,
-      };
-      let lugarAdicionado = new Lugar(lugarCriado);
-      await lugarAdicionado.save();
-      res.json({ lugar: lugarCriado });
-   } catch (error) {
-      res.status(500).json({ mensagem: "Erro ao criar o lugar" });
-      fs.unlink(foto, (unlinkError) => {
-         if (unlinkError) {
-            console.error("Falha ao remover:", unlinkError);
-         } else {
-            console.log("Foto temporária removida com sucesso");
+   if (idCriador === req.userId) {
+      coordenadas = await apanharCoordernadasPorEndereco(endereco);
+      try {
+         let lugarCriado = {
+            titulo,
+            descricao,
+            idCriador,
+            endereco,
+            foto,
+            coordenadas,
+         };
+         let lugarAdicionado = new Lugar(lugarCriado);
+         await lugarAdicionado.save();
+         res.json({ lugar: lugarCriado });
+      } catch (error) {
+         res.status(500).json({ mensagem: "Erro ao criar o lugar" });
+         if (foto) {
+            fs.unlink(foto, (unlinkError) => {
+               if (unlinkError) {
+                  console.error("Falha ao remover:", unlinkError);
+               } else {
+                  console.log("Foto temporária removida com sucesso");
+               }
+            });
          }
-      });
+      }
+   } else {
+      res.status(401).json({ mensagem: "Você não tem permissão para isso!" });
    }
 };
 

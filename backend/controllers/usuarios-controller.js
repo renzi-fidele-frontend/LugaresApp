@@ -110,7 +110,7 @@ const atualizarPerfil = async (req, res, next) => {
    if (uid === "remover_foto") {
       next();
    } else {
-      let { nome, password } = req.body;
+      let { nome, password, fotoRemovida } = req.body;
       let foto = req?.file?.path;
 
       let novaSenhaEncriptada;
@@ -125,7 +125,16 @@ const atualizarPerfil = async (req, res, next) => {
 
       try {
          const perfilAtualizado = await Usuario.findByIdAndUpdate(uid, novosDados, { new: true });
-         // TODO: Remover a antiga foto de perfil após atualizar uma nova foto de perfil
+         // Removendo a foto no backend
+         if (foto && fotoRemovida !== "uploads/defaultPicture.jpg") {
+            fs.unlink(fotoRemovida, (unlinkError) => {
+               if (unlinkError) {
+                  console.error("Falha ao remover:", unlinkError);
+               } else {
+                  console.log("Foto temporária removida com sucesso");
+               }
+            });
+         }
          res.json({ mensagem: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password } });
       } catch (error) {
          res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });

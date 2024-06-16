@@ -37,7 +37,10 @@ const PerfilUsuario = () => {
          let foto = imgRef?.current?.files[0];
          let dadosAtualizados = { nome, password };
 
-         if (foto) dadosAtualizados.foto = foto;
+         if (foto) {
+            dadosAtualizados.foto = foto;
+            dadosAtualizados.fotoRemovida = usuario.foto;
+         }
 
          try {
             const res = await axios.patch(`http://localhost:3000/api/usuarios/${usuario._id}`, dadosAtualizados, {

@@ -61,6 +61,23 @@ const PerfilUsuario = () => {
    async function removerFotoUsuario() {
       // TODO: Atualizar a foto de perfil para o default
       // TODO: Remover a antiga foto de perfil no backend
+      setLoading(true);
+      try {
+         const res = await axios.patch(
+            `http://localhost:3000/api/usuarios/remover_foto`,
+            { fotoRemovida: usuario.foto },
+            {
+               headers: { Authorization: `Bearer ${token}` },
+            }
+         );
+         console.log("Foto removida com sucesso!");
+         dispatch(setUsuario(res.data.usuario));
+         setShowRemoveModal(false);
+         setMostrarAtualizado(true);
+      } catch (error) {
+         console.log(error);
+      }
+      setLoading(false);
       return;
    }
 
@@ -199,7 +216,7 @@ const PerfilUsuario = () => {
             </Modal.Footer>
          </Modal>
 
-         {/* Alerta caso um lugar seja atualizado */}
+         {/* Alerta caso um perfil seja atualizado */}
 
          <Toast
             className="position-fixed bottom-0 mb-5 me-lg-5 end-0"

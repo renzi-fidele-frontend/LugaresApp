@@ -2,6 +2,7 @@ const Usuario = require("../models/Usuario");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const path = require("path");
 
 const getUsuarioById = async (req, res) => {
    try {
@@ -56,7 +57,7 @@ const registarUsuario = async (req, res) => {
          });
          await usuarioAdicionado.save();
 
-         const token = jwt.sign({ userId: usuarioAdicionado._id }, "Ratinho00");
+         const token = jwt.sign({ userId: usuarioAdicionado._id, password }, "Ratinho00");
 
          res.json({ mensagem: "Conta criada com sucesso", usuario: { ...usuarioAdicionado.toObject(), password }, token });
       }
@@ -82,7 +83,7 @@ const fazerLogin = async (req, res) => {
             const passwordValido = await bcrypt.compare(password, existeUsuario.password);
 
             if (passwordValido) {
-               const token = jwt.sign({ userId: existeUsuario._id }, "Ratinho00");
+               const token = jwt.sign({ userId: existeUsuario._id, password }, "Ratinho00");
 
                res.json({
                   mensagem: "Logado com sucesso!",
@@ -103,36 +104,62 @@ const fazerLogin = async (req, res) => {
    }
 };
 
-const atualizarPerfil = async (req, res) => {
+const atualizarPerfil = async (req, res, next) => {
    let { uid } = req.params;
-   let { nome, password } = req.body;
-   let foto = req?.file?.path;
+   console.log(uid);
+   if (uid === "remover_foto") {
+      next();
+   } else {
+      let { nome, password } = req.body;
+      let foto = req?.file?.path;
 
-   let novaSenhaEncriptada;
-   try {
-      novaSenhaEncriptada = await bcrypt.hash(password, 10);
-   } catch (error) {
-      console.log("Erro ao encriptar nova senha");
-   }
-
-   let novosDados = { nome, password: novaSenhaEncriptada };
-   if (foto) novosDados.foto = foto;
-
-   try {
-      const perfilAtualizado = await Usuario.findByIdAndUpdate(uid, novosDados, { new: true });
-      // TODO: Remover a antiga foto de perfil após atualizar uma nova foto de perfil
-      res.json({ mensagem: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password } });
-   } catch (error) {
-      res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });
-      if (foto) {
-         fs.unlink(foto, (unlinkError) => {
-            if (unlinkError) {
-               console.error("Falha ao remover:", unlinkError);
-            } else {
-               console.log("Foto temporária removida com sucesso");
-            }
-         });
+      let novaSenhaEncriptada;
+      try {
+         novaSenhaEncriptada = await bcrypt.hash(password, 10);
+      } catch (error) {
+         console.log("Erro ao encriptar nova senha");
       }
+
+      let novosDados = { nome, password: novaSenhaEncriptada };
+      if (foto) novosDados.foto = foto;
+
+      try {
+         const perfilAtualizado = await Usuario.findByIdAndUpdate(uid, novosDados, { new: true });
+         // TODO: Remover a antiga foto de perfil após atualizar uma nova foto de perfil
+         res.json({ mensagem: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password } });
+      } catch (error) {
+         res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });
+         if (foto) {
+            fs.unlink(foto, (unlinkError) => {
+               if (unlinkError) {
+                  console.error("Falha ao remover:", unlinkError);
+               } else {
+                  console.log("Foto temporária removida com sucesso");
+               }
+            });
+         }
+      }
+   }
+};
+
+const removerFotoPerfil = async (req, res) => {
+   let { fotoRemovida } = req.body;
+   let foto = path.normalize("uploads/defaultPicture.jpg");
+   try {
+      const perfilAtualizado = await Usuario.findByIdAndUpdate(req.userId, { foto }, { new: true });
+
+      // Removendo a foto no backend
+      fs.unlink(fotoRemovida, (unlinkError) => {
+         if (unlinkError) {
+            console.error("Falha ao remover:", unlinkError);
+         } else {
+            console.log("Foto temporária removida com sucesso");
+         }
+      });
+
+      res.json({ mensagem: "Foto Removida com sucesso", usuario: { ...perfilAtualizado.toObject(), password: req.password } });
+   } catch (error) {
+      res.status(500).json({ mensagem: "Erro ao remover a foto do perfil" });
    }
 };
 
@@ -141,3 +168,4 @@ exports.registarUsuario = registarUsuario;
 exports.fazerLogin = fazerLogin;
 exports.getUsuarioById = getUsuarioById;
 exports.atualizarPerfil = atualizarPerfil;
+exports.removerFotoPerfil = removerFotoPerfil;

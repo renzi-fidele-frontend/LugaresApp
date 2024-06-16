@@ -6,6 +6,7 @@ import axios from "axios";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 import { useDispatch } from "react-redux";
 import { setToken, setUsuario } from "../../state/usuario/usuarioSlice";
+import { useNavigate } from "react-router-dom";
 
 const Entrar = () => {
    const [foiValidado, setFoiValido] = useState(false);
@@ -13,6 +14,7 @@ const Entrar = () => {
    const [mostrarErro, setMostrarErro] = useState(false);
    const [erroMsg, setErroMsg] = useState("");
    const dispatch = useDispatch();
+   const navegar = useNavigate();
 
    // Refs do formulário
    const emailRef = useRef(null);
@@ -33,6 +35,7 @@ const Entrar = () => {
             });
             dispatch(setUsuario(res.data.usuario));
             dispatch(setToken(res.data.token));
+            navegar("/lugares");
          } catch (error) {
             if (error.response.data.mensagem) {
                setErroMsg(error.response.data.mensagem);

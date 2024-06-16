@@ -1,5 +1,12 @@
 const express = require("express");
-const { getUsuarios, registarUsuario, fazerLogin, getUsuarioById, atualizarPerfil } = require("../controllers/usuarios-controller");
+const {
+   getUsuarios,
+   registarUsuario,
+   fazerLogin,
+   getUsuarioById,
+   atualizarPerfil,
+   removerFotoPerfil,
+} = require("../controllers/usuarios-controller");
 
 const fileUpload = require("../middlewares/fileUpload");
 const verificarToken = require("../middlewares/auth");
@@ -21,5 +28,7 @@ router.post("/login", fazerLogin);
 router.use(verificarToken);
 
 router.patch("/:uid", fileUpload.single("foto"), atualizarPerfil);
+
+router.patch("/remover_foto", removerFotoPerfil);
 
 module.exports = router;

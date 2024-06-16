@@ -13,6 +13,7 @@ const verificarToken = (req, res, next) => {
          let desencriptado = jwt.verify(token, "Ratinho00");
          console.log(desencriptado);
          req.userId = desencriptado.userId;
+         req.password = desencriptado.password;
          next();
       } catch (error) {
          console.log(error);

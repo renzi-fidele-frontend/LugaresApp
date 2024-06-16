@@ -59,8 +59,6 @@ const PerfilUsuario = () => {
    }
 
    async function removerFotoUsuario() {
-      // TODO: Atualizar a foto de perfil para o default
-      // TODO: Remover a antiga foto de perfil no backend
       setLoading(true);
       try {
          const res = await axios.patch(
@@ -106,10 +104,40 @@ const PerfilUsuario = () => {
    const fotoPerfilRef = useRef(null);
 
    return (
-      <Container className="py-5 px-md-5">
-         <Row className="mt-4 px-md-5">
+      <Container className="py-md-5 py-4 px-md-5">
+         <Row className="mt-lg-4 px-md-5">
             <Col xs={12} lg={6} xl={7}>
-               <h2 className="mb-5">Atualize os dados do seu perfil</h2>
+               <h2 className="mb-4 mb-md-5">Atualize os dados do seu perfil</h2>
+               <div className="d-lg-none position-relative mb-4" style={{ width: "fit-content" }}>
+                  <Image
+                     ref={fotoPerfilRef}
+                     className="ms-auto rounded-2 border object-fit-cover border-2 border-secondary-subtle shadow-lg"
+                     id={styles.fotoLado}
+                     src={`http://localhost:3000/${usuario?.foto}`}
+                  />
+                  <Dropdown drop="end" className="position-absolute start-0 bottom-0">
+                     <Dropdown.Toggle id={styles.toogle} as="a">
+                        <i
+                           style={{ cursor: "pointer" }}
+                           className="bi bi-three-dots border border-1 border-secondary-subtle px-2 py-1 fs-3 bg-light shadow-sm text-dark rounded-circle  "
+                        ></i>
+                     </Dropdown.Toggle>
+                     <Dropdown.Menu>
+                        <Dropdown.Item as="label" style={{ cursor: "pointer" }}>
+                           <i className="bi bi-upload me-1"></i> Carregar nova
+                           <input name="foto_perfil" className="d-none" ref={imgRef} onChange={handleImgUpload} accept="image/*" type="file" />
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                           onClick={() => {
+                              setShowRemoveModal(true);
+                           }}
+                           className="text-danger"
+                        >
+                           Remover
+                        </Dropdown.Item>
+                     </Dropdown.Menu>
+                  </Dropdown>
+               </div>
                <Form onChange={verificarMudanca} onSubmit={atualizarPerfil} validated={foiValidado} noValidate>
                   <Form.Group className="mb-3">
                      <Form.Label>Nome do usuário</Form.Label>
@@ -161,7 +189,7 @@ const PerfilUsuario = () => {
                   id={styles.fotoLado}
                   src={`http://localhost:3000/${usuario?.foto}`}
                />
-               <Dropdown className="position-absolute end-0 bottom-0">
+               <Dropdown drop="start" className="position-absolute end-0 bottom-0">
                   <Dropdown.Toggle id={styles.toogle} as="a">
                      <i
                         style={{ cursor: "pointer" }}

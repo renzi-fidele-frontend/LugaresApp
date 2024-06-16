@@ -2,12 +2,19 @@
    height: 360px;
 }
 
-#toogle::after {
+#toogle::after,
+#toogle::before {
    content: none;
 }
 
 @media screen and (max-width: 1300px) {
    #fotoLado {
       height: 330px;
+   }
+}
+
+@media screen and (max-width: 800px) {
+   #fotoLado {
+      height: 270px;
    }
 }

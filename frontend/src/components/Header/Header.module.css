@@ -8,3 +8,10 @@
    content: none;
 }
 
+@media screen and (max-width: 400px) {
+   #fotoUsuario {
+      height: 35px;
+      width: 35px;
+   }
+  
+}

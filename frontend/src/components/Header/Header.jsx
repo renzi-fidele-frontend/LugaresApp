@@ -16,12 +16,36 @@ const Header = () => {
 
    return (
       <Navbar expand="lg" className="bg-black bg-gradient">
-         <Container>
+         <Container className="d-flex flex-row align-items-center">
             <LinkContainer to={"/"}>
-               <Navbar.Brand style={{ cursor: "pointer" }}>LugaresApp</Navbar.Brand>
+               <Navbar.Brand className="p-0" style={{ cursor: "pointer" }}>LugaresApp</Navbar.Brand>
             </LinkContainer>
+            <div className="d-flex gap-3 flex-row-reverse">
+               <Navbar.Toggle aria-controls="basic-navbar-nav" />
+               {/*   DropDown Mobile */}
+               {usuario && (
+                  <Dropdown drop="start" className="d-lg-none d-flex align-items-center">
+                     <Dropdown.Toggle id={styles.seta} variant="dark" as="a">
+                        <Image
+                           className="rounded-circle object-fit-cover ms-3"
+                           id={styles.fotoUsuario}
+                           src={`http://localhost:3000/${usuario?.foto}`}
+                        />
+                     </Dropdown.Toggle>
 
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                     <Dropdown.Menu>
+                        <LinkContainer to="editar_perfil">
+                           <Dropdown.Item>Editar perfil</Dropdown.Item>
+                        </LinkContainer>
+
+                        <Dropdown.Item onClick={deslogar} className="text-danger">
+                           Deslogar
+                        </Dropdown.Item>
+                     </Dropdown.Menu>
+                  </Dropdown>
+               )}
+            </div>
+
             <Navbar.Collapse id="basic-navbar-nav">
                <Nav activeKey={location.pathname} className="ms-auto">
                   <LinkContainer to="/">
@@ -38,8 +62,8 @@ const Header = () => {
                         <LinkContainer to="/adicionar_lugar">
                            <Nav.Link>Adicionar novo</Nav.Link>
                         </LinkContainer>
-
-                        <Dropdown drop="start" className="d-flex align-items-center">
+                        {/*   Dropdown Desktop */}
+                        <Dropdown drop="start" className="d-lg-flex d-none align-items-center">
                            <Dropdown.Toggle id={styles.seta} variant="dark" as="a">
                               <Image
                                  className="rounded-circle object-fit-cover ms-3"

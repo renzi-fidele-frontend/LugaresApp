@@ -59,7 +59,7 @@ const Lugares = () => {
                      ? `Descubra os lugares que foram compartilhados pelo usuário: ${usuario?.nome}`
                      : "Descubra os lugares que foram compartilhados pelos usuários"}
                </h2>
-               <Image className="mb-5" id={styles.foto} src={foto} />
+               <Image className="mb-sm-5 mb-1" id={styles.foto} src={foto} />
                {lugares?.length > 0 && (
                   <Row className="mt-4 g-4 justify-content-center">
                      {!userMode

@@ -6,20 +6,26 @@
    width: 276px;
 }
 
-@media screen and (max-width: 1426px) {
+@media screen and (max-width: 1300px) {
    #foto {
-      width: 320px;
+      width: 250px;
    }
 }
 
 @media screen and (max-width: 906px) {
    #foto {
-      width: 290px;
+      width: 220px;
    }
 }
 
 @media screen and (max-width: 500px) {
    #foto {
-      width: 230px;
+      width: 180px;
+   }
+}
+
+@media screen and (max-width: 390px) {
+   #foto {
+      width: 140px;
    }
 }

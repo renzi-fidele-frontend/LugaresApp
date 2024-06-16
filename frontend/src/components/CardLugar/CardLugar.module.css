@@ -6,15 +6,6 @@
    height: 300px;
 }
 
-#fundoCustom {
-   background-color: #aaaaaa;
-   opacity: 0.8;
-   background: radial-gradient(circle, transparent 20%, #aaaaaa 20%, #aaaaaa 80%, transparent 80%, transparent),
-      radial-gradient(circle, transparent 20%, #aaaaaa 20%, #aaaaaa 80%, transparent 80%, transparent) 25px 25px,
-      linear-gradient(#3d3f6b 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #3d3f6b 2px, #aaaaaa 2px) -1px 0;
-   background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
-}
-
 #mapaCt {
    height: 400px;
    width: 100%;
@@ -23,6 +14,10 @@
 @media screen and (max-width: 990px) {
    #mapaCt {
       height: 300px;
+   }
+
+   #ct img {
+      height: 250px;
    }
 }
 
@@ -34,6 +29,10 @@
 
 @media screen and (max-width: 400px) {
    #mapaCt {
+      height: 220px;
+   }
+
+   #ct img {
       height: 220px;
    }
 }

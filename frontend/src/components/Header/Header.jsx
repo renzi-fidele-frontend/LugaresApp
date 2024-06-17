@@ -3,7 +3,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import styles from "./Header.module.css";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUsuario } from "../../state/usuario/usuarioSlice";
+import { setToken, setUsuario } from "../../state/usuario/usuarioSlice";
 
 const Header = () => {
    const location = useLocation();
@@ -12,13 +12,17 @@ const Header = () => {
 
    function deslogar() {
       dispatch(setUsuario(null));
+      dispatch(setToken(null));
+      localStorage.clear();
    }
 
    return (
       <Navbar expand="lg" className="bg-black bg-gradient">
          <Container className="d-flex flex-row align-items-center">
             <LinkContainer to={"/"}>
-               <Navbar.Brand className="p-0" style={{ cursor: "pointer" }}>LugaresApp</Navbar.Brand>
+               <Navbar.Brand className="p-0" style={{ cursor: "pointer" }}>
+                  LugaresApp
+               </Navbar.Brand>
             </LinkContainer>
             <div className="d-flex gap-3 flex-row-reverse">
                <Navbar.Toggle aria-controls="basic-navbar-nav" />

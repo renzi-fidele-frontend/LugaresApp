@@ -10,34 +10,37 @@ import Entrar from "./pages/Entrar/Entrar";
 import Cadastro from "./pages/Cadastro/Cadastro";
 import MeusLugares from "./pages/MeusLugares/MeusLugares";
 import PerfilUsuario from "./pages/PerfilUsuario/PerfilUsuario";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setToken, setUsuario } from "./state/usuario/usuarioSlice";
+import { useEffect } from "react";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 function App() {
    const dispatch = useDispatch();
+   const { usuario } = useSelector((state) => state.usuario);
 
-   if (userData) {
-      dispatch(setUsuario(userData.usuario));
-      dispatch(setToken(userData.token));
-   }
+   useEffect(() => {
+      if (userData) {
+         dispatch(setUsuario(userData.usuario));
+         dispatch(setToken(userData.token));
+      }
+   }, []);
 
    return (
       <>
          <BrowserRouter>
             <Header />
             <Routes>
-               {/*   TODO: Após adicionar autenticação, Melhorar seguraça das rotas caso o usuário não esteja logado */}
                <Route exact path="/" element={<Home />} />
                <Route path="/lugares" element={<Lugares />} />
                <Route path="/:uid/lugares" element={<Lugares />} />
-               <Route path="/adicionar_lugar" element={<AdicionarLugar />} />
-               <Route path="/lugares/:id" element={<EditarLugar />} />
-               <Route path="/login" element={<Entrar />} />
-               <Route path="/cadastrar" element={<Cadastro />} />
-               <Route path="/meus_lugares" element={<MeusLugares />} />
-               <Route path="/editar_perfil" element={<PerfilUsuario />} />
+               <Route path="/adicionar_lugar" element={usuario ? <AdicionarLugar /> : <Entrar />} />
+               <Route path="/lugares/:id" element={usuario ? <EditarLugar /> : <Entrar />} />
+               <Route path="/login" element={!usuario ? <Entrar /> : <Home />} />
+               <Route path="/cadastrar" element={!usuario ? <Cadastro /> : <Home />} />
+               <Route path="/meus_lugares" element={usuario ? <MeusLugares /> : <Entrar />} />
+               <Route path="/editar_perfil" element={usuario ? <PerfilUsuario /> : <Entrar />} />
             </Routes>
             <Footer />
          </BrowserRouter>

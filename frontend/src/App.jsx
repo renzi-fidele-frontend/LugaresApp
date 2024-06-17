@@ -10,8 +10,19 @@ import Entrar from "./pages/Entrar/Entrar";
 import Cadastro from "./pages/Cadastro/Cadastro";
 import MeusLugares from "./pages/MeusLugares/MeusLugares";
 import PerfilUsuario from "./pages/PerfilUsuario/PerfilUsuario";
+import { useDispatch } from "react-redux";
+import { setToken, setUsuario } from "./state/usuario/usuarioSlice";
+
+const userData = JSON.parse(localStorage.getItem("userData"));
 
 function App() {
+   const dispatch = useDispatch();
+
+   if (userData) {
+      dispatch(setUsuario(userData.usuario));
+      dispatch(setToken(userData.token));
+   }
+
    return (
       <>
          <BrowserRouter>

@@ -15,7 +15,7 @@ const EditarLugar = () => {
    const [erroMsg, setErroMsg] = useState("");
    const [podeEnviar, setPodeEnviar] = useState(false);
 
-   const { token } = useSelector((state) => state.usuario);
+   const { token, usuario } = useSelector((state) => state.usuario);
 
    const idLugar = useParams()?.id;
 
@@ -39,6 +39,7 @@ const EditarLugar = () => {
                {
                   titulo: nome_lugar_ref.current.value,
                   descricao: descricao_ref.current.value,
+                  idCriador: usuario._id,
                },
                { headers: { Authorization: `Bearer ${token}` } }
             );

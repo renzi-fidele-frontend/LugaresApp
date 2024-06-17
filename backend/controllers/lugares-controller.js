@@ -73,17 +73,24 @@ const adicionarLugar = async (req, res) => {
 };
 
 const atualizarLugarById = async (req, res) => {
+   // TODO: Tornar a rota para atualizar o lugar em segura
    let { idLugar } = req.params;
-   const { titulo, descricao } = req.body;
-   try {
-      const lugarAtualizado = await Lugar.updateOne({ _id: idLugar }, { titulo, descricao });
-      res.json({ mensagem: "Lugar atualizado com sucesso!", lugarAtualizado });
-   } catch (erro) {
-      res.status(500).json({ mensagem: "Erro ao atualizar o lugar" });
+   const { titulo, descricao, idCriador } = req.body;
+   const lugar = await Lugar.findById(idLugar);
+   if (lugar?.idCriador?.toString() === req.userId) {
+      try {
+         const lugarAtualizado = await Lugar.updateOne({ _id: idLugar }, { titulo, descricao });
+         res.json({ mensagem: "Lugar atualizado com sucesso!", lugarAtualizado });
+      } catch (erro) {
+         res.status(500).json({ mensagem: "Erro ao atualizar o lugar" });
+      }
+   } else {
+      res.status(401).json({ mensagem: "Você não tem permissão para isso!" });
    }
 };
 
 const removerLugarById = async (req, res) => {
+   // TODO: Tornar a rota para Remover o lugar em segura
    let { idLugar } = req.params;
    try {
       // Removendo a foto pertecente ao lugar

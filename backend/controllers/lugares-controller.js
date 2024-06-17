@@ -73,9 +73,8 @@ const adicionarLugar = async (req, res) => {
 };
 
 const atualizarLugarById = async (req, res) => {
-   // TODO: Tornar a rota para atualizar o lugar em segura
    let { idLugar } = req.params;
-   const { titulo, descricao, idCriador } = req.body;
+   const { titulo, descricao } = req.body;
    const lugar = await Lugar.findById(idLugar);
    if (lugar?.idCriador?.toString() === req.userId) {
       try {
@@ -92,21 +91,26 @@ const atualizarLugarById = async (req, res) => {
 const removerLugarById = async (req, res) => {
    // TODO: Tornar a rota para Remover o lugar em segura
    let { idLugar } = req.params;
-   try {
-      // Removendo a foto pertecente ao lugar
-      const lugar = await Lugar.findById(idLugar);
-      const foto = lugar.foto;
-      fs.unlink(foto, (unlinkError) => {
-         if (unlinkError) {
-            console.error("Falha ao remover:", unlinkError);
-         } else {
-            console.log("Foto temporária removida com sucesso");
-         }
-      });
-      const lugarRemovido = await Lugar.deleteOne({ _id: idLugar });
-      res.json({ mensagem: "Lugar removido com sucesso!" });
-   } catch (erro) {
-      res.status(500).json({ mensagem: "Erro ao remover o lugar no DB" });
+   const lugar = await Lugar.findById(idLugar);
+   if (lugar?.idCriador?.toString() === req.userId) {
+      try {
+         // Removendo a foto pertecente ao lugar
+         const lugar = await Lugar.findById(idLugar);
+         const foto = lugar.foto;
+         fs.unlink(foto, (unlinkError) => {
+            if (unlinkError) {
+               console.error("Falha ao remover:", unlinkError);
+            } else {
+               console.log("Foto temporária removida com sucesso");
+            }
+         });
+         const lugarRemovido = await Lugar.deleteOne({ _id: idLugar });
+         res.json({ mensagem: "Lugar removido com sucesso!" });
+      } catch (erro) {
+         res.status(500).json({ mensagem: "Erro ao remover o lugar no DB" });
+      }
+   } else {
+      res.status(401).json({ mensagem: "Você não tem permissão para isso!" });
    }
 };
 

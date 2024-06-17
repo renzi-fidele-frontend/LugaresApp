@@ -38,10 +38,10 @@ const getLugaresDoUsuarioById = async (req, res) => {
 };
 
 const adicionarLugar = async (req, res) => {
-   const { titulo, descricao, endereco, idCriador } = req.body;
+   const { titulo, descricao, endereco } = req.body;
    const foto = req?.file?.path;
 
-   if (idCriador === req.userId) {
+   if (req.userId) {
       coordenadas = await apanharCoordernadasPorEndereco(endereco);
       try {
          let lugarCriado = {
@@ -89,7 +89,6 @@ const atualizarLugarById = async (req, res) => {
 };
 
 const removerLugarById = async (req, res) => {
-   // TODO: Tornar a rota para Remover o lugar em segura
    let { idLugar } = req.params;
    const lugar = await Lugar.findById(idLugar);
    if (lugar?.idCriador?.toString() === req.userId) {

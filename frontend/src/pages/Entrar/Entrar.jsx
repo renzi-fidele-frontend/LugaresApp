@@ -35,6 +35,7 @@ const Entrar = () => {
             });
             dispatch(setUsuario(res.data.usuario));
             dispatch(setToken(res.data.token));
+            localStorage.setItem("userData", JSON.stringify({ userId: res.data.usuario._id, token: res.data.token }));
             navegar("/lugares");
          } catch (error) {
             if (error.response.data.mensagem) {

@@ -49,7 +49,8 @@ const Cadastro = () => {
             );
             dispatch(setUsuario(res.data.usuario));
             dispatch(setToken(res.data.token));
-            navegar("/adicionar_lugar")
+            localStorage.setItem("userData", JSON.stringify({ userId: res.data.usuario._id, token: res.data.token }));
+            navegar("/adicionar_lugar");
          } catch (error) {
             if (error.response.data.mensagem) {
                setErroMsg(error.response.data.mensagem);

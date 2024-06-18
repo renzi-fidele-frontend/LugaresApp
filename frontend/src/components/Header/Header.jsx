@@ -33,7 +33,7 @@ const Header = () => {
                         <Image
                            className="rounded-circle object-fit-cover ms-3"
                            id={styles.fotoUsuario}
-                           src={`http://localhost:3000/${usuario?.foto}`}
+                           src={`${import.meta.env.VITE_BACKEND_URL}/${usuario?.foto}`}
                         />
                      </Dropdown.Toggle>
 
@@ -72,7 +72,7 @@ const Header = () => {
                               <Image
                                  className="rounded-circle object-fit-cover ms-3"
                                  id={styles.fotoUsuario}
-                                 src={`http://localhost:3000/${usuario?.foto}`}
+                                 src={`${import.meta.env.VITE_BACKEND_URL}/${usuario?.foto}`}
                               />
                            </Dropdown.Toggle>
 

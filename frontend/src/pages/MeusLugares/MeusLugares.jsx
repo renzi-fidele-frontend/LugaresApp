@@ -19,7 +19,7 @@ const MeusLugares = () => {
 
    async function apanharMeusLugares() {
       try {
-         const res = await axios("http://localhost:3000/api/lugares/usuario/" + usuario?._id);
+         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/lugares/usuario/${usuario?._id}`);
          setLugares(res.data.lugares_do_usuario);
       } catch (error) {
          console.log(error);

@@ -43,7 +43,7 @@ const PerfilUsuario = () => {
          }
 
          try {
-            const res = await axios.patch(`http://localhost:3000/api/usuarios/${usuario._id}`, dadosAtualizados, {
+            const res = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${usuario._id}`, dadosAtualizados, {
                headers: {
                   "Content-Type": "multipart/form-data",
                   Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ const PerfilUsuario = () => {
       setLoading(true);
       try {
          const res = await axios.patch(
-            `http://localhost:3000/api/usuarios/remover_foto`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/usuarios/remover_foto`,
             { fotoRemovida: usuario.foto },
             {
                headers: { Authorization: `Bearer ${token}` },
@@ -116,7 +116,7 @@ const PerfilUsuario = () => {
                      ref={fotoPerfilRef}
                      className="ms-auto rounded-2 border object-fit-cover border-2 border-secondary-subtle shadow-lg"
                      id={styles.fotoLado}
-                     src={`http://localhost:3000/${usuario?.foto}`}
+                     src={`${import.meta.env.VITE_BACKEND_URL}/${usuario?.foto}`}
                   />
                   <Dropdown drop="end" className="position-absolute start-0 bottom-0">
                      <Dropdown.Toggle id={styles.toogle} as="a">
@@ -190,7 +190,7 @@ const PerfilUsuario = () => {
                   ref={fotoPerfilRef}
                   className="ms-auto rounded-2 border object-fit-cover border-2 border-secondary-subtle shadow-lg"
                   id={styles.fotoLado}
-                  src={`http://localhost:3000/${usuario?.foto}`}
+                  src={`${import.meta.env.VITE_BACKEND_URL}/${usuario?.foto}`}
                />
                <Dropdown drop="start" className="position-absolute end-0 bottom-0">
                   <Dropdown.Toggle id={styles.toogle} as="a">

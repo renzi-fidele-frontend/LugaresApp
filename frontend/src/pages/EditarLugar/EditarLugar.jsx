@@ -35,7 +35,7 @@ const EditarLugar = () => {
          setLoading(true);
          try {
             const res = await axios.patch(
-               `http://localhost:3000/api/lugares/${idLugar}`,
+               `${import.meta.env.VITE_BACKEND_URL}/api/lugares/${idLugar}`,
                {
                   titulo: nome_lugar_ref.current.value,
                   descricao: descricao_ref.current.value,

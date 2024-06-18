@@ -15,7 +15,7 @@ const Lugares = () => {
 
    async function apanharUsuario(uid) {
       try {
-         const res = await axios("http://localhost:3000/api/usuarios/" + uid);
+         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${uid}`);
          setUsuario(res.data.usuario);
       } catch (error) {
          console.log(error);
@@ -24,7 +24,7 @@ const Lugares = () => {
 
    async function apanharLugares() {
       try {
-         const res = await axios("http://localhost:3000/api/lugares");
+         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/lugares`);
          setLugares(res.data.lugares);
       } catch (error) {
          console.log(error);
@@ -33,7 +33,7 @@ const Lugares = () => {
 
    async function apanharLugaresDoUsuario(uid) {
       try {
-         const res = await axios("http://localhost:3000/api/lugares/usuario/" + uid);
+         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/lugares/usuario/${uid}`);
          setLugares(res.data.lugares_do_usuario);
       } catch (error) {
          console.log(error);

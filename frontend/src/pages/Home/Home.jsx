@@ -10,7 +10,7 @@ const Home = () => {
 
    async function apanharUsuarios() {
       try {
-         const response = await axios("http://localhost:3000/api/usuarios/");
+         const response = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/`);
          setUsuarios(response.data.usuarios);
       } catch (error) {
          console.log(error);

@@ -19,7 +19,9 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
    async function removerLugar() {
       setLoading(true);
       try {
-         const res = await axios.delete(`http://localhost:3000/api/lugares/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+         const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/lugares/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+         });
          navegar("/meus_lugares", { state: { sucesso: true } });
          console.log(res.data.mensagem);
       } catch (error) {
@@ -32,7 +34,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
       <>
          {(id, titulo, descricao, foto, idCriador, endereco, coordenadas) ? (
             <Card bg="dark" text="light" border="secondary" id={styles.ct} className="h-100">
-               <Card.Img className="p-2 rounded-4 " src={`http://localhost:3000/${foto}`} />
+               <Card.Img className="p-2 rounded-4 " src={`${import.meta.env.VITE_BACKEND_URL}/${foto}`} />
                <Card.Header id={styles.cardHeader}>
                   <Card.Subtitle style={{ color: "#959595" }}>{endereco}</Card.Subtitle>
                </Card.Header>

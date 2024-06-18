@@ -29,7 +29,7 @@ const Entrar = () => {
       } else {
          setLoading(true);
          try {
-            const res = await axios.post("http://localhost:3000/api/usuarios/login", {
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/login`, {
                email: emailRef.current.value,
                password: passwordRef.current.value,
             });

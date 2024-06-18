@@ -34,7 +34,7 @@ const Cadastro = () => {
 
          try {
             const res = await axios.post(
-               "http://localhost:3000/api/usuarios/cadastro",
+               `${import.meta.env.VITE_BACKEND_URL}/api/usuarios/cadastro`,
                {
                   nome: nomeRef.current.value,
                   email: emailRef.current.value,

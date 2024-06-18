@@ -6,7 +6,7 @@ import converterData from "../../hooks/useConverterData";
 const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
    return (
       <>
-         {(fotoPerfil && nome && aderiuEm && uid) ? (
+         {fotoPerfil && nome && aderiuEm && uid ? (
             <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
                <Row>
                   <Col className="my-md-auto" md={4}>
@@ -14,7 +14,7 @@ const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
                         className={`object-fit-cover mb-3 mb-md-0 ${styles.foto}`}
                         roundedCircle
                         thumbnail
-                        src={`http://localhost:3000/${fotoPerfil}`}
+                        src={`${import.meta.env.VITE_BACKEND_URL}/${fotoPerfil}`}
                         alt={`Foto de perfil de ${nome}`}
                      />
                   </Col>
@@ -30,7 +30,6 @@ const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
                </Row>
             </Card>
          ) : (
-
             <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
                <Row>
                   <Col className="my-md-auto mx-auto ratio-1x1" xs={5} md={4}>

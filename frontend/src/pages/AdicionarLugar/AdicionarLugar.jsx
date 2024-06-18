@@ -34,7 +34,7 @@ const AdicionarLugar = () => {
          setLoading(true);
          try {
             const res = await axios.post(
-               "http://localhost:3000/api/lugares",
+               `${import.meta.env.VITE_BACKEND_URL}/api/lugares`,
                {
                   titulo: nome_lugar_ref.current.value,
                   descricao: descricao_ref.current.value,
@@ -52,7 +52,7 @@ const AdicionarLugar = () => {
 
             navegar("/meus_lugares", { state: { novo_criado: true } });
          } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
             if (error.response.data.mensagem) {
                setErroMsg(error.response.data.mensagem);
                setMostrarErro(true);

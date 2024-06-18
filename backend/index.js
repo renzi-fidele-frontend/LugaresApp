@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -9,6 +10,8 @@ const rotalugares = require("./routes/lugares-route");
 const rotaUsuarios = require("./routes/usuarios-route");
 
 const app = express();
+
+app.use(cors({ origin: process.env.CLIENT_URL }));
 
 console.log(process.env.PORT);
 

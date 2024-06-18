@@ -2,13 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 
+require("dotenv").config();
+
 //  Rotas
 const rotalugares = require("./routes/lugares-route");
 const rotaUsuarios = require("./routes/usuarios-route");
 
 const app = express();
 
-console.log(process.env.PORT)
+console.log(process.env.PORT);
 
 app.use(express.json());
 

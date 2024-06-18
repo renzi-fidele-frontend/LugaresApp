@@ -11,7 +11,7 @@ const rotaUsuarios = require("./routes/usuarios-route");
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL, allowedHeaders: [""] }));
+app.use(cors({ origin: process.env.CLIENT_URL }));
 
 console.log(process.env.PORT);
 

@@ -57,7 +57,7 @@ const registarUsuario = async (req, res) => {
          });
          await usuarioAdicionado.save();
 
-         const token = jwt.sign({ userId: usuarioAdicionado._id, password }, "Ratinho00");
+         const token = jwt.sign({ userId: usuarioAdicionado._id, password }, process.env.SENHA_JWT);
 
          res.json({ mensagem: "Conta criada com sucesso", usuario: { ...usuarioAdicionado.toObject(), password }, token });
       }
@@ -83,7 +83,7 @@ const fazerLogin = async (req, res) => {
             const passwordValido = await bcrypt.compare(password, existeUsuario.password);
 
             if (passwordValido) {
-               const token = jwt.sign({ userId: existeUsuario._id, password }, "Ratinho00");
+               const token = jwt.sign({ userId: existeUsuario._id, password }, process.env.SENHA_JWT);
 
                res.json({
                   mensagem: "Logado com sucesso!",

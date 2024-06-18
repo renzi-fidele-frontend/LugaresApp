@@ -1,0 +1,8 @@
+{
+   "env": {
+      "CLIENT_URL": "http://localhost:5173",
+      "MONGO_URL": "mongodb+srv://admin:Ratinho00@cluster0.dcvywkf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+      "SENHA_JWT": "Ratinho00",
+      "PORT": "3000"
+   }
+}

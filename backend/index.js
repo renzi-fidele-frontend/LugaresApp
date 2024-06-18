@@ -8,12 +8,14 @@ const rotaUsuarios = require("./routes/usuarios-route");
 
 const app = express();
 
+console.log(process.env.PORT)
+
 app.use(express.json());
 
 app.use("/uploads", express.static(path.normalize("uploads")));
 
 app.use(function (req, res, next) {
-   res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+   res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL);
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
    res.header("Access-Control-Allow-Methods", "*");
    next();
@@ -27,12 +29,10 @@ app.use((req, res) => {
    res.status(404).json({ mensagem: "Essa rota não foi configurada" });
 });
 
-const port = 3000;
-
 mongoose
-   .connect("mongodb+srv://admin:Ratinho00@cluster0.dcvywkf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+   .connect(process.env.MONGO_URL)
    .then(() => {
       console.log("Conectado ao MongoDB!");
-      app.listen(port, () => console.log("Inicializando o servidor"));
+      app.listen(process.env.PORT, () => console.log("Inicializando o servidor"));
    })
    .catch((err) => console.log("Erro ao conectar"));

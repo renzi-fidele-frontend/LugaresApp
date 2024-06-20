@@ -47,7 +47,7 @@ const adicionarLugar = async (req, res) => {
          let lugarCriado = {
             titulo,
             descricao,
-            idCriador,
+            idCriador: req.userId,
             endereco,
             foto,
             coordenadas,
@@ -56,6 +56,7 @@ const adicionarLugar = async (req, res) => {
          await lugarAdicionado.save();
          res.json({ lugar: lugarCriado });
       } catch (error) {
+         console.log(error.message)
          res.status(500).json({ mensagem: "Erro ao criar o lugar" });
          if (foto) {
             fs.unlink(foto, (unlinkError) => {

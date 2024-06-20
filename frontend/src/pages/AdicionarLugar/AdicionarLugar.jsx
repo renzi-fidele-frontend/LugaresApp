@@ -39,7 +39,6 @@ const AdicionarLugar = () => {
                   titulo: nome_lugar_ref.current.value,
                   descricao: descricao_ref.current.value,
                   endereco: endereco_ref.current.value,
-                  idCriador: usuario._id,
                   foto: file_ref.current.files[0],
                },
                {

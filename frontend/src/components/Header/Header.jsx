@@ -4,6 +4,7 @@ import styles from "./Header.module.css";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, setUsuario } from "../../state/usuario/usuarioSlice";
+import logo from "../../assets/logo.png";
 
 const Header = () => {
    const location = useLocation();
@@ -20,9 +21,7 @@ const Header = () => {
       <Navbar expand="lg" className="bg-black bg-gradient">
          <Container className="d-flex flex-row align-items-center">
             <LinkContainer to={"/"}>
-               <Navbar.Brand className="p-0" style={{ cursor: "pointer" }}>
-                  LugaresApp
-               </Navbar.Brand>
+               <Navbar.Brand as={Image} id={styles.logo} src={logo} className="p-0" />
             </LinkContainer>
             <div className="d-flex gap-3 flex-row-reverse">
                <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -8,10 +8,19 @@
    content: none;
 }
 
+#logo {
+   cursor: pointer;
+   width: 170px;
+}
+
 @media screen and (max-width: 400px) {
    #fotoUsuario {
       height: 35px;
       width: 35px;
+   }
+
+   #logo {
+      width: 150px;
    }
   
 }

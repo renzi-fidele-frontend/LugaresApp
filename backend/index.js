@@ -17,7 +17,7 @@ console.log(process.env.PORT);
 
 app.use(express.json());
 
-app.use("/uploads", express.static(path.normalize("uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(function (req, res, next) {
    res.header("Access-Control-Allow-Origin", "*");

@@ -46,7 +46,7 @@ const MeusLugares = () => {
                </h2>
                <Image className="mb-5" id={styles.foto} src={foto} />
                {lugares?.length > 0 && (
-                  <Row className="mt-4 g-4 justify-content-center">
+                  <Row className="mt-2 mt-md-4 g-4 justify-content-center">
                      {lugares?.map((v, k) => (
                         <Col md={6} xl={4} key={k}>
                            <CardLugar

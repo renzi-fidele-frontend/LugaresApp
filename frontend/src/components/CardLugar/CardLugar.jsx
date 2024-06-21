@@ -1,10 +1,14 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import styles from "./CardLugar.module.css";
 import { Button, Card, Modal, Placeholder, Spinner, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import inicializarMapa from "../../hooks/useRenderizarMapa";
+
+// React Lightbox
+import "lightbox.js-react/dist/index.css";
+import { Image, initLightboxJS } from "lightbox.js-react";
 
 const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco, coordenadas, pertenceAoUsuario = false }) => {
    const { usuario } = useSelector((state) => state.usuario);
@@ -13,6 +17,10 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
    const [loading, setLoading] = useState(false);
    const mapCtRef = useRef();
    const navegar = useNavigate();
+
+   useMemo(() => {
+      initLightboxJS("653C-4B2F-78DF-EC69 ", "individual");
+   }, []);
 
    const { token } = useSelector((state) => state.usuario);
 
@@ -34,9 +42,11 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
       <>
          {(id, titulo, descricao, foto, idCriador, endereco, coordenadas) ? (
             <Card bg="dark" text="light" border="secondary" id={styles.ct} className="h-100">
-               <Card.Img className="p-2 rounded-4 " src={`${import.meta.env.VITE_BACKEND_URL}/${foto}`} />
+               <Card.Img as={Image} image={{ src: `${import.meta.env.VITE_BACKEND_URL}/${foto}` }} className="p-2 rounded-4" />
                <Card.Header id={styles.cardHeader}>
-                  <Card.Subtitle className="text-truncate" style={{ color: "#959595" }}>{endereco}</Card.Subtitle>
+                  <Card.Subtitle className="text-truncate" style={{ color: "#959595" }}>
+                     {endereco}
+                  </Card.Subtitle>
                </Card.Header>
 
                <Card.Body className="d-flex flex-column justify-content-evenly">

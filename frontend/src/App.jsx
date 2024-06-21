@@ -13,6 +13,7 @@ import PerfilUsuario from "./pages/PerfilUsuario/PerfilUsuario";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, setUsuario } from "./state/usuario/usuarioSlice";
 import { useEffect } from "react";
+import ScrollTop from "./hooks/useScrollTop";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -30,6 +31,7 @@ function App() {
    return (
       <>
          <BrowserRouter>
+            <ScrollTop />
             <Header />
             <Routes>
                <Route exact path="/" element={<Home />} />

@@ -36,7 +36,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
             <Card bg="dark" text="light" border="secondary" id={styles.ct} className="h-100">
                <Card.Img className="p-2 rounded-4 " src={`${import.meta.env.VITE_BACKEND_URL}/${foto}`} />
                <Card.Header id={styles.cardHeader}>
-                  <Card.Subtitle style={{ color: "#959595" }}>{endereco}</Card.Subtitle>
+                  <Card.Subtitle className="text-truncate" style={{ color: "#959595" }}>{endereco}</Card.Subtitle>
                </Card.Header>
 
                <Card.Body className="d-flex flex-column justify-content-evenly">

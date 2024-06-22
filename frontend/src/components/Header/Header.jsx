@@ -18,7 +18,7 @@ const Header = () => {
    }
 
    return (
-      <Navbar expand="lg" className="bg-black bg-gradient">
+      <Navbar expand="lg" data-bs-theme="black" className="bg-black bg-gradient">
          <Container className="d-flex flex-row align-items-center">
             <LinkContainer to={"/"}>
                <Navbar.Brand as={Image} id={styles.logo} src={logo} className="p-0" />
@@ -28,7 +28,7 @@ const Header = () => {
                {/*   DropDown Mobile */}
                {usuario && (
                   <Dropdown drop="start" className="d-lg-none d-flex align-items-center">
-                     <Dropdown.Toggle id={styles.seta} variant="dark" as="a">
+                     <Dropdown.Toggle id={styles.seta} as="a">
                         <Image
                            className="rounded-circle object-fit-cover ms-3"
                            id={styles.fotoUsuario}
@@ -67,7 +67,7 @@ const Header = () => {
                         </LinkContainer>
                         {/*   Dropdown Desktop */}
                         <Dropdown drop="start" className="d-lg-flex d-none align-items-center">
-                           <Dropdown.Toggle id={styles.seta} variant="dark" as="a">
+                           <Dropdown.Toggle id={styles.seta} as="a">
                               <Image
                                  className="rounded-circle object-fit-cover ms-3"
                                  id={styles.fotoUsuario}

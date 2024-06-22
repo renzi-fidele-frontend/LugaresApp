@@ -1,6 +1,4 @@
-body {
-   background: rgb(33, 33, 34) !important;
-}
+
 
 #root {
    min-height: 100vh;
@@ -10,27 +8,17 @@ body {
 
 a {
    text-decoration: none;
-   color: white;
+   /* color: white; */
 }
 
 
 .nav-link.active {
    text-decoration: underline;
-   color: white !important;
+   /* color: white !important; */
    font-weight: 500 !important;
 }
 
-.nav-link {
-   color: rgb(165, 165, 165) !important;
-}
 
-
-
-.navbar-brand {
-   font-weight: 700 !important;
-   font-size: 25px !important;
-   color: white !important;
-}
 
 img {
    max-width: 100%;

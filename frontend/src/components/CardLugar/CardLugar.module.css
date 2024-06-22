@@ -25,6 +25,10 @@
    #mapaCt {
       height: 260px;
    }
+
+   #ct img {
+      height: 230px;
+   }
 }
 
 @media screen and (max-width: 400px) {

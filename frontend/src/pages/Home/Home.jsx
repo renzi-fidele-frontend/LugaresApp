@@ -1,7 +1,7 @@
 import { Col, Image, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
 import UserCard from "../../components/UserCard/UserCard";
-import usersPic from "../../assets/users3.svg";
+import usersPic from "../../assets/users3.png";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -28,7 +28,7 @@ const Home = () => {
                <h2 id={styles.titulo} className="mx-auto mt-3 mt-md-5 mb-5 fw-semibold fs-2 pt-4">
                   Encontre todos os usuários que compartilharam lugares
                </h2>
-               <Image className="mb-5" id={styles.foto} src={usersPic} />
+               <Image className="mb-4 mb-md-5" id={styles.foto} src={usersPic} />
             </Col>
          </Row>
          <Row className="mt-3 g-4 justify-content-center">

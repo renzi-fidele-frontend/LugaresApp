@@ -66,9 +66,9 @@ const EditarLugar = () => {
 
    return (
       <Container className="py-5">
-         <Row className="mt-4">
+         <Row className="mt-0 mt-md-4">
             <Col xs={12} lg={6} xl={7}>
-               <h2 className="mb-5">Atualize os dados deste lugar</h2>
+               <h2 className="mb-3 mb-lg-5">Atualize os dados deste lugar</h2>
                <Form
                   onChange={() => {
                      setPodeEnviar(

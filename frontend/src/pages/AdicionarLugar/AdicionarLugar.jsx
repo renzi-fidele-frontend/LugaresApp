@@ -66,9 +66,9 @@ const AdicionarLugar = () => {
 
    return (
       <Container className="py-5">
-         <Row className="mt-4">
+         <Row className="mt-0 mt-md-4">
             <Col xs={12} lg={6}>
-               <h2 className="mb-5">Adicione um novo lugar a plataforma</h2>
+               <h2 className="mb-4 mb-lg-5">Adicione um novo lugar a plataforma</h2>
                <Form onSubmit={adicionarLugar} validated={foiValidado} noValidate>
                   <Form.Group className="mb-3">
                      <Form.Label>Nome do lugar</Form.Label>

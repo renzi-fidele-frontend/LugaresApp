@@ -44,7 +44,7 @@ const MeusLugares = () => {
                <h2 id={styles.titulo} className="mx-auto mt-3 mt-md-5 mb-5 fw-semibold fs-2 pt-4">
                   Veja todos os lugares que você compartilhou
                </h2>
-               <Image className="mb-5" id={styles.foto} src={foto} />
+               <Image className="mb-4 mb-md-5" id={styles.foto} src={foto} />
                {lugares?.length > 0 && (
                   <Row className="mt-2 mt-md-4 g-4 justify-content-center">
                      {lugares?.map((v, k) => (

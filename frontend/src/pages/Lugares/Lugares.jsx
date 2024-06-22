@@ -1,7 +1,6 @@
 import styles from "./Lugares.module.css";
 import { Alert, Col, Container, Image, Row } from "react-bootstrap";
-import foto from "../../assets/lugares3.svg";
-import { lugares } from "../Home/data";
+import foto from "../../assets/lugares3.png";
 import CardLugar from "../../components/CardLugar/CardLugar";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";

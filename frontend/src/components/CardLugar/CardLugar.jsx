@@ -49,7 +49,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
                </Card.Header>
 
                <Card.Body className="d-flex flex-column justify-content-evenly">
-                  <Card.Title>{titulo}</Card.Title>
+                  <Card.Title className="text-truncate">{titulo}</Card.Title>
                   <Card.Text className="text-truncate">{descricao}</Card.Text>
                </Card.Body>
                <Card.Footer>

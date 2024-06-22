@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Alert, Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import styles from "./Entrar.module.css";
-import foto from "../../assets/lugares3.svg";
+import foto from "../../assets/lugares3.png";
 import axios from "axios";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 import { useDispatch } from "react-redux";

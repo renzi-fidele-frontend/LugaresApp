@@ -26,7 +26,7 @@ const Header = () => {
    }
 
    return (
-      <Navbar expand="lg" className={`${modoEscuro && "bg-black"} bg-gradient`}>
+      <Navbar expand="lg" className={`${modoEscuro ? "bg-black" : "border-bottom"} bg-gradient `}>
          <Container className="d-flex flex-row align-items-center">
             <LinkContainer to={"/"}>
                <Navbar.Brand as={Image} id={styles.logo} src={logo} className="p-0" />
@@ -104,9 +104,20 @@ const Header = () => {
                         </LinkContainer>
                      </>
                   )}
-                  <div className="vr mx-3"></div>
-                  <Button onClick={alternarTema} variant="outline-secondary" className="rounded-circle">
+                  <div className="vr d-none d-lg-inline-block mx-lg-3"></div>
+                  {/*   Botão para alterar tema  */}
+                  <Button
+                     onClick={alternarTema}
+                     variant="outline-secondary"
+                     className="rounded-circle d-none d-lg-inline-block"
+                     style={{ width: "fit-content" }}
+                  >
                      {modoEscuro ? <i className="bi bi-moon-stars-fill"></i> : <i className="bi bi-brightness-high-fill"></i>}
+                  </Button>
+                  {/*   Botão mobile  */}
+                  <Button onClick={alternarTema} variant="outline-secondary" className="mt-2 d-lg-none" style={{ width: "fit-content" }}>
+                     {modoEscuro ? <i className="bi bi-moon-stars-fill"></i> : <i className="bi bi-brightness-high-fill"></i>}
+                     {modoEscuro ? " Escuro" : " Claro"}
                   </Button>
                </Nav>
             </Navbar.Collapse>

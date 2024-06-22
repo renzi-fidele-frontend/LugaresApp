@@ -1,12 +1,15 @@
 import { Col, Image, Row } from "react-bootstrap";
 import styles from "./Home.module.css";
 import UserCard from "../../components/UserCard/UserCard";
-import usersPic from "../../assets/users3.png";
+import usersPic from "../../assets/ill.png";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Home = () => {
    const [usuarios, setUsuarios] = useState(null);
+   const { modoEscuro } = useSelector((state) => state.tema);
 
    async function apanharUsuarios() {
       try {

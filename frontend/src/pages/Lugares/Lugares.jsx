@@ -54,7 +54,7 @@ const Lugares = () => {
       <Container id={styles.ct}>
          <Row>
             <Col className="text-center pb-5 ">
-               <h2 id={styles.titulo} className="mx-auto mt-3 mt-md-5 mb-5 fw-semibold fs-2 pt-4">
+               <h2 id={styles.titulo} className="mx-auto mt-3 mt-md-5 mb-4 mb-md-5 fw-semibold fs-2 pt-4">
                   {userMode
                      ? `Descubra os lugares que foram compartilhados pelo usuário: ${usuario?.nome}`
                      : "Descubra os lugares que foram compartilhados pelos usuários"}

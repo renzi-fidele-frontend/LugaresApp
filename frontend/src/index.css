@@ -1,25 +1,15 @@
-
-
 #root {
-   min-height: 100vh;
+   min-height: 100dvh;
    display: flex;
    flex-direction: column;
 }
 
 a {
    text-decoration: none;
-   /* color: white; */
 }
-
 
 .nav-link.active {
    text-decoration: underline;
-   /* color: white !important; */
    font-weight: 500 !important;
 }
 
-
-
-img {
-   max-width: 100%;
-}

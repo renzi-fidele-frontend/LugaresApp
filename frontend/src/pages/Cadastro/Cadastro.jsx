@@ -66,7 +66,7 @@ const Cadastro = () => {
 
    return (
       <Container className="py-5">
-         <Row className="mt-4">
+         <Row className="mt-0 mt-md-4">
             <Col xs={12} lg={6}>
                <h2 className="mb-5">Crie uma conta para também poder compartilhar lugares</h2>
                <Form onSubmit={criarConta} validated={foiValidado} noValidate>

@@ -1,15 +1,17 @@
-import { Container, Dropdown, Image, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Dropdown, Image, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styles from "./Header.module.css";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, setUsuario } from "../../state/usuario/usuarioSlice";
 import logo from "../../assets/logo.png";
+import { setModoEscuro } from "../../state/tema/temaSlice";
 
 const Header = () => {
    const location = useLocation();
    const { usuario } = useSelector((state) => state.usuario);
    const dispatch = useDispatch();
+   const { modoEscuro } = useSelector((state) => state.tema);
 
    function deslogar() {
       dispatch(setUsuario(null));
@@ -17,8 +19,14 @@ const Header = () => {
       localStorage.clear();
    }
 
+   function alternarTema() {
+      dispatch(setModoEscuro(!modoEscuro));
+      let tema = modoEscuro ? "light" : "dark";
+      document.documentElement.setAttribute("data-bs-theme", tema);
+   }
+
    return (
-      <Navbar expand="lg" data-bs-theme="black" className="bg-black bg-gradient">
+      <Navbar expand="lg" className={`${modoEscuro && "bg-black"} bg-gradient`}>
          <Container className="d-flex flex-row align-items-center">
             <LinkContainer to={"/"}>
                <Navbar.Brand as={Image} id={styles.logo} src={logo} className="p-0" />
@@ -96,6 +104,10 @@ const Header = () => {
                         </LinkContainer>
                      </>
                   )}
+                  <div className="vr mx-3"></div>
+                  <Button onClick={alternarTema} variant="outline-secondary" className="rounded-circle">
+                     {modoEscuro ? <i className="bi bi-moon-stars-fill"></i> : <i className="bi bi-brightness-high-fill"></i>}
+                  </Button>
                </Nav>
             </Navbar.Collapse>
          </Container>

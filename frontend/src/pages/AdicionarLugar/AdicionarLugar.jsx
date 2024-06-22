@@ -1,16 +1,15 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./AdicionarLugar.module.css";
 import { Alert, Button, Col, Container, Form, Image, Row } from "react-bootstrap";
-import foto from "../../assets/addLugarIco2.png";
-import { useDispatch, useSelector } from "react-redux";
+import foto from "../../assets/addLugarIco.png";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
 import { useNavigate } from "react-router-dom";
 
 const AdicionarLugar = () => {
    const [foiValidado, setFoiValido] = useState(false);
-   const dispatch = useDispatch();
-   const { usuario, token } = useSelector((state) => state.usuario);
+   const { token } = useSelector((state) => state.usuario);
    const [loading, setLoading] = useState(false);
    const [mostrarErro, setMostrarErro] = useState(false);
    const [erroMsg, setErroMsg] = useState("");

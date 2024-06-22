@@ -12,6 +12,7 @@ import { Image, initLightboxJS } from "lightbox.js-react";
 
 const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco, coordenadas, pertenceAoUsuario = false }) => {
    const { usuario } = useSelector((state) => state.usuario);
+   const { modoEscuro } = useSelector((state) => state.tema);
    const [showMapModal, setShowMapModal] = useState(false);
    const [showRemoveModal, setShowRemoveModal] = useState(false);
    const [loading, setLoading] = useState(false);
@@ -41,12 +42,10 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
    return (
       <>
          {(id, titulo, descricao, foto, idCriador, endereco, coordenadas) ? (
-            <Card bg="dark" text="light" border="secondary" id={styles.ct} className="h-100">
+            <Card border="secondary" id={styles.ct} className="h-100">
                <Card.Img as={Image} image={{ src: `${import.meta.env.VITE_BACKEND_URL}/${foto}` }} className="p-2 rounded-4" />
                <Card.Header id={styles.cardHeader}>
-                  <Card.Subtitle className="text-truncate" style={{ color: "#959595" }}>
-                     {endereco}
-                  </Card.Subtitle>
+                  <Card.Subtitle className={`text-truncate ${modoEscuro && "text-secondary"}`}>{endereco}</Card.Subtitle>
                </Card.Header>
 
                <Card.Body className="d-flex flex-column justify-content-evenly">
@@ -131,7 +130,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
                </Modal>
             </Card>
          ) : (
-            <Card bg="dark" text="light" border="secondary" id={styles.ct} className="h-100">
+            <Card border="secondary" id={styles.ct} className="h-100">
                <Placeholder animation="wave">
                   <Placeholder as={Card} className="w-100" style={{ height: "180px" }} />
                </Placeholder>

@@ -7,7 +7,7 @@ const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
    return (
       <>
          {fotoPerfil && nome && aderiuEm && uid ? (
-            <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
+            <Card border="secondary" className="p-3" id={styles.ct}>
                <Row>
                   <Col className="my-md-auto" md={4}>
                      <Image
@@ -30,7 +30,7 @@ const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
                </Row>
             </Card>
          ) : (
-            <Card bg="dark" text="light" border="secondary" className="p-3" id={styles.ct}>
+            <Card border="secondary" className="p-3" id={styles.ct}>
                <Row>
                   <Col className="my-md-auto mx-auto ratio-1x1" xs={5} md={4}>
                      <Placeholder as={Card} animation="wave">

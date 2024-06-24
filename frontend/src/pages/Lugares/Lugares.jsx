@@ -101,7 +101,7 @@ const Lugares = () => {
                              ))}
                      </Row>
                      {/*   Paginação */}
-                     <Row className="my-5">
+                     <Row className="mt-5 mb-1 mb-md-0">
                         <Col>
                            <Pagination size="lg" className="d-none d-md-flex justify-content-center">
                               {gerarArray(totalPaginas.current)?.map((v, k) => (
@@ -124,7 +124,18 @@ const Lugares = () => {
                            {/*   Paginação do mobile */}
                            <Pagination className="d-md-none justify-content-center">
                               {gerarArray(totalPaginas.current)?.map((v, k) => (
-                                 <Pagination.Item active={v === paginaAtual.current} key={k}>
+                                 <Pagination.Item
+                                    onClick={() => {
+                                       if (v !== paginaAtual.current) {
+                                          window.scrollTo({ top: 0, behavior: "smooth" });
+                                          paginaAtual.current = v;
+                                          setLugares(null);
+                                          apanharLugares();
+                                       }
+                                    }}
+                                    active={v === paginaAtual.current}
+                                    key={k}
+                                 >
                                     {v}
                                  </Pagination.Item>
                               ))}

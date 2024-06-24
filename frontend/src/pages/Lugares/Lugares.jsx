@@ -3,7 +3,7 @@ import { Alert, Col, Container, Image, Row } from "react-bootstrap";
 import foto from "../../assets/lugares3.png";
 import CardLugar from "../../components/CardLugar/CardLugar";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 const Lugares = () => {
@@ -11,6 +11,8 @@ const Lugares = () => {
    const userMode = userId.uid ? true : false;
    const [lugares, setLugares] = useState(null);
    const [usuario, setUsuario] = useState(null);
+   const page = useRef(1);
+   const totalPaginas = useRef(null);
 
    async function apanharUsuario(uid) {
       try {
@@ -21,9 +23,12 @@ const Lugares = () => {
       }
    }
 
+   // TODO: Adicionar lógica de paginação
    async function apanharLugares() {
       try {
-         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/lugares`);
+         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/lugares?page=${page.current}`);
+         totalPaginas.current = res.data.totalPaginas;
+         console.log(totalPaginas.current);
          setLugares(res.data.lugares);
       } catch (error) {
          console.log(error);

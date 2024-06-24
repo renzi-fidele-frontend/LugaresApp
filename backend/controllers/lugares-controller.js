@@ -4,9 +4,17 @@ const fs = require("fs");
 
 const getLugares = async (req, res) => {
    console.log("GET feito na página lugares");
+   // Definindo o offset e o limite da query para paginação
+   const page = req.query.page || 1;
+   const limit = 5;
+   const offset = (page - 1) * limit;
+
    try {
-      let lugares = await Lugar.find();
-      res.json({ lugares });
+      let lugares = await Lugar.find().limit(5).skip(offset);
+      const totalDocs = await Lugar.countDocuments();
+      const totalPaginas = Math.ceil(totalDocs / limit);
+
+      res.json({ lugares, totalPaginas });
    } catch (erro) {
       res.json({ mensagem: "Erro ao apanhar os lugares no DB" });
       console.log(erro.message);

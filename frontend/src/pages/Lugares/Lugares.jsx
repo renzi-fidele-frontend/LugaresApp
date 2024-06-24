@@ -1,5 +1,5 @@
 import styles from "./Lugares.module.css";
-import { Alert, Col, Container, Image, Row } from "react-bootstrap";
+import { Alert, Col, Container, Image, Pagination, Row } from "react-bootstrap";
 import foto from "../../assets/lugares3.png";
 import CardLugar from "../../components/CardLugar/CardLugar";
 import { useParams } from "react-router-dom";
@@ -11,7 +11,7 @@ const Lugares = () => {
    const userMode = userId.uid ? true : false;
    const [lugares, setLugares] = useState(null);
    const [usuario, setUsuario] = useState(null);
-   const page = useRef(1);
+   const paginaAtual = useRef(1);
    const totalPaginas = useRef(null);
 
    async function apanharUsuario(uid) {
@@ -26,9 +26,8 @@ const Lugares = () => {
    // TODO: Adicionar lógica de paginação
    async function apanharLugares() {
       try {
-         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/lugares?page=${page.current}`);
+         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/lugares?page=${paginaAtual.current}`);
          totalPaginas.current = res.data.totalPaginas;
-         console.log(totalPaginas.current);
          setLugares(res.data.lugares);
       } catch (error) {
          console.log(error);
@@ -42,6 +41,11 @@ const Lugares = () => {
       } catch (error) {
          console.log(error);
       }
+   }
+
+   function gerarArray(length) {
+      // Gerar um array contendo Integers de 1 até o length
+      return Array.from({ length }, (v, i) => i + 1);
    }
 
    useEffect(() => {
@@ -65,37 +69,51 @@ const Lugares = () => {
                </h2>
                <Image className="mb-sm-5 mb-1" id={styles.foto} src={foto} />
                {lugares?.length > 0 && (
-                  <Row className="mt-4 g-4 justify-content-center">
-                     {!userMode
-                        ? lugares?.map((v, k) => (
-                             <Col md={6} xl={4} key={k}>
-                                <CardLugar
-                                   titulo={v.titulo}
-                                   foto={v.foto}
-                                   descricao={v.descricao}
-                                   endereco={v.endereco}
-                                   criadoEm={v.criadoEm}
-                                   idCriador={v.idCriador}
-                                   id={v._id}
-                                   coordenadas={v.coordenadas}
-                                />
-                             </Col>
-                          ))
-                        : lugares?.map((v, k) => (
-                             <Col md={6} xl={4} key={k}>
-                                <CardLugar
-                                   titulo={v.titulo}
-                                   foto={v.foto}
-                                   id={v._id}
-                                   descricao={v.descricao}
-                                   endereco={v.endereco}
-                                   criadoEm={v.criadoEm}
-                                   idCriador={v.idCriador}
-                                   coordenadas={v.coordenadas}
-                                />
-                             </Col>
-                          ))}
-                  </Row>
+                  <>
+                     <Row className="mt-4 g-4 justify-content-center">
+                        {!userMode
+                           ? lugares?.map((v, k) => (
+                                <Col md={6} xl={4} key={k}>
+                                   <CardLugar
+                                      titulo={v.titulo}
+                                      foto={v.foto}
+                                      descricao={v.descricao}
+                                      endereco={v.endereco}
+                                      criadoEm={v.criadoEm}
+                                      idCriador={v.idCriador}
+                                      id={v._id}
+                                      coordenadas={v.coordenadas}
+                                   />
+                                </Col>
+                             ))
+                           : lugares?.map((v, k) => (
+                                <Col md={6} xl={4} key={k}>
+                                   <CardLugar
+                                      titulo={v.titulo}
+                                      foto={v.foto}
+                                      id={v._id}
+                                      descricao={v.descricao}
+                                      endereco={v.endereco}
+                                      criadoEm={v.criadoEm}
+                                      idCriador={v.idCriador}
+                                      coordenadas={v.coordenadas}
+                                   />
+                                </Col>
+                             ))}
+                     </Row>
+                     {/*   Paginação */}
+                     <Row className="my-5">
+                        <Col>
+                           <Pagination size="lg" className="justify-content-center">
+                              {gerarArray(totalPaginas.current)?.map((v, k) => (
+                                 <Pagination.Item active={v === paginaAtual.current} key={k}>
+                                    {v}
+                                 </Pagination.Item>
+                              ))}
+                           </Pagination>
+                        </Col>
+                     </Row>
+                  </>
                )}
                {!lugares && (
                   <Row className="mt-4 g-4 justify-content-center">

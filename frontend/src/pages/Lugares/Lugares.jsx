@@ -104,7 +104,15 @@ const Lugares = () => {
                      {/*   Paginação */}
                      <Row className="my-5">
                         <Col>
-                           <Pagination size="lg" className="justify-content-center">
+                           <Pagination size="lg" className="d-none d-md-flex justify-content-center">
+                              {gerarArray(totalPaginas.current)?.map((v, k) => (
+                                 <Pagination.Item active={v === paginaAtual.current} key={k}>
+                                    {v}
+                                 </Pagination.Item>
+                              ))}
+                           </Pagination>
+                           {/*   Paginação do mobile */}
+                           <Pagination className="d-md-none justify-content-center">
                               {gerarArray(totalPaginas.current)?.map((v, k) => (
                                  <Pagination.Item active={v === paginaAtual.current} key={k}>
                                     {v}

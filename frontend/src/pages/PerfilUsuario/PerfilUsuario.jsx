@@ -25,6 +25,7 @@ const PerfilUsuario = () => {
    const nome_usuario_ref = useRef(null);
    const password_ref = useRef(null);
    const imgRef = useRef(null);
+   const fotoPerfilMobileRef = useRef(null);
 
    async function atualizarPerfil(e) {
       e.preventDefault();
@@ -87,6 +88,7 @@ const PerfilUsuario = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
          fotoPerfilRef.current.src = reader.result;
+         fotoPerfilMobileRef.current.src = reader.result;
       };
       reader.readAsDataURL(imgRef.current.files[0]);
    }
@@ -113,7 +115,7 @@ const PerfilUsuario = () => {
                <h2 className="mb-4 mb-md-5">Atualize os dados do seu perfil</h2>
                <div className="d-lg-none position-relative mb-4" style={{ width: "fit-content" }}>
                   <Image
-                     ref={fotoPerfilRef}
+                     ref={fotoPerfilMobileRef}
                      className="ms-auto rounded-2 border object-fit-cover border-2 border-secondary-subtle shadow-lg"
                      id={styles.fotoLado}
                      src={`${import.meta.env.VITE_BACKEND_URL}/${usuario?.foto}`}

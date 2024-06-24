@@ -56,7 +56,7 @@ const adicionarLugar = async (req, res) => {
          await lugarAdicionado.save();
          res.json({ lugar: lugarCriado });
       } catch (error) {
-         console.log(error.message)
+         console.log(error.message);
          res.status(500).json({ mensagem: "Erro ao criar o lugar" });
          if (foto) {
             fs.unlink(foto, (unlinkError) => {
@@ -76,10 +76,11 @@ const adicionarLugar = async (req, res) => {
 const atualizarLugarById = async (req, res) => {
    let { idLugar } = req.params;
    const { titulo, descricao } = req.body;
+   const foto = req?.file?.path;
    const lugar = await Lugar.findById(idLugar);
    if (lugar?.idCriador?.toString() === req.userId) {
       try {
-         const lugarAtualizado = await Lugar.updateOne({ _id: idLugar }, { titulo, descricao });
+         const lugarAtualizado = await Lugar.updateOne({ _id: idLugar }, { titulo, descricao, foto });
          res.json({ mensagem: "Lugar atualizado com sucesso!", lugarAtualizado });
       } catch (erro) {
          res.status(500).json({ mensagem: "Erro ao atualizar o lugar" });

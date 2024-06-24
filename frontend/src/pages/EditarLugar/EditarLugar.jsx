@@ -46,7 +46,7 @@ const EditarLugar = () => {
                   idCriador: usuario._id,
                   foto: inputFileRef.current.files[0],
                },
-               { headers: { Authorization: `Bearer ${token}` } }
+               { headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${token}` } }
             );
             console.log(res.data);
             navegar("/meus_lugares", { state: { atualizado: true } });

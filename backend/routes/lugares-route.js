@@ -28,11 +28,8 @@ router.use(verificarToken);
 
 router.post("/", fileUpload.single("foto"), adicionarLugar);
 
-router.patch("/:idLugar", atualizarLugarById);
+router.patch("/:idLugar", fileUpload.single("foto"), atualizarLugarById);
 
 router.delete("/:idLugar", removerLugarById);
-
-
-
 
 module.exports = router;

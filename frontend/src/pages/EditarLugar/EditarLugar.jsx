@@ -14,8 +14,6 @@ const EditarLugar = () => {
    const [mostrarErro, setMostrarErro] = useState(false);
    const [erroMsg, setErroMsg] = useState("");
    const [podeEnviar, setPodeEnviar] = useState(false);
-   const fotoLugarRef = useRef(null);
-   const imgRef = useRef(null);
 
    const { token, usuario } = useSelector((state) => state.usuario);
 
@@ -26,6 +24,10 @@ const EditarLugar = () => {
    // Refs do formulário
    const nome_lugar_ref = useRef(null);
    const descricao_ref = useRef(null);
+   const fotoLugarRef = useRef(null);
+   const fotoLugarMobileRef = useRef(null);
+
+   const inputFileRef = useRef(null);
 
    const navegar = useNavigate();
 
@@ -42,6 +44,7 @@ const EditarLugar = () => {
                   titulo: nome_lugar_ref.current.value,
                   descricao: descricao_ref.current.value,
                   idCriador: usuario._id,
+                  foto: inputFileRef.current.files[0],
                },
                { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -54,13 +57,15 @@ const EditarLugar = () => {
       }
    }
 
-   function handleImgUpload() {
+   function mostrarPreviaFoto() {
+      // TODO: Resolver prévia de imagem no mobile
       setPodeEnviar(false);
       const reader = new FileReader();
       reader.onloadend = () => {
          fotoLugarRef.current.src = reader.result;
+         fotoLugarMobileRef.current.src = reader.result;
       };
-      reader.readAsDataURL(imgRef.current.files[0]);
+      reader.readAsDataURL(inputFileRef.current.files[0]);
    }
 
    const mapCtRef = useRef(null);
@@ -80,9 +85,10 @@ const EditarLugar = () => {
          <Row className="mt-0 mt-md-4">
             <Col xs={12} lg={6} xl={7}>
                <h2 className="mb-3 mb-lg-5">Atualize os dados deste lugar</h2>
+               {/*  Foto do Mobile */}
                <div className="d-lg-none position-relative mt-3 mb-4" style={{ width: "fit-content" }}>
                   <Image
-                     ref={fotoLugarRef}
+                     ref={fotoLugarMobileRef}
                      className="ms-auto rounded-2 border object-fit-cover border-2 border-secondary-subtle shadow-lg"
                      id={styles.fotoLado}
                      src={`${import.meta.env.VITE_BACKEND_URL}/${dadosLugar?.foto}`}
@@ -97,7 +103,14 @@ const EditarLugar = () => {
                      <Dropdown.Menu>
                         <Dropdown.Item as="label" style={{ cursor: "pointer" }}>
                            <i className="bi bi-upload me-1"></i> Carregar nova
-                           <input name="foto_perfil" className="d-none" ref={imgRef} onChange={handleImgUpload} accept="image/*" type="file" />
+                           <input
+                              name="foto_perfil"
+                              className="d-none"
+                              ref={inputFileRef}
+                              onChange={mostrarPreviaFoto}
+                              accept="image/*"
+                              type="file"
+                           />
                         </Dropdown.Item>
                      </Dropdown.Menu>
                   </Dropdown>
@@ -177,7 +190,14 @@ const EditarLugar = () => {
                   <Dropdown.Menu>
                      <Dropdown.Item as="label" style={{ cursor: "pointer" }}>
                         <i className="bi bi-upload me-1"></i> Carregar nova
-                        <input name="foto_perfil" className="d-none" ref={imgRef} onChange={handleImgUpload} accept="image/*" type="file" />
+                        <input
+                           name="foto_perfil"
+                           className="d-none"
+                           ref={inputFileRef}
+                           onChange={mostrarPreviaFoto}
+                           accept="image/*"
+                           type="file"
+                        />
                      </Dropdown.Item>
                   </Dropdown.Menu>
                </Dropdown>
@@ -189,7 +209,7 @@ const EditarLugar = () => {
          <hr className="my-4" />
          <Row>
             <Col>
-               <div ref={mapCtRef} id={styles.mapaCt} ></div>
+               <div ref={mapCtRef} id={styles.mapaCt}></div>
                <p className="mt-2 text-center">
                   <i className="bi bi-geo-alt-fill me-1"></i>
                   {dadosLugar?.endereco}

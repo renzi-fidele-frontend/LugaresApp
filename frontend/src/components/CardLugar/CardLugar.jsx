@@ -59,7 +59,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
                            <Button onClick={() => setShowMapModal(true)}>Ver no mapa</Button>
 
                            <Button
-                              onClick={() => navegar(`/lugares/${id}`, { state: { titulo, descricao, coordenadas, endereco } })}
+                              onClick={() => navegar(`/lugares/${id}`, { state: { titulo, descricao, coordenadas, endereco, foto } })}
                               variant="outline-secondary"
                            >
                               Editar

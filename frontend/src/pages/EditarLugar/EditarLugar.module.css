@@ -1,9 +1,15 @@
 #fotoLado {
-    height: 360px;
+   height: 360px;
+   max-width: 500px;
+}
+
+
+#toogle::before {
+   content: none;
 }
 
 @media screen and (max-width: 1300px) {
-    #fotoLado {
-        height: 330px;
-    }
+   #fotoLado {
+      height: 330px;
+   }
 }

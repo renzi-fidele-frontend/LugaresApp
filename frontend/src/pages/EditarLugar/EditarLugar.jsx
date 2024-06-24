@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./EditarLugar.module.css";
-import { Button, Col, Container, Form, Row, Image, Alert } from "react-bootstrap";
+import { Button, Col, Container, Form, Row, Image, Alert, Dropdown } from "react-bootstrap";
 import foto from "../../assets/updateLugar.png";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -14,6 +14,8 @@ const EditarLugar = () => {
    const [mostrarErro, setMostrarErro] = useState(false);
    const [erroMsg, setErroMsg] = useState("");
    const [podeEnviar, setPodeEnviar] = useState(false);
+   const fotoLugarRef = useRef(null);
+   const imgRef = useRef(null);
 
    const { token, usuario } = useSelector((state) => state.usuario);
 
@@ -50,6 +52,15 @@ const EditarLugar = () => {
          }
          setLoading(false);
       }
+   }
+
+   function handleImgUpload() {
+      setPodeEnviar(false);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+         fotoLugarRef.current.src = reader.result;
+      };
+      reader.readAsDataURL(imgRef.current.files[0]);
    }
 
    const mapCtRef = useRef(null);
@@ -129,8 +140,27 @@ const EditarLugar = () => {
                   </Alert>
                </Form>
             </Col>
-            <Col className="d-lg-flex d-none align-items-start">
-               <Image className="ms-auto" id={styles.fotoLado} src={foto} />
+            <Col className="d-lg-flex d-none align-items-start position-relative">
+               <Image
+                  ref={fotoLugarRef}
+                  className="ms-auto rounded-2 border object-fit-cover border-2 border-secondary-subtle shadow-lg"
+                  id={styles.fotoLado}
+                  src={`${import.meta.env.VITE_BACKEND_URL}/${dadosLugar?.foto}`}
+               />
+               <Dropdown drop="start" className="position-absolute end-0 bottom-0">
+                  <Dropdown.Toggle id={styles.toogle} as="a">
+                     <i
+                        style={{ cursor: "pointer" }}
+                        className="bi bi-three-dots border border-1 border-secondary-subtle  px-2 py-1 fs-3 bg-light shadow-sm text-dark rounded-circle  "
+                     ></i>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                     <Dropdown.Item as="label" style={{ cursor: "pointer" }}>
+                        <i className="bi bi-upload me-1"></i> Carregar nova
+                        <input name="foto_perfil" className="d-none" ref={imgRef} onChange={handleImgUpload} accept="image/*" type="file" />
+                     </Dropdown.Item>
+                  </Dropdown.Menu>
+               </Dropdown>
             </Col>
          </Row>
          {/*   Loading com backdrop  */}

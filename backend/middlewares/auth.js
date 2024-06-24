@@ -10,7 +10,7 @@ const verificarToken = (req, res, next) => {
       res.status(401).json({ mensagem: "Acesso negado! Faça a autenticação como deve ser." });
    } else {
       try {
-         let desencriptado = jwt.verify(token, "Ratinho00");
+         let desencriptado = jwt.verify(token, process.env.SENHA_JWT);
          console.log(desencriptado);
          req.userId = desencriptado.userId;
          req.password = desencriptado.password;

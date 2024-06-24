@@ -3,13 +3,46 @@
    max-width: 500px;
 }
 
+#mapaCt {
+   width: 100%;
+   height: 300px;
+}
 
-#toogle::before {
+#toogle::before,
+#toogle::after {
    content: none;
+}
+
+@media screen and (max-width: 1400px) {
+   #fotoLado {
+      max-width: 92%;
+   }
 }
 
 @media screen and (max-width: 1300px) {
    #fotoLado {
       height: 330px;
+   }
+}
+
+@media screen and (max-width: 990px) {
+   #fotoLado {
+      height: 270px;
+   }
+}
+
+@media screen and (max-width: 450px) {
+   #fotoLado {
+      height: 230px;
+   }
+
+   #mapaCt {
+    height: 250px;
+   }
+}
+
+@media screen and (max-width: 380px) {
+   #fotoLado {
+      height: 200px;
    }
 }

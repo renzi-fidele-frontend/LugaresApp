@@ -80,6 +80,28 @@ const EditarLugar = () => {
          <Row className="mt-0 mt-md-4">
             <Col xs={12} lg={6} xl={7}>
                <h2 className="mb-3 mb-lg-5">Atualize os dados deste lugar</h2>
+               <div className="d-lg-none position-relative mt-3 mb-4" style={{ width: "fit-content" }}>
+                  <Image
+                     ref={fotoLugarRef}
+                     className="ms-auto rounded-2 border object-fit-cover border-2 border-secondary-subtle shadow-lg"
+                     id={styles.fotoLado}
+                     src={`${import.meta.env.VITE_BACKEND_URL}/${dadosLugar?.foto}`}
+                  />
+                  <Dropdown drop="end" className="position-absolute start-0 bottom-0">
+                     <Dropdown.Toggle id={styles.toogle} as="a">
+                        <i
+                           style={{ cursor: "pointer" }}
+                           className="bi bi-three-dots border border-1 border-secondary-subtle px-2 py-1 fs-3 bg-light shadow-sm text-dark rounded-circle  "
+                        ></i>
+                     </Dropdown.Toggle>
+                     <Dropdown.Menu>
+                        <Dropdown.Item as="label" style={{ cursor: "pointer" }}>
+                           <i className="bi bi-upload me-1"></i> Carregar nova
+                           <input name="foto_perfil" className="d-none" ref={imgRef} onChange={handleImgUpload} accept="image/*" type="file" />
+                        </Dropdown.Item>
+                     </Dropdown.Menu>
+                  </Dropdown>
+               </div>
                <Form
                   onChange={() => {
                      setPodeEnviar(
@@ -114,8 +136,6 @@ const EditarLugar = () => {
                      />
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
-
-                  {/*   TODO: Adicionar field para carregar a nova foto do lugar (OPCIONAL) */}
 
                   <Button type="submit" disabled={podeEnviar}>
                      Atualizar lugar
@@ -169,7 +189,7 @@ const EditarLugar = () => {
          <hr className="my-4" />
          <Row>
             <Col>
-               <div ref={mapCtRef} style={{ width: "100%", height: "300px" }}></div>
+               <div ref={mapCtRef} id={styles.mapaCt} ></div>
                <p className="mt-2 text-center">
                   <i className="bi bi-geo-alt-fill me-1"></i>
                   {dadosLugar?.endereco}

@@ -79,8 +79,22 @@ const atualizarLugarById = async (req, res) => {
    const foto = req?.file?.path;
    const lugar = await Lugar.findById(idLugar);
    if (lugar?.idCriador?.toString() === req.userId) {
+      const dadosAtualizados = { titulo, descricao };
+      if (foto) {
+         // Removendo a foto antiga foto do lugar
+         const fotoAntiga = lugar.foto;
+         fs.unlink(fotoAntiga, (unlinkError) => {
+            if (unlinkError) {
+               console.error("Falha ao remover foto antiga:", unlinkError);
+            } else {
+               console.log("Foto antiga removida com sucesso");
+            }
+         });
+         dadosAtualizados.foto = foto;
+      }
       try {
-         const lugarAtualizado = await Lugar.updateOne({ _id: idLugar }, { titulo, descricao, foto });
+         const lugarAtualizado = await Lugar.updateOne({ _id: idLugar }, dadosAtualizados);
+
          res.json({ mensagem: "Lugar atualizado com sucesso!", lugarAtualizado });
       } catch (erro) {
          res.status(500).json({ mensagem: "Erro ao atualizar o lugar" });

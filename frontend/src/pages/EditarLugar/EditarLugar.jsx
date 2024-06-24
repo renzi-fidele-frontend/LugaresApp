@@ -58,7 +58,6 @@ const EditarLugar = () => {
    }
 
    function mostrarPreviaFoto() {
-      // TODO: Resolver prévia de imagem no mobile
       setPodeEnviar(false);
       const reader = new FileReader();
       reader.onloadend = () => {

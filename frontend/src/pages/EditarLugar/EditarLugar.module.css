@@ -1,5 +1,5 @@
 #fotoLado {
-   height: 360px;
+   height: 100%;
    max-width: 500px;
 }
 
@@ -19,15 +19,9 @@
    }
 }
 
-@media screen and (max-width: 1300px) {
-   #fotoLado {
-      height: 330px;
-   }
-}
-
 @media screen and (max-width: 990px) {
    #fotoLado {
-      height: 270px;
+      max-height: 380px;
    }
 }
 
@@ -37,7 +31,7 @@
    }
 
    #mapaCt {
-    height: 250px;
+      height: 250px;
    }
 }
 

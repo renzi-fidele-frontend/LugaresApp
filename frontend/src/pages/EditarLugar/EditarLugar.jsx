@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./EditarLugar.module.css";
 import { Button, Col, Container, Form, Row, Image, Alert, Dropdown } from "react-bootstrap";
-import foto from "../../assets/updateLugar.png";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import LoadingBackdrop from "../../components/LoadingBackdrop/LoadingBackdrop";
@@ -24,6 +23,7 @@ const EditarLugar = () => {
    // Refs do formulário
    const nome_lugar_ref = useRef(null);
    const descricao_ref = useRef(null);
+   const endereco_ref = useRef(null);
    const fotoLugarRef = useRef(null);
    const fotoLugarMobileRef = useRef(null);
 
@@ -45,6 +45,7 @@ const EditarLugar = () => {
                   descricao: descricao_ref.current.value,
                   idCriador: usuario._id,
                   foto: inputFileRef.current.files[0],
+                  endereco: endereco_ref.current.files[0],
                },
                { headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${token}` } }
             );
@@ -67,16 +68,20 @@ const EditarLugar = () => {
       reader.readAsDataURL(inputFileRef.current.files[0]);
    }
 
+   // Controlador de mudança dos dados do formlário
+   const dadosIguais = () =>
+      nome_lugar_ref?.current?.value === dadosLugar?.titulo &&
+      descricao_ref?.current?.value === dadosLugar?.descricao &&
+      endereco_ref?.current?.value === dadosLugar?.endereco;
+
+   useEffect(() => {
+      setPodeEnviar(dadosIguais);
+   }, [nome_lugar_ref?.current?.value, descricao_ref?.current?.value, endereco_ref?.current?.value]);
+
    const mapCtRef = useRef(null);
 
-   // Controlador de mudança dos dados do formlário
-   useEffect(() => {
-      setPodeEnviar(nome_lugar_ref?.current?.value === dadosLugar?.titulo && descricao_ref?.current?.value === dadosLugar?.descricao);
-   }, [nome_lugar_ref?.current?.value, descricao_ref?.current?.value, dadosLugar]);
-
    useMemo(() => {
-      console.log(dadosLugar?.coordenadas);
-      inicializarMapa(mapCtRef.current, dadosLugar?.coordenadas?.lat, dadosLugar?.coordenadas?.lng);
+      if (mapCtRef?.current) inicializarMapa(mapCtRef?.current, dadosLugar?.coordenadas?.lat, dadosLugar?.coordenadas?.lng);
    }, [mapCtRef?.current, dadosLugar?.coordenadas]);
 
    return (
@@ -116,14 +121,13 @@ const EditarLugar = () => {
                </div>
                <Form
                   onChange={() => {
-                     setPodeEnviar(
-                        nome_lugar_ref?.current?.value === dadosLugar?.titulo && descricao_ref?.current?.value === dadosLugar?.descricao
-                     );
+                     setPodeEnviar(dadosIguais);
                   }}
                   onSubmit={atualizarLugar}
                   validated={foiValidado}
                   noValidate
                >
+                  {/*  Nome do Lugar */}
                   <Form.Group className="mb-3">
                      <Form.Label>Nome do lugar</Form.Label>
                      <Form.Control
@@ -137,6 +141,7 @@ const EditarLugar = () => {
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
+                  {/*  Descrição */}
                   <Form.Group className="mb-3">
                      <Form.Label>Descrição</Form.Label>
                      <Form.Control
@@ -146,6 +151,20 @@ const EditarLugar = () => {
                         as="textarea"
                         placeholder="Insira uma descrição para este lugar"
                      />
+                     <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
+                  </Form.Group>
+
+                  {/*  Endereço */}
+                  <Form.Group className="mb-3">
+                     <Form.Label>Endereço</Form.Label>
+                     <Form.Control
+                        ref={endereco_ref}
+                        required
+                        defaultValue={dadosLugar.endereco}
+                        type="text"
+                        placeholder="Insira o endereço do lugar"
+                     />
+                     <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
                      <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 

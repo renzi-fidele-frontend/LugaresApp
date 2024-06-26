@@ -44,15 +44,19 @@ const EditarLugar = () => {
                   titulo: nome_lugar_ref.current.value,
                   descricao: descricao_ref.current.value,
                   idCriador: usuario._id,
-                  foto: inputFileRef.current.files[0],
-                  endereco: endereco_ref.current.files[0],
+                  foto: inputFileRef?.current?.files[0],
+                  endereco: endereco_ref.current.value,
                },
                { headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${token}` } }
             );
             console.log(res.data);
             navegar("/meus_lugares", { state: { atualizado: true } });
          } catch (error) {
-            console.log(error.message);
+            setErroMsg(error.response.data.mensagem);
+            setMostrarErro(true);
+            setTimeout(() => {
+               setMostrarErro(false);
+            }, 5000);
          }
          setLoading(false);
       }
@@ -137,8 +141,6 @@ const EditarLugar = () => {
                         type="text"
                         placeholder="Insira o nome do lugar"
                      />
-                     <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
-                     <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
                   {/*  Descrição */}
@@ -151,7 +153,6 @@ const EditarLugar = () => {
                         as="textarea"
                         placeholder="Insira uma descrição para este lugar"
                      />
-                     <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
                   {/*  Endereço */}
@@ -164,8 +165,6 @@ const EditarLugar = () => {
                         type="text"
                         placeholder="Insira o endereço do lugar"
                      />
-                     <Form.Control.Feedback>Parece bom!</Form.Control.Feedback>
-                     <Form.Control.Feedback type="invalid">Preencha este campo</Form.Control.Feedback>
                   </Form.Group>
 
                   <Button type="submit" disabled={podeEnviar}>

@@ -12,8 +12,7 @@ async function apanharCoordernadasPorEndereco(endereco) {
       console.log("Dados apanhados com sucesso!");
       return coordenadas;
    } catch (error) {
-      console.error("Erro ao apanhar enderecos");
-      return error;
+      throw new Error("Erro ao apanhar enderecos");
    }
 }
 

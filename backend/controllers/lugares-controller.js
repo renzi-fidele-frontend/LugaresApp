@@ -83,11 +83,21 @@ const adicionarLugar = async (req, res) => {
 
 const atualizarLugarById = async (req, res) => {
    let { idLugar } = req.params;
-   const { titulo, descricao } = req.body;
+   const { titulo, descricao, endereco } = req.body;
    const foto = req?.file?.path;
+
+   // Gerando novas coordenadas
+   let novasCoordenadas;
+   try {
+      novasCoordenadas = await apanharCoordernadasPorEndereco(endereco);
+   } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({ mensagem: "Erro ao apanhar enderecos" });
+   }
+
    const lugar = await Lugar.findById(idLugar);
    if (lugar?.idCriador?.toString() === req.userId) {
-      const dadosAtualizados = { titulo, descricao };
+      const dadosAtualizados = { titulo, descricao, endereco, coordenadas: novasCoordenadas };
       if (foto) {
          // Removendo a foto antiga foto do lugar
          const fotoAntiga = lugar.foto;

@@ -2,7 +2,6 @@ const Usuario = require("../models/Usuario");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const path = require("path");
 
 const getUsuarioById = async (req, res) => {
    try {
@@ -14,11 +13,17 @@ const getUsuarioById = async (req, res) => {
 };
 
 const getUsuarios = async (req, res) => {
+   // Definindo o offset e o limite da query para paginação
+   const page = req.query.page || 1;
+   const limit = 5;
+   const offset = (page - 1) * limit;
    try {
-      let usuarios = await Usuario.find({}, "-password -email");
-      res.json({ usuarios });
+      let usuarios = await Usuario.find({}, "-password -email").limit(5).skip(offset);
+      const totalDocs = await Usuario.countDocuments();
+      const totalPaginas = Math.ceil(totalDocs / limit);
+      res.json({ usuarios, totalPaginas });
    } catch (error) {
-      res.status(401).json({ mensagem: "Erro ao criar conta" });
+      res.status(401).json({ mensagem: "Erro ao apanhar usuários" });
    }
 };
 

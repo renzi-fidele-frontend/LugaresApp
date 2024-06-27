@@ -57,6 +57,7 @@ const Lugares = () => {
       if (!usuario && userMode) apanharUsuario(userId.uid);
    }, []);
 
+   // TODO: Resolver bug ao mudar de página o componente não atualiza
    return (
       <Container id={styles.ct}>
          <Row>

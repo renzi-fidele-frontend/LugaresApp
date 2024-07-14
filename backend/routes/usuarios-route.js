@@ -8,7 +8,7 @@ const {
    removerFotoPerfil,
 } = require("../controllers/usuarios-controller");
 
-const fileUpload = require("../middlewares/fileUpload");
+const multer = require("../middlewares/multer");
 const verificarToken = require("../middlewares/auth");
 
 const router = express.Router();
@@ -19,7 +19,7 @@ router.get("/", getUsuarios);
 
 router.get("/:uid", getUsuarioById);
 
-router.post("/cadastro", fileUpload.single("foto"), registarUsuario);
+router.post("/cadastro", multer.single("foto"), registarUsuario);
 
 router.post("/login", fazerLogin);
 
@@ -27,7 +27,7 @@ router.post("/login", fazerLogin);
 
 router.use(verificarToken);
 
-router.patch("/:uid", fileUpload.single("foto"), atualizarPerfil);
+router.patch("/:uid", multer.single("foto"), atualizarPerfil);
 
 router.patch("/remover_foto", removerFotoPerfil);
 

@@ -9,7 +9,7 @@ const {
    getLugaresDoUsuarioById,
 } = require("../controllers/lugares-controller");
 
-const fileUpload = require("../middlewares/fileUpload");
+const multer = require("../middlewares/multer");
 const verificarToken = require("../middlewares/auth");
 
 const router = express.Router();
@@ -26,9 +26,9 @@ router.get("/usuario/:uid", getLugaresDoUsuarioById);
 
 router.use(verificarToken);
 
-router.post("/", fileUpload.single("foto"), adicionarLugar);
+router.post("/", multer.single("foto"), adicionarLugar);
 
-router.patch("/:idLugar", fileUpload.single("foto"), atualizarLugarById);
+router.patch("/:idLugar", multer.single("foto"), atualizarLugarById);
 
 router.delete("/:idLugar", removerLugarById);
 

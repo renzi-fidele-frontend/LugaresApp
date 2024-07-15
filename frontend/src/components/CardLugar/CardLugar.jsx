@@ -43,7 +43,7 @@ const CardLugar = ({ id, titulo, descricao, foto, criadoEm, idCriador, endereco,
       <>
          {(id, titulo, descricao, foto, idCriador, endereco, coordenadas) ? (
             <Card border="secondary" id={styles.ct} className="h-100">
-               <Card.Img as={Image} image={{ src: `${import.meta.env.VITE_BACKEND_URL}/${foto}` }} className="p-2 rounded-4" />
+               <Card.Img as={Image} image={{ src: foto }} className="p-2 rounded-4" />
                <Card.Header id={styles.cardHeader}>
                   <Card.Subtitle className={`text-truncate ${modoEscuro && "text-secondary"}`}>{endereco}</Card.Subtitle>
                </Card.Header>

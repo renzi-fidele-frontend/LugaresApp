@@ -4,6 +4,7 @@ cloudinary.config({
    secure: true,
    cloud_name: process.env.CLOUD_NAME,
    api_key: process.env.CLOUDINARY_KEY,
+   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
 async function uploadImage(file) {
@@ -30,5 +31,4 @@ async function removerFoto(idFoto) {
 
 exports.uploadImage = uploadImage;
 exports.removerFoto = removerFoto;
-
-module.exports = cloudinary;
+exports.cloudinary = cloudinary;

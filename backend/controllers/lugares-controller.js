@@ -1,6 +1,7 @@
 const { apanharCoordernadasPorEndereco } = require("../utils/localizacao");
 const Lugar = require("../models/Lugar");
 const fs = require("fs");
+const { uploadImage } = require("../middlewares/cloudinary");
 
 const getLugares = async (req, res) => {
    console.log("GET feito na página lugares");
@@ -52,12 +53,15 @@ const adicionarLugar = async (req, res) => {
    if (req.userId) {
       coordenadas = await apanharCoordernadasPorEndereco(endereco);
       try {
+         const response = await uploadImage(foto);
+         console.log(response.url);
+
          let lugarCriado = {
             titulo,
             descricao,
             idCriador: req.userId,
             endereco,
-            foto,
+            foto: response.url,
             coordenadas,
          };
          let lugarAdicionado = new Lugar(lugarCriado);

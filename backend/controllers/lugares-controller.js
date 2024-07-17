@@ -1,7 +1,7 @@
 const { apanharCoordernadasPorEndereco } = require("../utils/localizacao");
 const Lugar = require("../models/Lugar");
 const fs = require("fs");
-const { uploadImage } = require("../middlewares/cloudinary");
+const { uploadImage, removerFoto } = require("../middlewares/cloudinary");
 
 const getLugares = async (req, res) => {
    console.log("GET feito na página lugares");
@@ -54,7 +54,7 @@ const adicionarLugar = async (req, res) => {
       coordenadas = await apanharCoordernadasPorEndereco(endereco);
       try {
          const response = await uploadImage(foto);
-         console.log(response.url);
+         console.log(response.public_id);
 
          let lugarCriado = {
             titulo,
@@ -102,18 +102,16 @@ const atualizarLugarById = async (req, res) => {
    const lugar = await Lugar.findById(idLugar);
    if (lugar?.idCriador?.toString() === req.userId) {
       const dadosAtualizados = { titulo, descricao, endereco, coordenadas: novasCoordenadas };
+
       if (foto) {
+         const novaFoto = await uploadImage(foto);
+         dadosAtualizados.foto = novaFoto.url;
+
          // Removendo a foto antiga foto do lugar
          const fotoAntiga = lugar.foto;
-         fs.unlink(fotoAntiga, (unlinkError) => {
-            if (unlinkError) {
-               console.error("Falha ao remover foto antiga:", unlinkError);
-            } else {
-               console.log("Foto antiga removida com sucesso");
-            }
-         });
-         dadosAtualizados.foto = foto;
+         const response = await removerFoto(fotoAntiga.split("/").slice(-1)[0].split(".")[0]);
       }
+
       try {
          const lugarAtualizado = await Lugar.updateOne({ _id: idLugar }, dadosAtualizados);
 

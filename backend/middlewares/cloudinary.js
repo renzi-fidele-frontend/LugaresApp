@@ -11,6 +11,7 @@ async function uploadImage(file) {
    try {
       const data = await cloudinary.uploader.upload(file, {
          resource_type: "image",
+         use_filename: true,
       });
       return data;
    } catch (error) {

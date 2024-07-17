@@ -2,6 +2,7 @@ const Usuario = require("../models/Usuario");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { uploadImage } = require("../middlewares/cloudinary");
 
 const getUsuarioById = async (req, res) => {
    try {
@@ -36,13 +37,6 @@ const registarUsuario = async (req, res) => {
       if (existeUsuario) {
          console.log("O usuário existe");
          res.status(401).json({ mensagem: "Este email já foi utilizado para criar uma conta!" });
-         fs.unlink(foto, (unlinkError) => {
-            if (unlinkError) {
-               console.error("Falha ao remover:", unlinkError);
-            } else {
-               console.log("Foto temporária removida com sucesso");
-            }
-         });
       } else {
          console.log("O usuario não existe, criando a conta...");
 
@@ -54,11 +48,14 @@ const registarUsuario = async (req, res) => {
             console.log("Erro ao tornar o password em secreto");
          }
 
+         // Fazendo upload da foto do perfil
+         const response = await uploadImage(foto);
+
          usuarioAdicionado = new Usuario({
             nome,
             email,
             password: passwordSecreto,
-            foto,
+            foto: response.url,
          });
          await usuarioAdicionado.save();
 

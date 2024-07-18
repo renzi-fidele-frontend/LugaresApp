@@ -1,6 +1,5 @@
 const { apanharCoordernadasPorEndereco } = require("../utils/localizacao");
 const Lugar = require("../models/Lugar");
-const fs = require("fs");
 const { uploadImage, removerFoto } = require("../middlewares/cloudinary");
 
 const getLugares = async (req, res) => {
@@ -70,15 +69,6 @@ const adicionarLugar = async (req, res) => {
       } catch (error) {
          console.log(error.message);
          res.status(500).json({ mensagem: "Erro ao criar o lugar" });
-         if (foto) {
-            fs.unlink(foto, (unlinkError) => {
-               if (unlinkError) {
-                  console.error("Falha ao remover:", unlinkError);
-               } else {
-                  console.log("Foto temporária removida com sucesso");
-               }
-            });
-         }
       }
    } else {
       res.status(401).json({ mensagem: "Você não tem permissão para isso!" });

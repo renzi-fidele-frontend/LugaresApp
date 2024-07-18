@@ -1,5 +1,4 @@
 const Usuario = require("../models/Usuario");
-const fs = require("fs");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { uploadImage, removerFoto } = require("../middlewares/cloudinary");

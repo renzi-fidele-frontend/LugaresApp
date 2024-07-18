@@ -119,7 +119,7 @@ const PerfilUsuario = () => {
                      ref={fotoPerfilMobileRef}
                      className="ms-auto rounded-2 border object-fit-cover border-2 border-secondary-subtle shadow-lg"
                      id={styles.fotoLado}
-                     src={`${import.meta.env.VITE_BACKEND_URL}/${usuario?.foto}`}
+                     src={usuario?.foto}
                   />
                   <Dropdown drop="end" className="position-absolute start-0 bottom-0">
                      <Dropdown.Toggle id={styles.toogle} as="a">

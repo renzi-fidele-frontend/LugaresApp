@@ -14,7 +14,7 @@ const UserCard = ({ fotoPerfil, nome, uid, aderiuEm }) => {
                         className={`object-fit-cover mb-3 mb-md-0 ${styles.foto}`}
                         roundedCircle
                         thumbnail
-                        src={`${import.meta.env.VITE_BACKEND_URL}/${fotoPerfil}`}
+                        src={fotoPerfil}
                         alt={`Foto de perfil de ${nome}`}
                      />
                   </Col>

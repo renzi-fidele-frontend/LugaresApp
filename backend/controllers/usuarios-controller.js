@@ -124,7 +124,7 @@ const atualizarPerfil = async (req, res, next) => {
       try {
          const perfilAtualizado = await Usuario.findByIdAndUpdate(uid, novosDados, { new: true });
          // Removendo a foto no backend
-         if (foto && fotoRemovida !== "uploads/defaultPicture.jpg") {
+         if (foto) {
             const response = await removerFoto(fotoRemovida.split("/").slice(-1)[0].split(".")[0]);
          }
          res.json({ mensagem: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password } });

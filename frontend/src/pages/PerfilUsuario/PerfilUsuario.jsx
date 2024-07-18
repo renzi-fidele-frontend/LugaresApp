@@ -51,6 +51,7 @@ const PerfilUsuario = () => {
                },
             });
             dispatch(setUsuario(res.data.usuario));
+            localStorage.setItem("userData", JSON.stringify({ ...JSON.parse(localStorage.getItem("userData")), usuario: res.data.usuario }));
             setMostrarAtualizado(true);
             setPodeAtualizar(true);
             setFoiValidado(false);

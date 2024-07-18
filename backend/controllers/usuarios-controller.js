@@ -2,7 +2,7 @@ const Usuario = require("../models/Usuario");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { uploadImage } = require("../middlewares/cloudinary");
+const { uploadImage, removerFoto } = require("../middlewares/cloudinary");
 
 const getUsuarioById = async (req, res) => {
    try {
@@ -66,13 +66,6 @@ const registarUsuario = async (req, res) => {
    } catch (error) {
       console.log(error.message);
       res.status(422).json({ mensagem: "Erro ao criar conta" });
-      fs.unlink(foto, (unlinkError) => {
-         if (unlinkError) {
-            console.error("Falha ao remover:", unlinkError);
-         } else {
-            console.log("Foto temporária removida com sucesso");
-         }
-      });
    }
 };
 
@@ -123,32 +116,20 @@ const atualizarPerfil = async (req, res, next) => {
       }
 
       let novosDados = { nome, password: novaSenhaEncriptada };
-      if (foto) novosDados.foto = foto;
+      if (foto) {
+         const response = await uploadImage(foto);
+         novosDados.foto = response.url;
+      }
 
       try {
          const perfilAtualizado = await Usuario.findByIdAndUpdate(uid, novosDados, { new: true });
          // Removendo a foto no backend
          if (foto && fotoRemovida !== "uploads/defaultPicture.jpg") {
-            fs.unlink(fotoRemovida, (unlinkError) => {
-               if (unlinkError) {
-                  console.error("Falha ao remover:", unlinkError);
-               } else {
-                  console.log("Foto temporária removida com sucesso");
-               }
-            });
+            const response = await removerFoto(fotoRemovida.split("/").slice(-1)[0].split(".")[0]);
          }
          res.json({ mensagem: "Perfil atualizado com sucesso!", usuario: { ...perfilAtualizado.toObject(), password } });
       } catch (error) {
          res.status(500).json({ mensagem: "Erro ao atualizar o perfil" });
-         if (foto) {
-            fs.unlink(foto, (unlinkError) => {
-               if (unlinkError) {
-                  console.error("Falha ao remover:", unlinkError);
-               } else {
-                  console.log("Foto temporária removida com sucesso");
-               }
-            });
-         }
       }
    }
 };

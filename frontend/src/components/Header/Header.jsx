@@ -37,11 +37,7 @@ const Header = () => {
                {usuario && (
                   <Dropdown drop="start" className="d-lg-none d-flex align-items-center">
                      <Dropdown.Toggle id={styles.seta} as="a">
-                        <Image
-                           className="rounded-circle object-fit-cover ms-3"
-                           id={styles.fotoUsuario}
-                           src={`${import.meta.env.VITE_BACKEND_URL}/${usuario?.foto}`}
-                        />
+                        <Image className="rounded-circle object-fit-cover ms-3" id={styles.fotoUsuario} src={usuario?.foto} />
                      </Dropdown.Toggle>
 
                      <Dropdown.Menu>
@@ -76,11 +72,7 @@ const Header = () => {
                         {/*   Dropdown Desktop */}
                         <Dropdown drop="start" className="d-lg-flex d-none align-items-center">
                            <Dropdown.Toggle id={styles.seta} as="a">
-                              <Image
-                                 className="rounded-circle object-fit-cover ms-3"
-                                 id={styles.fotoUsuario}
-                                 src={`${import.meta.env.VITE_BACKEND_URL}/${usuario?.foto}`}
-                              />
+                              <Image className="rounded-circle object-fit-cover ms-3" id={styles.fotoUsuario} src={usuario?.foto} />
                            </Dropdown.Toggle>
 
                            <Dropdown.Menu>

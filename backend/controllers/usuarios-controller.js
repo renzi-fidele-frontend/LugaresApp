@@ -140,7 +140,10 @@ const removerFotoPerfil = async (req, res) => {
       const perfilAtualizado = await Usuario.findByIdAndUpdate(req.userId, { foto: fotoPadrao }, { new: true });
 
       // Removendo a foto antiga no cloudinary
-      const response = await removerFoto(fotoRemovida.split("/").slice(-1)[0].split(".")[0]);
+      if (fotoRemovida !== fotoPadrao) {
+         const response = await removerFoto(fotoRemovida.split("/").slice(-1)[0].split(".")[0]);
+      }
+
       res.json({ mensagem: "Foto Removida com sucesso", usuario: { ...perfilAtualizado.toObject(), password: req.password } });
    } catch (error) {
       res.status(500).json({ mensagem: "Erro ao remover a foto do perfil" });

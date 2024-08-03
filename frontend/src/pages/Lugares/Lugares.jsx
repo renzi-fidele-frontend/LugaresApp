@@ -47,6 +47,12 @@ const Lugares = () => {
       return Array.from({ length }, (v, i) => i + 1);
    }
 
+   // useEffect(() => {
+   //    setUsuario(null);
+   //    setLugares(null);
+   //    apanharLugares();
+   // }, [userMode]);
+
    useEffect(() => {
       if (!lugares && !userMode) {
          apanharLugares();
@@ -57,7 +63,12 @@ const Lugares = () => {
       if (!usuario && userMode) apanharUsuario(userId.uid);
    }, []);
 
-   // TODO: Resolver bug ao mudar de página o componente não atualiza
+   useEffect(() => {
+      if (!userMode && lugares) {
+         apanharLugares();
+      }
+   }, [userId.uid]);
+
    return (
       <Container id={styles.ct}>
          <Row>

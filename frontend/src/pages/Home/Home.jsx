@@ -98,7 +98,6 @@ const Home = () => {
             </Col>
          </Row>
 
-         {/*   TODO: Adicionar paginacao */}
       </div>
    );
 };

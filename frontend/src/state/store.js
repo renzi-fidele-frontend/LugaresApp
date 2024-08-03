@@ -5,3 +5,4 @@ import temaReducer from "./tema/temaSlice";
 export default configureStore({
    reducer: { usuario: usuarioReducer, tema: temaReducer },
 });
+

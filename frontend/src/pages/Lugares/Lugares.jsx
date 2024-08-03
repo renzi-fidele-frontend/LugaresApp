@@ -47,12 +47,6 @@ const Lugares = () => {
       return Array.from({ length }, (v, i) => i + 1);
    }
 
-   // useEffect(() => {
-   //    setUsuario(null);
-   //    setLugares(null);
-   //    apanharLugares();
-   // }, [userMode]);
-
    useEffect(() => {
       if (!lugares && !userMode) {
          apanharLugares();
